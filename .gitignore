@@ -1,0 +1,7 @@
+node_modules
+dev.js
+config/dev.js
+package-lock.json
+.env.development
+.env.production
+.idea
