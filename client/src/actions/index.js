@@ -1,23 +1,16 @@
 import * as types from './types';
 import axios from 'axios';
 
-
-export const increment = () => {
-    return { type: types.INCREMENT_COUNTER };
-};
-
-export const decrement = () => {        
-    return { type: types.DECREMENT_COUNTER };
-};
-
-export const search = (formProps, callback) => async dispatch => {
+export const searchPart = ( formProps) => async dispatch => {
+    console.log(formProps);
     try {
-        const response = await axios.get('/api/search');
-
+        const response = await axios.post('/api/search', formProps);
+        console.log(response);
+        dispatch({ type: types.SEARCH_PART, payload: response });
     } catch (e) {
-
+        dispatch({ type: types.SEARCH_ERROR, payload: 'No Part Found' });
     }
-}
+};
 
 export const signup = (formprops, callback) => async dispatch => {
     try {        
@@ -47,38 +40,4 @@ export const signout = () => {
         type: types.AUTH_USER,
         payload: ''
     };
-}
-
-export const fetchBlogs = () => async dispatch => {
-    try {
-        const response = await axios.get('/api/blogs');
-        dispatch({ type: types.FETCH_BLOGS, payload: response.data });
-    } catch(e) {
-        dispatch({ type: types.BLOGS_ERROR, payload: 'Something went wrong'});
-    }
-}
-
-export const fetchBlog = id => async dispatch => {
-    try {
-        const response = await axios.get(`/api/blogs/${id}`);
-        dispatch({ type: types.FETCH_BLOG, payload: response.data });
-    } catch(e) {
-        dispatch({ type: types.BLOGS_ERROR, payload: 'Something went wrong'});
-    }
-}
-
-
-export const createBlog = (blog, callback) => async dispatch => {
-    try {
-        const response = await axios.post('/api/blogs', blog, {
-            headers: { authorization: localStorage.getItem('token')}
-        });
-        
-        dispatch({ type: types.CREATE_BLOG });
-        callback();
-    } catch(e) {
-        dispatch({ type: types.BLOGS_ERROR, payload: 'Something went wrong when creating a blog'});
-    }
-}
-
-
+};

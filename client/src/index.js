@@ -6,10 +6,11 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import reduxThunk from 'redux-thunk';
 
 import App from './components/App';
-import Counter from './containers/Counter';
 import SignUp from './containers/auth/SignUp';
 import SignIn from './containers/auth/SignIn';
 import SignOut from './containers/auth/SignOut';
+import PartSearch from './containers/PartSearch';
+import SearchResults from "./containers/SearchResults";
 
 import reducers from './reducers';
 
@@ -27,8 +28,9 @@ ReactDOM.render(
             <App>
                 <Route exact path='/signup' component={SignUp} />
                 <Route exact path='/signin' component={SignIn} />
-                <Route exact path='/counter' component={Counter} />   
-                <Route exact path='/signout' component={SignOut}/>
+                <Route exact path='/signout' component={SignOut} />
+                <PartSearch />
+                <SearchResults />
             </App>
         </Router>
     </Provider>

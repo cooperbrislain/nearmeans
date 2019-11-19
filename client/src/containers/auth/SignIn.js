@@ -20,7 +20,7 @@ class SignIn extends Component {
                 <input {...input}/>
             </div>
         )
-    }
+    };
 
     render() {
         const { handleSubmit } = this.props;

@@ -7,10 +7,7 @@ class Header extends Component {
         if(this.props.auth) {
             return (
                 <div>
-                    <Link to='/counter'>Counter Page</Link>
                     <Link to='/signout'>Sign Out</Link>
-                    <Link to='/blogs'>Blogs</Link>
-                    <Link to='/createblog'>Create a Blog</Link>
                 </div>
             );
         } else {
@@ -18,7 +15,6 @@ class Header extends Component {
                 <div>
                     <Link to='/signup'>Sign up</Link>
                     <Link to='/signin'>Sign in</Link>
-                    <Link to='/blogs'>Blogs</Link>
                 </div>
             );
         }

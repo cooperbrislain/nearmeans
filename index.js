@@ -7,7 +7,7 @@ const app = express();
 
 // Database setup
 
-mongoose.connect('mongodb://localhost/207auth', { useNewUrlParser: true, useCreateIndex: true});;
+mongoose.connect('mongodb://localhost/nearmeans', { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true}, () => { console.log('connected') });
 
 // App middlewares setup
 app.use(morgan('combined'));

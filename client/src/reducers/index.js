@@ -1,13 +1,11 @@
 import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
 
-import counter from './counter';
 import auth from './auth';
-import blogs from './blog';
+import search from './search';
 
 export default combineReducers({
     auth,
-    blogs,
-    counter,
+    search,
     form: formReducer
 });

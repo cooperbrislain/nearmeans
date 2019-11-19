@@ -14,18 +14,13 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
-    blogs: [
+    parts: [
         {
             type: Schema.Types.ObjectId,
-            ref: 'Blog'
+            ref: 'Part'
         }
     ],
-    comments: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: 'Comment'
-        }
-    ]
+    zipcode: Number
 });
 
 UserSchema.pre('save', async function(next) {
@@ -55,9 +50,7 @@ UserSchema.methods.comparePassword = async function(candidatePassword, callback)
     } catch(e) {
         callback(e);
     }
-}
-
-
+};
 
 const User = mongoose.model('User', UserSchema);
 

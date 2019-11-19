@@ -7,14 +7,13 @@ const PartSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
-    blog: {
-        type: Schema.Types.ObjectId,
-        ref: 'Blog'
-    },
-    content: String
+    name: String,
+    category: String,
+    price: Number,
+    zipcode: Number,
+    quantity: Number
 });
 
+const Part = mongoose.model('Part', PartSchema);
 
-const Comment = mongoose.model('Comment', CommentSchema);
-
-module.exports = Comment;
+module.exports = Part;
