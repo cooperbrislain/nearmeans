@@ -9,12 +9,10 @@ const authMiddlewares = require('./../../../middlewares/authMiddlewares');
 router.route('/signup')
     .post(authController.signUp);
 
-
 router.route('/signin')
     .post(authMiddlewares.requireSignIn, authController.signIn);
 
-
-// router.route('/logout')
-//     .get(authController.logout);
+router.route('/logout')
+    .get(authController.logout);
 
 module.exports = router;
