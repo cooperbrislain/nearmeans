@@ -5,11 +5,11 @@ import { connect } from 'react-redux';
 import { signUp } from './../../actions';
 
 class SignUp extends Component {
-    onSubmit (formProps) {
+    onSubmit = formProps => {
         this.props.signUp(formProps, () => {
             this.props.history.push('/counter');
         });
-    }
+    };
 
     render() {
         const { handleSubmit } = this.props;

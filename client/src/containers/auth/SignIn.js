@@ -5,14 +5,13 @@ import { connect } from 'react-redux';
 import { signIn } from './../../actions';
 
 class SignIn extends Component {
-    onSubmit(formProps) {
-        console.log(formProps);
+    onSubmit = formProps => {
         this.props.signIn(formProps, () => {
             this.props.history.push('/counter');
         });
-    }
+    };
 
-    renderInput({ input }) {
+    renderInput = input => {
         return (
             <div>
                 <h1>I am so cool</h1>
@@ -20,7 +19,7 @@ class SignIn extends Component {
                 <input {...input}/>
             </div>
         )
-    }
+    };
 
     render() {
         const { handleSubmit } = this.props;
