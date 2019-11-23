@@ -4,11 +4,11 @@ module.exports = {
     createPart: async (req, res) => {
         const { partname, zipcode } = req.body;
         try {
-            const parts = await db.Part.create({
+            const part = await db.Part.create({
                 name: partname,
                 zipcode: zipcode
             });
-            res.json(parts);
+            res.json(part);
         } catch (e) {
             res.json(e);
         }
@@ -16,17 +16,17 @@ module.exports = {
     getPart: async (req, res) => {
         const { partid } = req.body;
         try {
-            // const parts = await db.Part.find({
-            //     // name: partid
-            // });
+            const part = await db.Part.findById(partid);
+            res.json(part);
         } catch (e) {
             res.json(e);
         }
     },
+    // update
     deletePart: async (req, res) => {
         const { partid } = req.body;
         try {
-            // stuff
+            await db.Part.findByIdAndDelete(partid);
         } catch (e) {
             res.json(e);
         }

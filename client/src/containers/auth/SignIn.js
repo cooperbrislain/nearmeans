@@ -5,14 +5,14 @@ import { connect } from 'react-redux';
 import { signIn } from './../../actions';
 
 class SignIn extends Component {
-    onSubmit = formProps => {
+    onSubmit(formProps) {
         console.log(formProps);
         this.props.signIn(formProps, () => {
             this.props.history.push('/counter');
         });
     }
 
-    renderInput = ({ input }) => {                        
+    renderInput({ input }) {
         return (
             <div>
                 <h1>I am so cool</h1>
@@ -20,7 +20,7 @@ class SignIn extends Component {
                 <input {...input}/>
             </div>
         )
-    };
+    }
 
     render() {
         const { handleSubmit } = this.props;
@@ -59,6 +59,6 @@ function mapStateToProps(state) {
 }
 
 export default compose(
-    connect(mapStateToProps, {signIn}),
+    connect(mapStateToProps, { signIn }),
     reduxForm({ form: 'signin' })
 )(SignIn);

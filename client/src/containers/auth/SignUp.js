@@ -2,13 +2,11 @@ import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-
-import { signup } from './../../actions';
+import { signUp } from './../../actions';
 
 class SignUp extends Component {
-    onSubmit = formProps => {
-        console.log(formProps);
-        this.props.signup(formProps, () => {
+    onSubmit (formProps) {
+        this.props.signUp(formProps, () => {
             this.props.history.push('/counter');
         });
     }
@@ -49,10 +47,7 @@ function mapStateToProps(state) {
     return { errorMessage: state.auth.errorMessage };
 }
 
-
-// export default  connect(mapStateToProps, {signup})(reduxForm({ form: 'signup' })(SignUp));
-//  HOC
 export default compose(
-    connect(mapStateToProps, {signup}),
+    connect(mapStateToProps, { signUp }),
     reduxForm({ form: 'signup'})
 )(SignUp);

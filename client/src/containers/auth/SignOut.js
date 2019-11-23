@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { signout } from './../../actions';
+import {compose} from "redux";
+import {reduxForm} from "redux-form";
+import { signOut } from './../../actions';
 
 class SignOut extends Component {
     componentDidMount() {
-        this.props.signout();
+        this.props.signOut();
     }
 
     render() {
@@ -12,5 +14,12 @@ class SignOut extends Component {
     }
 }
 
-export default connect(null, { signout })(SignOut);
+// export default connect(null, { signout })(SignOut);
+function mapStateToProps(state) {
+    return { errorMessage: state.auth.errorMessage };
+}
 
+export default compose(
+    connect(mapStateToProps, { signOut }),
+    reduxForm({ form: 'signout'})
+)(SignOut);

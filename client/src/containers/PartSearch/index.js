@@ -5,18 +5,17 @@ import {connect} from "react-redux";
 import { searchPart } from './../../actions';
 
 class PartSearch extends Component {
-    onSubmit = formProps => {
-        console.log(formProps);
+    onSubmit(formProps) {
         this.props.searchPart(formProps);
-    };
+    }
 
-    renderInput = ({ input }) => {
+    renderInput({ input }) {
         return (
             <div>
                 <input {...input}/>
             </div>
         )
-    };
+    }
 
     render() {
         const { handleSubmit } = this.props;
