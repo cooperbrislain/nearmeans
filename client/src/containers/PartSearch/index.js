@@ -51,8 +51,5 @@ function mapStateToProps(state) {
 
 export default compose(
     connect(mapStateToProps, { searchPart }),
-    reduxForm({ form: 'partsearch' })
+    reduxForm({ form: 'searchpart' })
 )(PartSearch);
-
-
-

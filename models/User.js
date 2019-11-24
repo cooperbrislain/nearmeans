@@ -17,7 +17,8 @@ const UserSchema = new Schema({
     parts: [
         {
             type: Schema.Types.ObjectId,
-            ref: 'Part'
+            ref: 'Part',
+            quantity: Number
         }
     ],
     zipcode: Number

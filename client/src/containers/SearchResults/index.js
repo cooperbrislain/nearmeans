@@ -37,5 +37,5 @@ function mapStateToProps(state) {
 }
 
 export default compose(
-    connect(mapStateToProps, {}),
+    connect(mapStateToProps,{}),
 )(SearchResults);

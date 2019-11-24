@@ -4,11 +4,10 @@ module.exports = {
     createPart: async (req, res) => {
         const { partname, zipcode } = req.body;
         try {
-            const part = await db.Part.create({
+            await db.Part.insertOne({
                 name: partname,
                 zipcode: zipcode
             });
-            res.json(part);
         } catch (e) {
             res.json(e);
         }

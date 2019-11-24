@@ -10,8 +10,7 @@ const PartSchema = new Schema({
     name: String,
     category: String,
     price: Number,
-    zipcode: Number,
-    quantity: Number
+    zipcode: Number
 });
 
 const Part = mongoose.model('Part', PartSchema);
