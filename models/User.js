@@ -14,11 +14,12 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
-    parts: [
+    inventory: [
         {
             type: Schema.Types.ObjectId,
             ref: 'Part',
-            quantity: Number
+            quantity: Number,
+            price: Number
         }
     ],
     zipcode: Number

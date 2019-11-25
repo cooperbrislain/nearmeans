@@ -7,13 +7,12 @@ import { signUp } from './../../actions';
 class SignUp extends Component {
     onSubmit = formProps => {
         this.props.signUp(formProps, () => {
-            this.props.history.push('/counter');
+            this.props.history.push('/');
         });
     };
 
     render() {
         const { handleSubmit } = this.props;
-        // console.log(this.props);
         return (
             <form onSubmit={handleSubmit(this.onSubmit)}>
                 <fieldset>

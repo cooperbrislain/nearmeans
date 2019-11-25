@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express   = require('express');
 const morgan    = require('morgan');
 const mongoose  = require('mongoose');
@@ -6,7 +7,10 @@ const cors      = require('cors');
 const app = express();
 
 // Database setup
-mongoose.connect('mongodb://localhost/nearmeans', { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true}, () => { console.log('connected') });
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/nearmeans', {
+    useNewUrlParser: true,
+    useCreateIndex: true
+}, () => { console.log('connected to mongoDB') });
 
 // App middlewares setup
 app.use(morgan('combined'));

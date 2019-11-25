@@ -8,7 +8,7 @@ class SearchResults extends Component {
             this.props.searchResults.map((item, i) => {
                 return (
                     <div key={i}>
-                        <h3>{item.name}</h3><h4>{item.zipcode}</h4>
+                        <h3>{item.name}</h3>
                     </div>
                 );
             });

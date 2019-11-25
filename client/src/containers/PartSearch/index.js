@@ -5,9 +5,12 @@ import {connect} from "react-redux";
 import { searchPart } from './../../actions';
 
 class PartSearch extends Component {
-    onSubmit = formProps => this.props.searchPart(formProps);
+    onSubmit = formProps => {
+        console.log(formProps);
+        this.props.searchPart(formProps);
+    };
 
-    renderInput = input => {
+    renderInput = ({ input }) => {
         return (
             <div>
                 <input {...input}/>
@@ -23,19 +26,8 @@ class PartSearch extends Component {
                     <fieldset>
                         <label>Part</label>
                         <Field
-                            name='partname'
-                            label='Search for a Part'
-                            type='text'
+                            name='partName'
                             component={this.renderInput}
-                            autoComplete="none"
-                        />
-                        <label>Zip Code</label>
-                        <Field
-                            name='zipcode'
-                            label='Zipcode'
-                            type='number'
-                            component={this.renderInput}
-                            autoComplete="none"
                         />
                     </fieldset>
                     <button type='submit'>Search</button>
@@ -46,10 +38,10 @@ class PartSearch extends Component {
 }
 
 function mapStateToProps(state) {
-    return state;
+    return {state};
 }
 
 export default compose(
     connect(mapStateToProps, { searchPart }),
-    reduxForm({ form: 'searchpart' })
+    reduxForm({ form: 'searchForm' })
 )(PartSearch);

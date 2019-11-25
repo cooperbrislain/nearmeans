@@ -2,11 +2,10 @@ const db = require('./../models');
 
 module.exports = {
     createPart: async (req, res) => {
-        const { partname, zipcode } = req.body;
+        const { partName } = req.body;
         try {
             await db.Part.insertOne({
-                name: partname,
-                zipcode: zipcode
+                name: partName
             });
         } catch (e) {
             res.json(e);
