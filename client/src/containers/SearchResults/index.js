@@ -8,9 +8,9 @@ class SearchResults extends Component {
         if (searchResults) {
             return (
                 <ul>
-                    {searchResults.map((value, index) => {
-                        return <li key={index}>{value.name}</li>
-                    })}
+                    {searchResults.map((item, i) =>
+                        <li key={i}>{item.name}</li>
+                    )}
                 </ul>
             );
         } else {
@@ -24,10 +24,8 @@ class SearchResults extends Component {
 
     render() {
         return (
-            <div>
-                <div id="search-results">
-                    { this.renderSearchResults() }
-                </div>
+            <div id="search-results">
+                { this.renderSearchResults() }
             </div>
         );
     }

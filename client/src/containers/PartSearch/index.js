@@ -29,6 +29,20 @@ class PartSearch extends Component {
                             component={this.renderInput}
                         />
                     </fieldset>
+                    <fieldset>
+                        <label>Zipcode</label>
+                        <Field
+                            name='searchZip'
+                            component={this.renderInput}
+                        />
+                    </fieldset>
+                    <fieldset>
+                        <label>Distance</label>
+                        <Field
+                            name='searchDistance'
+                            component={this.renderInput}
+                        />
+                    </fieldset>
                     <button type='submit'>Search</button>
                 </form>
             </div>

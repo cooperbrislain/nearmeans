@@ -16,6 +16,14 @@ module.exports = {
             res.json(e);
         }
     },
+    getParts: async (req, res) => {
+        try {
+            let parts = await db.Part.find();
+            res.json(parts);
+        } catch (e) {
+            res.json(e);
+        }
+    },
     getPart: async (req, res) => {
         const { partId } = req.body;
         try {
