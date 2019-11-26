@@ -14,14 +14,7 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
-    inventory: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: 'Part',
-            quantity: Number,
-            price: Number
-        }
-    ],
+    inventory: { type: Schema.Types.ObjectId, ref: 'Inventory' },
     location: String
 });
 
@@ -41,7 +34,6 @@ UserSchema.pre('save', async function(next) {
     }
     next();
 }); 
-
 
 UserSchema.methods.comparePassword = async function(candidatePassword, callback) {
     const user = this;
