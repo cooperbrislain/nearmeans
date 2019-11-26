@@ -3,28 +3,42 @@ const db = require('./../models');
 module.exports = {
     createPart: async (req, res) => {
         const { partName } = req.body;
+
+        const thePart = {
+            name: partName
+        };
+        console.log(thePart);
         try {
-            await db.Part.insertOne({
-                name: partName
-            });
+            let result = await db.Part.create(thePart);
+            res.json(result);
         } catch (e) {
+            console.log(e);
             res.json(e);
         }
     },
     getPart: async (req, res) => {
-        const { partid } = req.body;
+        const { partId } = req.body;
         try {
-            const part = await db.Part.findById(partid);
+            let part = await db.Part.findById(partId);
             res.json(part);
         } catch (e) {
             res.json(e);
         }
     },
-    // update
-    deletePart: async (req, res) => {
-        const { partid } = req.body;
+    updatePart: async (req, res) => {
+        const { partId, partData } = req.params;
         try {
-            await db.Part.findByIdAndDelete(partid);
+            await db.Part.findByIdAndUpdate(partId, partData);
+        } catch (e) {
+
+        }
+    },
+    deletePart: async (req, res) => {
+        const { partId } = req.params;
+        console.log(`deleting part ${partId}`);
+        try {
+            await db.Part.findByIdAndDelete(partId);
+            res.json({});
         } catch (e) {
             res.json(e);
         }

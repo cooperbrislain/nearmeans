@@ -6,7 +6,6 @@ import { searchPart } from './../../actions';
 
 class PartSearch extends Component {
     onSubmit = formProps => {
-        console.log(formProps);
         this.props.searchPart(formProps);
     };
 

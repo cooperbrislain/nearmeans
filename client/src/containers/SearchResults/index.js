@@ -4,18 +4,19 @@ import {connect} from "react-redux";
 
 class SearchResults extends Component {
     renderSearchResults() {
-        if (this.props.searchResults) {
-            this.props.searchResults.map((item, i) => {
-                return (
-                    <div key={i}>
-                        <h3>{item.name}</h3>
-                    </div>
-                );
-            });
+        const { searchResults } = this.props;
+        if (searchResults) {
+            return (
+                <ul>
+                    {searchResults.map((value, index) => {
+                        return <li key={index}>{value.name}</li>
+                    })}
+                </ul>
+            );
         } else {
             return (
                 <div>
-                    Results will be Here!
+                    No Parts Found.
                 </div>
             );
         }
@@ -37,5 +38,5 @@ function mapStateToProps(state) {
 }
 
 export default compose(
-    connect(mapStateToProps,{}),
+    connect(mapStateToProps, {  }),
 )(SearchResults);

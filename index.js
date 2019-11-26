@@ -6,10 +6,10 @@ const cors      = require('cors');
 
 const app = express();
 
-// Database setup
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/nearmeans', {
     useNewUrlParser: true,
-    useCreateIndex: true
+    useCreateIndex: true,
+    useUnifiedTopology: true
 }, () => { console.log('connected to mongoDB') });
 
 // App middlewares setup
