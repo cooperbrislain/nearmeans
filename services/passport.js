@@ -1,14 +1,9 @@
 const passport      = require('passport');
 const User          = require('./../models/User');
 const config        = require('./../config/keys');
-const JwtStrategy   = require('passport-jwt').Strategy;
 const ExtractJwt    = require('passport-jwt').ExtractJwt;
+const JwtStrategy   = require('passport-jwt').Strategy;
 const LocalStrategy = require('passport-local');
-
-//  Create local strategy for logging users in
-// By default localstrategy is looking for a username field and a password
-//  with the config we are going to set below,
-//  we will look for email instead of password
 
 const localOptions = { usernameField: 'email' };
 
@@ -65,11 +60,5 @@ const jwtLogin = new JwtStrategy(jwtOptions, async(payload, done) => {
     }
 });
 
-// Tells passport to use the strategies below
-// With the code below, it tells passport that
-// "We have a strategy called "jwt"
 passport.use(jwtLogin);
-
-// With the code below, it tells passport that
-// "We have a strategy called "local"
 passport.use(localLogin);

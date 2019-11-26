@@ -21,6 +21,8 @@ module.exports = {
             }
 
             const user = new db.User({ email, password });
+            const inv = new db.Inventory({ userId: user._id });
+            user.inventory = inv._id;
             await user.save();
             res.json({ token: tokenForUser(user) });
         } catch(e) {
