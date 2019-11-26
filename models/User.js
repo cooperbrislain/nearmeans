@@ -22,7 +22,7 @@ const UserSchema = new Schema({
             price: Number
         }
     ],
-    zipcode: Number
+    location: String
 });
 
 UserSchema.pre('save', async function(next) {

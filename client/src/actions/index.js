@@ -43,7 +43,7 @@ export const signOut = () => {
 export const addPart = (formProps) => async dispatch => {
     try {
         const response = await axios.post('/api/inventory', formProps);
-        dispatch({ type: types.ADD_PART, payload: response.data.part });
+        dispatch({ type: types.ADD_PART_SUCCESS, payload: response.data.part });
     } catch (e) {
         dispatch({ type: types.ADD_PART_ERROR, payload: 'Failed to add part' });
     }
