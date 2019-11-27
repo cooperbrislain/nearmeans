@@ -7,6 +7,7 @@ module.exports = {
             const newPart = await new db.Part({ part });
             await newPart.save();
             const user = await db.User.findById(req.user._id);
+            console.log(user);
             user.inventory.push(newPart);
             await user.save();
             res.json({ success: true });

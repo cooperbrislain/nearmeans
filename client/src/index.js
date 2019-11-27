@@ -11,6 +11,7 @@ import SignIn from './containers/auth/SignIn';
 import SignOut from './containers/auth/SignOut';
 import PartSearch from './containers/PartSearch';
 import SearchResults from "./containers/SearchResults";
+import UserInfo from "./containers/UserInfo";
 import InventoryView from "./containers/InventoryView";
 
 import reducers from './reducers';
@@ -31,7 +32,8 @@ ReactDOM.render(
                 <Route exact path='/signin' component={SignIn} />
                 <Route exact path='/signout' component={SignOut} />
                 <SearchResults />
-                <Route exact path='/inventory' component={InventoryView} />
+                {/*<Route exact path='/inventory' component={InventoryView} />*/}
+                <UserInfo />
             </App>
         </Router>
     </Provider>

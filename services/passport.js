@@ -13,16 +13,13 @@ const localLogin = new LocalStrategy(localOptions, async (email, password, done)
     try {
         const user = await User.findOne({ email });
         if(!user) {
-            console.log("I'm hit");
             return done(null, false);
         }
-        user.comparePassword(password, (err, isMatch) => {
+        await user.comparePassword(password, (err, isMatch) => {
             if(err) {
-                console.log("I'm hit in err");
                 return done(err);
             }
-            if(!isMatch) {                
-                console.log("I'm hit in match");
+            if(!isMatch) {
                 return done(null, false);
             }
             return done(null, user);
@@ -32,9 +29,6 @@ const localLogin = new LocalStrategy(localOptions, async (email, password, done)
     }
 });
 
-
-// Setup options for JWT Strategy
-// We need to tell JWT Strategy where to look for the token
 const jwtOptions = {
     // Tells JwtStrategy that whenever a request comes in
     // and we want passport to handle it
@@ -44,9 +38,6 @@ const jwtOptions = {
     secretOrKey: config.secret
 };
 
-// We are going to get the payload argument from a request
-//  the payload argument is coming from the function we created in the authRoutes
-// done is the function we call once we've tried to authenticate this user
 const jwtLogin = new JwtStrategy(jwtOptions, async(payload, done) => {
     // See if the user.id in the payload exists in our database
     try {

@@ -7,9 +7,9 @@ import Loader from 'react-loader-spinner'
 
 class InventoryView extends Component {
     renderInventory() {
-        
-        console.log(this.props);
-        if (this.props.inventory.length === 0) {
+        const { inventory } = this.props;
+        console.log(inventory);
+        if (inventory.length === 0) {
             return (
                 <Loader
                     type="Oval"
@@ -22,7 +22,7 @@ class InventoryView extends Component {
             return (
                 <ul>
                     {
-                        this.props.parts.map(part => {
+                        inventory.map(part => {
                             return (
                                 <li key={part._id}>
                                     <Link to={`/parts/${part._id}`}>{part.name}</Link>
@@ -45,7 +45,7 @@ class InventoryView extends Component {
 }
 
 function mapStateToProps(state) {
-    return {state};
+    return { inventory: state.inventory};
 }
 
 export default compose(

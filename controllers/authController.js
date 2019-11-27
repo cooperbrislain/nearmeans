@@ -19,10 +19,7 @@ module.exports = {
             if(existingUser) {
                 return res.status(422).json({ error: 'Email is in use' });
             }
-
             const user = new db.User({ email, password });
-            const inv = new db.Inventory({ userId: user._id });
-            user.inventory = inv._id;
             await user.save();
             res.json({ token: tokenForUser(user) });
         } catch(e) {
@@ -31,8 +28,7 @@ module.exports = {
         }
     },
     signIn: (req, res) => {
-        console.log('signIn');
-        res.send({ token: tokenForUser(req.user) });
+        res.json({ token: tokenForUser(req.user) });
     },
     signOut: (req, res) => {
 
