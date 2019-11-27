@@ -31,6 +31,7 @@ module.exports = {
         }
     },
     signIn: (req, res) => {
+        console.log('signIn');
         res.send({ token: tokenForUser(req.user) });
     },
     signOut: (req, res) => {

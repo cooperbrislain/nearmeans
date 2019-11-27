@@ -6,16 +6,15 @@ import { signIn } from './../../actions';
 
 class SignIn extends Component {
     onSubmit = formProps => {
+        console.log(formProps);
         this.props.signIn(formProps, () => {
             this.props.history.push('/');
         });
     };
 
-    renderInput = input => {
+    renderInput = ({ input }) => {
         return (
             <div>
-                <h1>I am so cool</h1>
-                <p>Custom form Component</p>
                 <input {...input}/>
             </div>
         )

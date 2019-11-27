@@ -8,6 +8,8 @@ const LocalStrategy = require('passport-local');
 const localOptions = { usernameField: 'email' };
 
 const localLogin = new LocalStrategy(localOptions, async (email, password, done) => {
+    console.log(email);
+    console.log(password);
     try {
         const user = await User.findOne({ email });
         if(!user) {
@@ -15,7 +17,6 @@ const localLogin = new LocalStrategy(localOptions, async (email, password, done)
             return done(null, false);
         }
         user.comparePassword(password, (err, isMatch) => {
-
             if(err) {
                 console.log("I'm hit in err");
                 return done(err);
