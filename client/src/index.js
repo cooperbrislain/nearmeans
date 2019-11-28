@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import reduxThunk from 'redux-thunk';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import App from './components/App';
 import SignUp from './containers/auth/SignUp';

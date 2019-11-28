@@ -2,6 +2,7 @@ const db = require('./../models');
 
 module.exports = {
     addPart: async (req, res) => {
+        console.log(req);
         const { part } = req.body;
         try {
             const newPart = await new db.Part({ part });

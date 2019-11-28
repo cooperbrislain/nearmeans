@@ -1,8 +1,8 @@
 const router = require('express').Router();
-const invController = require('./../../../controllers/invController');
-const passportService = require('./../../../services/passport');
+const invController = require('../../../../controllers/invController');
+const passportService = require('../../../../services/passport');
 const passport = require('passport');
-const authMiddlewares = require('./../../../middlewares/authMiddlewares');
+const authMiddlewares = require('../../../../middlewares/authMiddlewares');
 
 router.route('/').get(authMiddlewares.requireAuth, invController.listParts);
 router.route('/:partId').post(authMiddlewares.requireAuth, invController.addPart);

@@ -12,7 +12,6 @@ class UserInfo extends Component {
 
     render() {
         console.log(this.props);
-        const { user } = this.props;
         return(
             <div id='user-info'>
                 { this.renderUserInfo() }

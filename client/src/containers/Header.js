@@ -6,7 +6,7 @@ class Header extends Component {
     renderLinks(){
         if(this.props.auth) {
             return (
-                <div>
+                <div className='navbar navbar-expand'>
                     <Link to='/signout'>Sign Out</Link>
                     <Link to='/inventory'>Inventory</Link>
                 </div>
@@ -23,10 +23,10 @@ class Header extends Component {
 
     render() {
         return (
-            <div>
+            <header className='navbar navbar-expand'>
                 <Link to='/'>NearMeans</Link>
                 {this.renderLinks()}
-            </div>
+            </header>
         )
     }
 }

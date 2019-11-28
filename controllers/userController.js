@@ -4,11 +4,9 @@ const db = require('./../models');
 
 module.exports = {
     getThisUser: async (req, res) => {
-        console.log('GET THIS USER');
-        console.log(req.user);
+        console.log(`GET THIS USER (${req.user.id})`);
         try {
-            const { email } = req;
-            const user = await db.User.findOne({ email });
+            const user = await db.User.findOne({ _id: req.user._id }).populate('inventory');
             res.json(user);
         } catch (e) {
             res.json(e);
