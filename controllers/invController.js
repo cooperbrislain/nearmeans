@@ -2,27 +2,34 @@ const db = require('./../models');
 
 module.exports = {
     addPart: async (req, res) => {
-        console.log(req);
-        const { part } = req.body;
+        const { partId } = req.params;
+        console.log(`ADD PART ${partId}`);
         try {
-            const newPart = await new db.Part({ part });
-            await newPart.save();
-            const user = await db.User.findById(req.user._id);
-            console.log(user);
-            user.inventory.push(newPart);
+            const user = await db.User.findById(req.user._id).populate('inventory');
+            let part = await db.Part.findById(partId);
+            user.inventory.push(part);
             await user.save();
             res.json({ success: true });
-        } catch(e) {
+        } catch (e) {
             res.json(e);
         }
     },
     listParts: async (req, res) => {
         try {
-            const user = await db.User.findById(req.user._id);
-            console.log(user.inventory);
+            const user = await db.User.findById(req.user._id).populate('inventory');
+            let parts = user.inventory;
+            console.log(parts);
+            res.json(parts);
+        } catch (e) {
+            res.json(e);
+        }
+    },
+    getParts: async (req, res) => {
+        try {
+            const user = await db.User.findById(req.user._id).populate('inventory').populate('part');
             let parts = user.inventory;
             res.json(parts);
-        } catch(e) {
+        } catch (e) {
             res.json(e);
         }
     }
