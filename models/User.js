@@ -14,7 +14,7 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
-    inventory: [{ type: Schema.Types.ObjectId, ref: 'Part' }],
+    inventory: [{ part: { type: Schema.Types.ObjectId, ref: 'Part' }, qty: Number}],
     location: String
 });
 

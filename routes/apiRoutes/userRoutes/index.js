@@ -9,5 +9,6 @@ router.route('/all').get(userController.getAllUsers);
 router.route('/').get(authMiddlewares.requireAuth, userController.getThisUser);
 router.route('/:userId').get(userController.getUserById);
 router.use('/:userId/inv', invRoutes);
+router.use('/inv', invRoutes);
 
 module.exports = router;

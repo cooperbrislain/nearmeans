@@ -5,34 +5,59 @@ module.exports = {
         const { partId } = req.params;
         console.log(`ADD PART ${partId}`);
         try {
-            const user = await db.User.findById(req.user._id).populate('inventory');
+            const user = await db.User.findById(req.user._id).populate('part');
             let part = await db.Part.findById(partId);
-            user.inventory.push(part);
+            user.inventory.push({ part, qty: 1 });
             await user.save();
             res.json({ success: true });
         } catch (e) {
             res.json(e);
         }
     },
-    listParts: async (req, res) => {
+    subPart: async (req, res) => {
+        const { partId } = req.params;
+        console.log(`SUBTRACT PART ${partId}`);
         try {
-            const user = await db.User.findById(req.user._id).populate('inventory');
-            let parts = user.inventory;
-            console.log(parts);
-            res.json(parts);
+            const user = await db.User.findById(req.user._id).populate('part');
+            cponsole.log(user);
+            // user.inventory.find({ inventory.part._id: partId });
+            res.json({ success: true });
+        } catch (e) {
+            res.json(e);
+        }
+    },
+    listParts: async (req, res) => {
+        const userId = (req.params.userId || req.user._id);
+        try {
+            const user = await db.User.findById(userId).populate('part');
+            let inv = user.inventory;
+            res.json(inv);
         } catch (e) {
             res.json(e);
         }
     },
     getParts: async (req, res) => {
         try {
-            const user = await db.User.findById(req.user._id).populate('inventory').populate('part');
-            let parts = user.inventory;
-            res.json(parts);
+            const user = await db.User.findById(req.user._id).populate('part');
+            let inv = user.inventory;
+            res.json(inv);
+        } catch (e) {
+            res.json(e);
+        }
+    },
+    deletePart: async (req, res) => {
+        const { partId } = req;
+        console.log(`ADD PART ${partId}`);
+        try {
+            db.User.findByIdAndUpdate(
+                req.user._id,
+                {$pull: {part: req.partId}});
+            res.json('success');
         } catch (e) {
             res.json(e);
         }
     }
+
     // router.route('/:partId').put(invController.updatePart),
 
     // router.route('/:partId/add').get(invController.addPart);
