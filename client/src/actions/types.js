@@ -7,5 +7,5 @@ export const SEARCH_ERROR = 'SEARCH_ERROR';
 export const ADD_PART_SUCCESS = 'ADD_PART_SUCCESS';
 export const ADD_PART_ERROR = 'ADD_PART_ERROR';
 
-export const INV_SUCCESS = 'INV_SUCCESS';
+export const INV_LIST = 'INV_LIST';
 export const INV_ERROR = 'INV_FAILURE';

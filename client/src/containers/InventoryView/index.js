@@ -23,6 +23,7 @@ class InventoryView extends Component {
                 <ul>
                     {
                         inventory.map(part => {
+                            console.log(part);
                             return (
                                 <li key={part._id}>
                                     <Link to={`/parts/${part._id}`}>{part.name}</Link>
@@ -45,6 +46,7 @@ class InventoryView extends Component {
 }
 
 function mapStateToProps(state) {
+    console.log(state);
     return { inventory: state.inventory};
 }
 

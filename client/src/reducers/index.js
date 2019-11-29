@@ -7,5 +7,6 @@ import search from './search';
 export default combineReducers({
     auth,
     search,
+    inventory,
     form: formReducer
 });

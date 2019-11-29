@@ -33,7 +33,7 @@ ReactDOM.render(
                 <Route exact path='/signin' component={SignIn} />
                 <Route exact path='/signout' component={SignOut} />
                 <SearchResults />
-                {/*<Route exact path='/inventory' component={InventoryView} />*/}
+                <Route exact path='/inventory' component={InventoryView} />
                 <UserInfo />
             </App>
         </Router>
