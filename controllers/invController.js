@@ -1,33 +1,9 @@
 const db = require('./../models');
 
 module.exports = {
-    addPart: async (req, res) => {
-        const { partId } = req.params;
-        console.log(`ADD PART ${partId}`);
-        try {
-            const user = await db.User.findById(req.user._id).populate('part');
-            let part = await db.Part.findById(partId);
-            user.inventory.push({ part, qty: 1 });
-            await user.save();
-            res.json({ success: true });
-        } catch (e) {
-            res.json(e);
-        }
-    },
-    subPart: async (req, res) => {
-        const { partId } = req.params;
-        console.log(`SUBTRACT PART ${partId}`);
-        try {
-            const user = await db.User.findById(req.user._id).populate('part');
-            cponsole.log(user);
-            // user.inventory.find({ inventory.part._id: partId });
-            res.json({ success: true });
-        } catch (e) {
-            res.json(e);
-        }
-    },
     listParts: async (req, res) => {
-        const userId = (req.params.userId || req.user._id);
+        const userId = (req.params.userId || req.user._id); // god mode
+        console.log(`SHOW INVENTORY FOR USER ${userId}`);
         try {
             const user = await db.User.findById(userId).populate('part');
             let inv = user.inventory;
@@ -37,83 +13,79 @@ module.exports = {
         }
     },
     getParts: async (req, res) => {
+        const userId = req.user._id;
         try {
-            const user = await db.User.findById(req.user._id).populate('part');
+            const user = await db.User.findById(userId).populate('part');
             let inv = user.inventory;
             res.json(inv);
         } catch (e) {
             res.json(e);
         }
     },
-    deletePart: async (req, res) => {
-        const { partId } = req;
-        console.log(`ADD PART ${partId}`);
+    addPart: async (req, res) => {
+        const { partId } = req.params;
+        const userId = req.user._id;
+        console.log(`ADD PART ${partId} TO USER ${userId}`);
         try {
-            db.User.findByIdAndUpdate(
-                req.user._id,
-                {$pull: {part: req.partId}});
-            res.json('success');
+            const user = await db.User.findById(userId).populate('part'); 
+            const invIndex = user.inventory.findIndex((invItem, i) => {
+                return (invItem.part == partId);
+            });
+            console.log(invIndex);
+            if (invIndex) {
+                console.log('ITEM FOUND... INCREMENTING');
+                user.inventory[invIndex].qty++;
+            } else {
+                console.log('ITEM NOT FOUND... ADDING');
+                user.inventory.push({ part: partId , qty: 1 });
+            }
+            console.log('saving');
+            await user.save();
+            console.log('done');
+            res.json({ success: true });
+        } catch (e) {
+            res.json(e);
+        }
+    },
+    subPart: async (req, res) => {
+        const { partId } = req.params;
+        const userId = req.user._id;
+        console.log(`SUBTRACT PART ${partId} FROM USER ${userId}`);
+        try {
+            const user = await db.User.findById(userId).populate('part'); 
+            const invIndex = user.inventory.findIndex(invItem => {
+                return (invItem.part == partId);
+            });
+            if (invIndex) {
+                console.log('ITEM FOUND... DECREMENTING');
+                user.inventory[invIndex].qty--;
+                if (user.inventory[invIndex].qty <= 0) {
+                    console.log('QUANTITY <= 0... REMOVING');
+                    user.inventory.splice(invIndex,1);
+                }
+            } else {
+                console.log('ITEM NOT FOUND');
+            }
+            console.log('saving');
+            await user.save();
+            console.log('done');
+            res.json({ success: true });
+        } catch (e) {
+            res.json(e);
+        }
+    },
+    deletePart: async (req, res) => {
+        const { partId } = req.params;
+        const userId = req.user._id;
+        console.log(`DELETE PART ${partId} FROM USER ${userId}`);
+        try {
+            await db.User.update( 
+                { _id: userId },
+                { $pull: { inventory: { part : partId } } }
+            );
+            res.json();
         } catch (e) {
             res.json(e);
         }
     }
-
-    // router.route('/:partId').put(invController.updatePart),
-
-    // router.route('/:partId/add').get(invController.addPart);
-    // router.route('/:partId/sub').get(invController.subPart);
-    // router.route('/:partId').put(invController.updatePart);
-    // router.route('/:partId').delete(invController.deletePart);
-
-    // module.exports = {
-    //     getBlogs: async (req, res) => {
-    //         try {
-    //             const blogs = await db.Blog.find().populate('user', 'email');
-    //             res.json(blogs);
-    //         } catch(e) {
-    //             res.json(e);
-    //         }
-    //     },
-    //     getBlog: async (req, res) => {
-    //         const { blogId } = req.params;
-    //         try {
-    //             const blog = await db.Blog.findById(blogId).populate('user', 'email');
-    //             if(!blog){
-    //                 res.status(404).json({ error: `No blog found`});
-    //             }
-    //             res.json(blog);
-    //         } catch(e) {
-    //             res.status(403).json(e);
-    //         }
-    //     },
-    //     createBlog: async (req, res) => {
-    //         const { content } = req.body;
-    //         try {
-    //             const newBlog = await new db.Blog({ user: req.user._id, content });
-    //             await newBlog.save();
-    //             const user = await db.User.findById(req.user._id);
-    //             user.blogs.push(newBlog);
-    //             await user.save();
-    //             res.json({ success: true });
-    //         } catch(e) {
-    //             res.json(e);
-    //         }
-    //     },
-    //     deleteBlog: async (req, res) => {
-    //         const { blogId } = req.params;
-    //         try {
-    //             const blog = await db.Blog.findById(blogId);
-    //             // console.log(blog.user);
-    //             if(JSON.stringify(blog.user) !== JSON.stringify(req.user._id)) {
-    //                 return res.status(401).json({ error: 'This is not your blog'});
-    //             }
-    //             await db.Blog.findByIdAndDelete(blogId);
-    //             req.user.blogs.pull(blogId);
-    //             await req.user.save();
-    //             res.json({ success: true });
-    //         } catch(e) {
-    //             res.json(e);
-    //         }
-    //     }
-    // };
 };
