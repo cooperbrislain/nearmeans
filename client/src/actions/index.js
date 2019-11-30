@@ -42,6 +42,18 @@ export const signOut = () => {
     };
 };
 
+export const fetchInventory = () => async dispatch => {
+    try {
+        const response = await axios.get('/api/user/inv', { 
+            headers: { authorization: localStorage.getItem('token')}
+        });
+        console.log(response);
+        dispatch({ type: types.INV_LIST, payload: response.data });
+    } catch(e) {
+        dispatch({ type: types.INV_ERROR, payload: 'Error loading inventory' });
+    }
+};
+
 export const addPart = (formProps) => async dispatch => {
     try {
         const response = await axios.post('/api/inventory', formProps);

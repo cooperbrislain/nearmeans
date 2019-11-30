@@ -3,12 +3,16 @@ import {compose} from "redux";
 import {connect} from "react-redux";
 import { reduxForm, Field } from 'redux-form';
 import { Link } from 'react-router-dom';
-import Loader from 'react-loader-spinner'
+import Loader from 'react-loader-spinner';
+import { fetchInventory } from './../../actions';
 
 class InventoryView extends Component {
+    componentDidMount(){
+        this.props.fetchInventory();
+    }
+
     renderInventory() {
         const { inventory } = this.props;
-        console.log(inventory);
         if (inventory.length === 0) {
             return (
                 <Loader
@@ -17,22 +21,20 @@ class InventoryView extends Component {
                     height={100}
                     width={100}
                 />
-            )
+            );
         } else {
             return (
                 <ul>
-                    {
-                        inventory.map(part => {
-                            console.log(part);
-                            return (
-                                <li key={part._id}>
-                                    <Link to={`/parts/${part._id}`}>{part.name}</Link>
-                                </li>
-                            )
-                        })
-                    }
+                    { inventory.map((part) => {
+                        console.log(part);
+                        return (
+                            <li key={part._id}>
+                                <Link to={`/parts/${part._id}`}>{part.name}</Link>
+                            </li>
+                        )
+                    })}
                 </ul>
-            )
+            );
         }
     }
 
@@ -45,11 +47,8 @@ class InventoryView extends Component {
     }
 }
 
-function mapStateToProps(state) {
-    console.log(state);
-    return { inventory: state.inventory};
+function mapStateToProps({ inventory }) {
+    return { inventory: inventory.inventory };
 }
 
-export default compose(
-    connect(mapStateToProps, { }),
-)(InventoryView);
+export default compose(connect(mapStateToProps, { fetchInventory }))(InventoryView);
