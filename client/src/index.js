@@ -34,7 +34,6 @@ ReactDOM.render(
                 <Route exact path='/signout' component={SignOut} />
                 <SearchResults />
                 <Route exact path='/inventory' component={InventoryView} />
-                <UserInfo />
             </App>
         </Router>
     </Provider>

@@ -6,7 +6,9 @@ class UserInfo extends Component {
     renderUserInfo() {
         // const { user } = this.props;
         return (
-            <div>email here</div>
+            <div>
+                test
+            </div>
         );
     }
 
