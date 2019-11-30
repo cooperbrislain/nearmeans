@@ -5,7 +5,7 @@ module.exports = {
         const userId = req.user._id;
         console.log(`SHOW INVENTORY FOR USER ${userId}`);
         try {
-            const user = await db.User.findById(userId).populate('inventory.part');
+            const user = await db.User.findById(userId).populate('inventory','inventory.item');
             let inv = user.inventory;
             console.log(inv);
             res.json(inv);
@@ -18,9 +18,9 @@ module.exports = {
         const userId = req.user._id;
         console.log(`ADD PART ${partId} TO USER ${userId}`);
         try {
-            const user = await db.User.findById(userId).populate('inventory.part'); 
+            const user = await db.User.findById(userId).populate('inventory','inventory.item'); 
             const invIndex = user.inventory.findIndex((invItem) => {
-                return (invItem.part == partId);
+                return (invItem.item == partId);
             });
             console.log(invIndex);
             if (invIndex!=-1) {
@@ -28,7 +28,7 @@ module.exports = {
                 user.inventory[invIndex].qty++;
             } else {
                 console.log('ITEM NOT FOUND... ADDING');
-                user.inventory.push({ part: partId , qty: 1 });
+                user.inventory.push({ item: partId , qty: 1 });
             }
             console.log('saving');
             await user.save();

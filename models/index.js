@@ -1,4 +1,5 @@
 module.exports = {
     User: require('./User'),
-    Part: require('./Part')
+    Part: require('./Part'),
+    Inventory: require('./Inventory')
 };
