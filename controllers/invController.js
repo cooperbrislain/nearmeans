@@ -1,22 +1,13 @@
 const db = require('./../models');
 
 module.exports = {
-    listParts: async (req, res) => {
-        const userId = (req.params.userId || req.user._id); // god mode
-        console.log(`SHOW INVENTORY FOR USER ${userId}`);
-        try {
-            const user = await db.User.findById(userId).populate('part');
-            let inv = user.inventory;
-            res.json(inv);
-        } catch (e) {
-            res.json(e);
-        }
-    },
     getParts: async (req, res) => {
         const userId = req.user._id;
+        console.log(`SHOW INVENTORY FOR USER ${userId}`);
         try {
-            const user = await db.User.findById(userId).populate('part');
+            const user = await db.User.findById(userId).populate('inventory.part');
             let inv = user.inventory;
+            console.log(inv);
             res.json(inv);
         } catch (e) {
             res.json(e);
@@ -27,12 +18,12 @@ module.exports = {
         const userId = req.user._id;
         console.log(`ADD PART ${partId} TO USER ${userId}`);
         try {
-            const user = await db.User.findById(userId).populate('part'); 
-            const invIndex = user.inventory.findIndex((invItem, i) => {
+            const user = await db.User.findById(userId).populate('inventory.part'); 
+            const invIndex = user.inventory.findIndex((invItem) => {
                 return (invItem.part == partId);
             });
             console.log(invIndex);
-            if (invIndex) {
+            if (invIndex!=-1) {
                 console.log('ITEM FOUND... INCREMENTING');
                 user.inventory[invIndex].qty++;
             } else {
@@ -52,7 +43,7 @@ module.exports = {
         const userId = req.user._id;
         console.log(`SUBTRACT PART ${partId} FROM USER ${userId}`);
         try {
-            const user = await db.User.findById(userId).populate('part'); 
+            const user = await db.User.findById(userId).populate('inventory.part'); 
             const invIndex = user.inventory.findIndex(invItem => {
                 return (invItem.part == partId);
             });

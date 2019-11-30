@@ -25,11 +25,12 @@ class InventoryView extends Component {
         } else {
             return (
                 <ul>
-                    { inventory.map((part) => {
-                        console.log(part);
+                    { console.log(inventory) }
+                    { inventory.map((item) => {
+                        console.log(item);
                         return (
-                            <li key={part._id}>
-                                <Link to={`/parts/${part._id}`}>{part.name}</Link>
+                            <li key={item.part._id}>
+                                <Link to={`/parts/${item.part._id}`}>{item.part.name}</Link>
                             </li>
                         )
                     })}
