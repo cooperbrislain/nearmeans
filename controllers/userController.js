@@ -6,7 +6,7 @@ module.exports = {
     getThisUser: async (req, res) => {
         console.log(`GET THIS USER (${req.user.id})`);
         try {
-            const user = await db.User.findOne({ _id: req.user._id }).populate('inventory');
+            const user = await db.User.findOne({ _id: req.user._id }).populate('inventory','inventory.item');
             res.json(user);
         } catch (e) {
             res.json(e);
@@ -16,7 +16,7 @@ module.exports = {
         console.log(`GET USER ${req}`);
         try {
             const { userId } = req;
-            const user = await db.User.findOne({ _id: userId }).populate('inventory');
+            const user = await db.User.findOne({ _id: userId }).populate('inventory','inventory.item');
             res.json(user);
         } catch (e) {
             res.json(e);

@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import reduxThunk from 'redux-thunk';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Jumbotron } from 'react-bootstrap';
 
 import App from './components/App';
 import SignUp from './containers/auth/SignUp';
@@ -32,8 +33,10 @@ ReactDOM.render(
                 <Route exact path='/signup' component={SignUp} />
                 <Route exact path='/signin' component={SignIn} />
                 <Route exact path='/signout' component={SignOut} />
-                <Route exact path='/' component={PartSearch} />
-                <Route exact path='/' component={SearchResults} />
+                <Route exact path='/' component={Jumbotron}>
+                    <PartSearch />
+                    <SearchResults />
+                </Route>
                 <Route exact path='/inventory' component={InventoryView} />
             </App>
         </Router>

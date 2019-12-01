@@ -5,9 +5,8 @@ module.exports = {
         const userId = req.user._id;
         console.log(`SHOW INVENTORY FOR USER ${userId}`);
         try {
-            const user = await db.User.findById(userId).populate('inventory','inventory.item');
+            const user = await db.User.findById(userId).populate(['inventory', 'inventory.item']);
             let inv = user.inventory;
-            console.log(inv);
             res.json(inv);
         } catch (e) {
             res.json(e);
@@ -18,21 +17,25 @@ module.exports = {
         const userId = req.user._id;
         console.log(`ADD PART ${partId} TO USER ${userId}`);
         try {
-            const user = await db.User.findById(userId).populate('inventory','inventory.item'); 
+            const user = await db.User.findById(userId).populate(['inventory', 'inventory.item']); 
             const invIndex = user.inventory.findIndex((invItem) => {
                 return (invItem.item == partId);
             });
-            console.log(invIndex);
-            if (invIndex!=-1) {
+            if (invIndex!==-1) {
                 console.log('ITEM FOUND... INCREMENTING');
                 user.inventory[invIndex].qty++;
             } else {
                 console.log('ITEM NOT FOUND... ADDING');
-                user.inventory.push({ item: partId , qty: 1 });
+                const invItem = await new db.Inventory({ 
+                    userId,
+                    item: partId,
+                    qty: 1,
+                    location: 94602
+                });
+                invItem.save();
+                user.inventory.push(invItem);
             }
-            console.log('saving');
             await user.save();
-            console.log('done');
             res.json({ success: true });
         } catch (e) {
             res.json(e);
@@ -43,9 +46,9 @@ module.exports = {
         const userId = req.user._id;
         console.log(`SUBTRACT PART ${partId} FROM USER ${userId}`);
         try {
-            const user = await db.User.findById(userId).populate('inventory.part'); 
+            const user = await db.User.findById(userId).populate(['inventory', 'inventory.item']); 
             const invIndex = user.inventory.findIndex(invItem => {
-                return (invItem.part == partId);
+                return (invItem.item == partId);
             });
             if (invIndex) {
                 console.log('ITEM FOUND... DECREMENTING');
@@ -57,9 +60,7 @@ module.exports = {
             } else {
                 console.log('ITEM NOT FOUND');
             }
-            console.log('saving');
             await user.save();
-            console.log('done');
             res.json({ success: true });
         } catch (e) {
             res.json(e);
@@ -72,7 +73,7 @@ module.exports = {
         try {
             await db.User.update( 
                 { _id: userId },
-                { $pull: { inventory: { part : partId } } }
+                { $pull: { inventory: { item : partId } } }
             );
             res.json();
         } catch (e) {
