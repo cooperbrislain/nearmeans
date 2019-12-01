@@ -6,7 +6,7 @@ import AuthWidget from './auth';
 class Header extends Component {
     render() {
         return (
-            <header className='navbar navbar-expand'>
+            <header className='navbar navbar-expand navbar-dark'>
                 <Link to='/'>NearMeans</Link>
                 <AuthWidget />
             </header>
