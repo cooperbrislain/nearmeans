@@ -8,7 +8,7 @@ module.exports = {
             const user = await db.User.findById(userId)
                 .populate({ 
                     path: 'inventory',
-                    select: 'item',
+                    select: ['item','qty','location'],
                     populate: {
                         path: 'item'
                     }
@@ -27,17 +27,17 @@ module.exports = {
             const user = await db.User.findById(userId)
                 .populate({ 
                     path: 'inventory',
-                    select: 'item',
                     populate: {
                         path: 'item'
                     }
                 }); 
             const invIndex = user.inventory.findIndex((invItem) => {
-                return (invItem.item == partId);
+                return (invItem.item._id == partId);
             });
             if (invIndex!==-1) {
                 console.log('ITEM FOUND... INCREMENTING');
                 user.inventory[invIndex].qty++;
+                user.inventory[invIndex].save();
             } else {
                 console.log('ITEM NOT FOUND... ADDING');
                 const invItem = await new db.Inventory({ 
@@ -63,15 +63,15 @@ module.exports = {
             const user = await db.User.findById(userId)
                 .populate({ 
                     path: 'inventory',
-                    select: 'item',
                     populate: {
                         path: 'item'
                     }
                 });
             const invIndex = user.inventory.findIndex(invItem => {
-                return (invItem.item == partId);
+                console.log(invItem);
+                return (invItem.item._id == partId);
             });
-            if (invIndex) {
+            if (invIndex!==-1) {
                 console.log('ITEM FOUND... DECREMENTING');
                 user.inventory[invIndex].qty--;
                 if (user.inventory[invIndex].qty <= 0) {
