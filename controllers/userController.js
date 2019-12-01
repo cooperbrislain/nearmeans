@@ -13,9 +13,9 @@ module.exports = {
         }
     },
     getUserById: async (req, res) => {
-        console.log(`GET USER ${req}`);
+        const { userId } = req;
+        console.log(`GET USER ${userId}`);
         try {
-            const { userId } = req;
             const user = await db.User.findOne({ _id: userId }).populate('inventory','inventory.item');
             res.json(user);
         } catch (e) {
@@ -49,6 +49,10 @@ module.exports = {
         try {
             const user = await db.User.findById(userId);
             console.log(user);
+            console.log(userData);
+            user.assign(userData);
+            console.log(user);
+            res.json('success');
         } catch (e) {
             res.json(e);
         }

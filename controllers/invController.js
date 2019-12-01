@@ -88,6 +88,12 @@ module.exports = {
             res.json(e);
         }
     },
+    setQty: async (req, res) => {
+        const { partId } = req.params;
+        const userId = req.user._id;
+        const { qty } = req.body;
+        console.log(`SET QUANTITY OF ${partId} FOR USER ${userId} TO ${qty}`);
+    },
     deletePart: async (req, res) => {
         const { partId } = req.params;
         const userId = req.user._id;
