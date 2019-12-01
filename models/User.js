@@ -3,18 +3,6 @@ const bcrypt    = require('bcryptjs');
 
 const Schema = mongoose.Schema;
 
-const PointSchema = new mongoose.Schema({ // TODO: Consolidate this into an include
-    type: {
-        type: String,
-        enum: ['Point'],
-        required: true
-    },
-    coordinates: {
-        type: [Number],
-        required: true
-    }
-});
-
 const UserSchema = new Schema({
     email: {
         type: String,
@@ -31,7 +19,8 @@ const UserSchema = new Schema({
         ref: 'Inventory'
     }],
     location: {
-        type: PointSchema
+        longitude: Number,
+        latitude: Number
     }
 });
 

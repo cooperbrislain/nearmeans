@@ -6,17 +6,17 @@ module.exports = {
     getThisUser: async (req, res) => {
         console.log(`GET THIS USER (${req.user.id})`);
         try {
-            const user = await db.User.findOne({ _id: req.user._id }).populate('inventory','inventory.item');
+            const user = await db.User.findOne({ _id: req.user._id }).populate(['inventory','inventory.item']);
             res.json(user);
         } catch (e) {
             res.json(e);
         }
     },
     getUserById: async (req, res) => {
-        const { userId } = req;
+        const { userId } = req.params;
         console.log(`GET USER ${userId}`);
         try {
-            const user = await db.User.findOne({ _id: userId }).populate('inventory','inventory.item');
+            const user = await db.User.findOne({ _id: userId }).populate(['inventory','inventory.item']);
             res.json(user);
         } catch (e) {
             res.json(e);
@@ -43,15 +43,12 @@ module.exports = {
     },
     updateUser: async (req, res) => {
         const { userId } = req.params;
-        const { userData } = req.body;
+        const userData = JSON.parse(req.body.userData);
         console.log(`UPDATE USER ${userId}`);
-        console.log(req.body);
         try {
-            const user = await db.User.findById(userId);
-            console.log(user);
-            console.log(userData);
-            user.assign(userData);
-            console.log(user);
+            let user = await db.User.findById(userId);
+            Object.assign(user, userData);
+            user.save();
             res.json('success');
         } catch (e) {
             res.json(e);
