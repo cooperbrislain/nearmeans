@@ -4,10 +4,10 @@ module.exports = {
     findPart: async (req, res) => {
         const { partName } = req.body;
         try {
-            const parts = await db.Part.find({
-                name: partName
+            const invItems = await db.Inventory.find({
+                "item.name": partName
             });
-            res.json({ parts });
+            res.json({ invItemss });
         } catch(e) {
             res.json(e);
         }
@@ -20,7 +20,26 @@ module.exports = {
         } catch(e) {
             res.json(e);
         }
-    }
+    },
 
+    findAllInRadius: async (req, res) => {
+        let { name, partId, location, radius } = req.query;
+        if (name) {
+            try {
+                const part = db.Part.find({ name });
+                partId = part._id;
+            } catch(e) {
+                res.json(e);
+            }
+        }
+        try {
+            const invItems = await db.Inventory.find({
+                'item._id': partId
+            });
+            res.json(invItems);
+        } catch(e) {
+            res.json(e);
+        }
+    }
     // geolib.isPointInCircle(object latlng, object center, integer radius)
 };
