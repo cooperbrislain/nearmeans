@@ -21,4 +21,6 @@ module.exports = {
             res.json(e);
         }
     }
+
+    // geolib.isPointInCircle(object latlng, object center, integer radius)
 };

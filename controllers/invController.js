@@ -40,11 +40,12 @@ module.exports = {
                 user.inventory[invIndex].save();
             } else {
                 console.log('ITEM NOT FOUND... ADDING');
+                console.log(`USING USER LOCATION: ${user.location}`);
                 const invItem = await new db.Inventory({ 
                     userId,
                     item: partId,
                     qty: 1,
-                    location: 94602
+                    location: user.location
                 });
                 invItem.save();
                 user.inventory.push(invItem);

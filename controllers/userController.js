@@ -40,5 +40,17 @@ module.exports = {
         } catch (e) {
             res.json(e);
         }
+    },
+    updateUser: async (req, res) => {
+        const { userId } = req.params;
+        const { userData } = req.body;
+        console.log(`UPDATE USER ${userId}`);
+        console.log(req.body);
+        try {
+            const user = await db.User.findById(userId);
+            console.log(user);
+        } catch (e) {
+            res.json(e);
+        }
     }
 };
