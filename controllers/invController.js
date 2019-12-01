@@ -5,7 +5,14 @@ module.exports = {
         const userId = req.user._id;
         console.log(`SHOW INVENTORY FOR USER ${userId}`);
         try {
-            const user = await db.User.findById(userId).populate(['inventory', 'inventory.item']);
+            const user = await db.User.findById(userId)
+                .populate({ 
+                    path: 'inventory',
+                    select: 'item',
+                    populate: {
+                        path: 'item'
+                    }
+                });
             let inv = user.inventory;
             res.json(inv);
         } catch (e) {
@@ -17,7 +24,14 @@ module.exports = {
         const userId = req.user._id;
         console.log(`ADD PART ${partId} TO USER ${userId}`);
         try {
-            const user = await db.User.findById(userId).populate(['inventory', 'inventory.item']); 
+            const user = await db.User.findById(userId)
+                .populate({ 
+                    path: 'inventory',
+                    select: 'item',
+                    populate: {
+                        path: 'item'
+                    }
+                }); 
             const invIndex = user.inventory.findIndex((invItem) => {
                 return (invItem.item == partId);
             });
@@ -46,7 +60,14 @@ module.exports = {
         const userId = req.user._id;
         console.log(`SUBTRACT PART ${partId} FROM USER ${userId}`);
         try {
-            const user = await db.User.findById(userId).populate(['inventory', 'inventory.item']); 
+            const user = await db.User.findById(userId)
+                .populate({ 
+                    path: 'inventory',
+                    select: 'item',
+                    populate: {
+                        path: 'item'
+                    }
+                });
             const invIndex = user.inventory.findIndex(invItem => {
                 return (invItem.item == partId);
             });
