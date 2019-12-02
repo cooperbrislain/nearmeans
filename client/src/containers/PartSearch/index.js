@@ -6,8 +6,14 @@ import { searchPart } from './../../actions';
 import styles from './index.css';
 import { Form, Col } from 'react-bootstrap';
 
+const ReduxFormControl = ({input, meta, ...props}) => {
+    return <Form.Control {...props} {...input} />
+};
+
 class PartSearch extends Component {
     onSubmit = formProps => {
+        console.log('SUBMIT');
+        console.log(formProps);
         this.props.searchPart(formProps);
     };
 
@@ -26,13 +32,23 @@ class PartSearch extends Component {
                 <Form onSubmit={handleSubmit(this.onSubmit)} className=''>
                     <Form.Row>
                         <Col>
-                            <Form.Control name='partName' placeholder='Part' />
+                            <Field
+                                name='partName'
+                                component={ReduxFormControl}
+                                placeholder='Part' />
                         </Col>
                         <Col>
-                            <Form.Control name='searchZip' placeholder='Zip Code' />
+                            <Field
+                                name='searchZip'
+                                component={ReduxFormControl}
+                                placeholder='Zip Code' />
                         </Col>
                         <Col>
-                            <Form.Control name='searchDistance' placeholder='Distance' />
+                            <Field
+                                name='searchDistance'
+                                component={ReduxFormControl}
+                                placeholder='Distance'
+                            />
                         </Col>
                     </Form.Row>
                     <button className={styles.button} type='submit'>Search</button>

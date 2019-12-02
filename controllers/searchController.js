@@ -34,9 +34,8 @@ module.exports = {
     },
 
     findAllInRadius: async (req, res) => {
-        let { name, partId, searchZip, searchDistance } = req.body;
-        console.log(req);
-        console.log(`SEARCHING FOR PART NAMED ${name} WITHIN ${searchDistance} OF ${searchZip}`);
+        let { partName, partId, searchZip, searchDistance } = req.body;
+        console.log(`SEARCHING FOR PART NAMED ${partName} WITHIN ${searchDistance} OF ${searchZip}`);
         const location = await convertZipToGeoCode(searchZip);
         const radius = miles_to_meters(searchDistance);
         console.log(`IN OTHER WORDS: ${partId} WITHIN ${radius} OF ${location}`);
