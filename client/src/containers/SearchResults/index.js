@@ -9,7 +9,7 @@ class SearchResults extends Component {
             return (
                 <ul>
                     {searchResults.map((item, i) =>
-                        <li key={i}>{item.name}</li>
+                        <li key={i}>{item.item.name}</li>
                     )}
                 </ul>
             );

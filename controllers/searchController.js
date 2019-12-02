@@ -55,18 +55,14 @@ module.exports = {
             }
         }
         console.log(`IN OTHER WORDS: ${partId} WITHIN ${radius} OF ${location}`);
-        console.log(location);
         try {
             const invItems = await db.Inventory.find().populate('item');
-            console.log(invItems);
-            const nearItems = invItems.filter(invItem => {
-                const point = invItem.location;
-                console.log(point);
-                console.log(location);
-                console.log(meters_to_miles(geolib.getDistance(location, point)));
-                return geolib.getDistance(location, point) < radius;
+            const foundItems = invItems.filter((invItem) => {
+                if (invItem.item._id !== partId);
+                if (geolib.getDistance(location, invItem.location) > radius) return 0;
+                return 1;
             });
-            res.json(nearItems);
+            res.json(foundItems);
         } catch (e) {
             res.json(e);
         }
