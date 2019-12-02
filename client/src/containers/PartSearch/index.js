@@ -3,6 +3,8 @@ import { reduxForm, Field } from 'redux-form';
 import {compose} from "redux";
 import {connect} from "react-redux";
 import { searchPart } from './../../actions';
+import styles from './index.css';
+import { Form, Col } from 'react-bootstrap';
 
 class PartSearch extends Component {
     onSubmit = formProps => {
@@ -21,30 +23,20 @@ class PartSearch extends Component {
         const { handleSubmit } = this.props;
         return (
             <div>
-                <form onSubmit={handleSubmit(this.onSubmit)}>
-                    <fieldset>
-                        <label>Part</label>
-                        <Field
-                            name='partName'
-                            component={this.renderInput}
-                        />
-                    </fieldset>
-                    <fieldset>
-                        <label>Zipcode</label>
-                        <Field
-                            name='searchZip'
-                            component={this.renderInput}
-                        />
-                    </fieldset>
-                    <fieldset>
-                        <label>Distance</label>
-                        <Field
-                            name='searchDistance'
-                            component={this.renderInput}
-                        />
-                    </fieldset>
-                    <button type='submit'>Search</button>
-                </form>
+                <Form onSubmit={handleSubmit(this.onSubmit)} className=''>
+                    <Form.Row>
+                        <Col>
+                            <Form.Control name='partName' placeholder='Part' />
+                        </Col>
+                        <Col>
+                            <Form.Control name='searchZip' placeholder='Zip Code' />
+                        </Col>
+                        <Col>
+                            <Form.Control name='searchDistance' placeholder='Distance' />
+                        </Col>
+                    </Form.Row>
+                    <button className={styles.button} type='submit'>Search</button>
+                </Form>
             </div>
         );
     }
