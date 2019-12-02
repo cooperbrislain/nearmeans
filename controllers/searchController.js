@@ -1,5 +1,15 @@
 const db = require('./../models');
 const geolib = require('geolib');
+const axios = require('axios');
+const config = require('./../config/keys');
+
+const miles_to_meters = x => x*1609.344;
+
+const convertZipToGeoCode = async (zipCode) => {
+    const { results } = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${zipCode}&key=${config.google_api_key}`);
+    const geoCode = results[0].geometry.location;
+    return geoCode;
+};
 
 module.exports = {
     findPart: async (req, res) => {
@@ -24,12 +34,12 @@ module.exports = {
     },
 
     findAllInRadius: async (req, res) => {
-        let { name, partId } = req.query;
-        const location = {
-            latitude: 51.5,
-            longitude: 7.5
-        };
-        const radius = 50000;
+        let { name, partId, searchZip, searchDistance } = req.body;
+        console.log(req);
+        console.log(`SEARCHING FOR PART NAMED ${name} WITHIN ${searchDistance} OF ${searchZip}`);
+        const location = await convertZipToGeoCode(searchZip);
+        const radius = miles_to_meters(searchDistance);
+        console.log(`IN OTHER WORDS: ${partId} WITHIN ${radius} OF ${location}`);
         if (name) {
             try {
                 const part = db.Part.find({name});

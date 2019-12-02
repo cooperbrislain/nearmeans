@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export const searchPart = formProps => async dispatch => {
     try {
-        const response = await axios.post('/api/search', formProps);
+        const response = await axios.post('/api/search/nearby', formProps);
         dispatch({ type: types.SEARCH_PART, payload: response.data.parts });
     } catch (e) {
         dispatch({ type: types.SEARCH_ERROR, payload: 'No Part Found' });
