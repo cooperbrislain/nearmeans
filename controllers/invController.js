@@ -75,6 +75,7 @@ module.exports = {
             if (invIndex!==-1) {
                 console.log('ITEM FOUND... DECREMENTING');
                 user.inventory[invIndex].qty--;
+                user.inventory[invIndex].save();
                 if (user.inventory[invIndex].qty <= 0) {
                     console.log('QUANTITY <= 0... REMOVING');
                     user.inventory.splice(invIndex,1);
@@ -88,19 +89,22 @@ module.exports = {
             res.json(e);
         }
     },
-    setQty: async (req, res) => {
-        const { partId } = req.params;
+    updateInvItem: async (req, res) => {
+        const { invId } = req.params;
         const userId = req.user._id;
-        const { qty } = req.body;
-        console.log(`SET QUANTITY OF ${partId} FOR USER ${userId} TO ${qty}`);
-        res.json({success:true});
-    },
-    setLocation: async (req, res) => {
-        const { partId } = req.params;
-        const userId = req.user._id;
-        const { location } = req.body;
-        console.log(`SET LOCATION OF ${partId} FOR USER ${userId} to ${location}`);
-        res.json({success:true});
+        const invData = JSON.parse(req.body.invData);
+        console.log(`UPDATE INVENTORY ${invId} FROM USER ${userId}`);
+        try {
+            let invItem = await db.Inventory.findById(invId);
+            console.log(invItem);
+            console.log(invData);
+            invItem = Object.assign(invItem, invData);
+            console.log(invItem);
+            await invItem.save();
+            res.json({success:true});
+        } catch (e) {
+            res.json(e);
+        }
     },
     deletePart: async (req, res) => {
         const { partId } = req.params;

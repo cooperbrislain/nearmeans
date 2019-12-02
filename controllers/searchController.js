@@ -24,7 +24,7 @@ module.exports = {
     },
 
     findAllInRadius: async (req, res) => {
-        let {name, partId } = req.query;
+        let { name, partId } = req.query;
         const location = {
             latitude: 37.81340,
             longitude: -122.19900

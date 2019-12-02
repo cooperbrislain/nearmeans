@@ -7,7 +7,7 @@ const authMiddlewares = require('../../../../middlewares/authMiddlewares');
 router.route('/').get(authMiddlewares.requireAuth, invController.getParts);
 router.route('/add/:partId').post(authMiddlewares.requireAuth, invController.addPart);
 router.route('/sub/:partId').post(authMiddlewares.requireAuth, invController.subPart);
-router.route('/:partId/qty').put(authMiddlewares.requireAuth, invController.setQty);
+router.route('/:invId').put(authMiddlewares.requireAuth, invController.updateInvItem);
 router.route('/:partId').delete(authMiddlewares.requireAuth, invController.deletePart);
 
 module.exports = router;
