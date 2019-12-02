@@ -12,8 +12,6 @@ const ReduxFormControl = ({input, meta, ...props}) => {
 
 class PartSearch extends Component {
     onSubmit = formProps => {
-        console.log('SUBMIT');
-        console.log(formProps);
         this.props.searchPart(formProps);
     };
 
