@@ -1,4 +1,5 @@
 const db = require('./../models');
+const geolib = require('geolib');
 
 module.exports = {
     findPart: async (req, res) => {
@@ -7,7 +8,7 @@ module.exports = {
             const invItems = await db.Inventory.find({
                 "item.name": partName
             });
-            res.json({ invItemss });
+            res.json({ invItems });
         } catch(e) {
             res.json(e);
         }
@@ -23,12 +24,17 @@ module.exports = {
     },
 
     findAllInRadius: async (req, res) => {
-        let { name, partId, location, radius } = req.query;
+        let {name, partId } = req.query;
+        const location = {
+            latitude: 37.81340,
+            longitude: -122.19900
+        };
+        const radius = 5000;
         if (name) {
             try {
-                const part = db.Part.find({ name });
+                const part = db.Part.find({name});
                 partId = part._id;
-            } catch(e) {
+            } catch (e) {
                 res.json(e);
             }
         }
@@ -36,10 +42,18 @@ module.exports = {
             const invItems = await db.Inventory.find({
                 'item._id': partId
             });
-            res.json(invItems);
-        } catch(e) {
+            const nearItems = invItems.filter(invItem => {
+                const point = invItem.location;
+                console.log({point, location, radius});
+                return geolib.isPointInCircle(point, location , radius);
+            });
+            res.json(nearItems);
+        } catch (e) {
             res.json(e);
         }
+    },
+
+    findInRadiusOf: async (req, res) => {
+        res.json({success:true});
     }
-    // geolib.isPointInCircle(object latlng, object center, integer radius)
 };

@@ -83,7 +83,7 @@ module.exports = {
                 console.log('ITEM NOT FOUND');
             }
             await user.save();
-            res.json({ success: true });
+            res.json({success:true});
         } catch (e) {
             res.json(e);
         }
@@ -93,6 +93,14 @@ module.exports = {
         const userId = req.user._id;
         const { qty } = req.body;
         console.log(`SET QUANTITY OF ${partId} FOR USER ${userId} TO ${qty}`);
+        res.json({success:true});
+    },
+    setLocation: async (req, res) => {
+        const { partId } = req.params;
+        const userId = req.user._id;
+        const { location } = req.body;
+        console.log(`SET LOCATION OF ${partId} FOR USER ${userId} to ${location}`);
+        res.json({success:true});
     },
     deletePart: async (req, res) => {
         const { partId } = req.params;
