@@ -26,10 +26,10 @@ module.exports = {
     findAllInRadius: async (req, res) => {
         let { name, partId } = req.query;
         const location = {
-            latitude: 37.81340,
-            longitude: -122.19900
+            latitude: 51.5,
+            longitude: 7.5
         };
-        const radius = 5000;
+        const radius = 50000;
         if (name) {
             try {
                 const part = db.Part.find({name});
@@ -40,12 +40,13 @@ module.exports = {
         }
         try {
             const invItems = await db.Inventory.find({
-                'item._id': partId
+                'item._id': partId,
+                qty: { $gt: 0 }
             });
             const nearItems = invItems.filter(invItem => {
                 const point = invItem.location;
-                console.log({point, location, radius});
-                return geolib.isPointInCircle(point, location , radius);
+                console.log(geolib.getDistance(location, point));
+                return geolib.getDistance(location, point) < radius;
             });
             res.json(nearItems);
         } catch (e) {
