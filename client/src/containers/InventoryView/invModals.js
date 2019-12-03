@@ -9,15 +9,20 @@ const ModalInvAdd = () => {
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
+
     const handleShow = () => {
         console.log('HANDLESHOW');
         setShow(true);
-    }
+    };
+
+    const handleSubmit = async formProps => {
+        console.log('SUBMIT');
+    };
 
     return (
         <Modal show={true} onHide={handleClose}>
             <Modal.Header closeButton>
-                <Modal.Title>Modal heading</Modal.Title>
+                <Modal.Title>Add Part</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form>
@@ -44,7 +49,7 @@ const ModalInvAdd = () => {
                 <Button variant="secondary" onClick={handleClose}>
                     Close
                 </Button>
-                <Button variant="primary" onClick={handleClose}>
+                <Button variant="primary" onClick={handleSubmit}>
                     Save Changes
                 </Button>
             </Modal.Footer>

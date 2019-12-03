@@ -1,6 +1,6 @@
 {
-    "name": "client",
-    "version": "0.1.0",
+    "name": "NearMeans",
+    "version": "0.1.5",
     "private": true,
     "proxy": "http://localhost:3001/",
     "dependencies": {

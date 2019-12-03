@@ -32,7 +32,7 @@ module.exports = {
                     }
                 }); 
             const invIndex = user.inventory.findIndex((invItem) => {
-                return (invItem.item._id == partId);
+                return (invItem.item._id === partId);
             });
             if (invIndex!==-1) {
                 console.log('ITEM FOUND... INCREMENTING');
