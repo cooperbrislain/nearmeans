@@ -15,6 +15,13 @@ class InventoryView extends Component {
 
     renderInventory() {
         const { inventory } = this.props;
+        const rows = inventory.map((invItem) => {
+            return { ...invItem,
+                _id: invItem._id,
+                name: invItem.item.name,
+                location: `lat: ${invItem.location.latitude} lon: ${invItem.location.longitude}`
+            }
+        });
         if (inventory.length === 0) {
             return (
                 <Loader
@@ -26,10 +33,11 @@ class InventoryView extends Component {
             );
         } else {
             return (
-                <BootstrapTable data={inventory} striped hover>
+                <BootstrapTable data={rows} striped hover>
                     <TableHeaderColumn isKey dataField='_id'>Part ID</TableHeaderColumn>
                     <TableHeaderColumn dataField='name'>Part Name</TableHeaderColumn>
                     <TableHeaderColumn dataField='qty'>Quantity</TableHeaderColumn>
+                    <TableHeaderColumn dataField='location'>Location</TableHeaderColumn>
                 </BootstrapTable>
             );
         }
