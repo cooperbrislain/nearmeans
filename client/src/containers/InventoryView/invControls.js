@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {compose} from "redux";
+import { compose } from "redux";
 import {reduxForm} from "redux-form";
-import {searchPart, signOut} from './../../actions';
-import { Form, Col, Button, InputGroup } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
+import { Form, Button } from 'react-bootstrap';
 import ModalInvAdd from './invModals';
 
 class InvControls extends Component {
@@ -13,7 +10,7 @@ class InvControls extends Component {
         return (
             <Form>
                 <Button variant="primary" onClick={ModalInvAdd.handleShow}>
-                    Launch demo modal
+                    Add a Part
                 </Button>
             </Form>
         )
