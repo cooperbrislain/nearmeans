@@ -14,9 +14,9 @@ module.exports = {
                     }
                 });
             let inv = user.inventory;
-            res.json(inv);
+            await res.json(inv);
         } catch (e) {
-            res.json(e);
+            await res.json(e);
         }
     },
     addPart: async (req, res) => {
@@ -51,9 +51,9 @@ module.exports = {
                 user.inventory.push(invItem);
             }
             await user.save();
-            res.json({ success: true });
+            await res.json({ success: true });
         } catch (e) {
-            res.json(e);
+            await res.json(e);
         }
     },
     subPart: async (req, res) => {
@@ -96,7 +96,7 @@ module.exports = {
         console.log(`UPDATE INVENTORY ${invId} FROM USER ${userId}`);
         try {
             const result = await db.Inventory.findByIdAndUpdate(invId, invData);
-            res.json({success:true});
+            res.json(result);
         } catch (e) {
             res.json(e);
         }
