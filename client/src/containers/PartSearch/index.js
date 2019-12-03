@@ -48,12 +48,17 @@ class PartSearch extends Component {
                                 </InputGroup.Append>
                             </InputGroup>
                         </Col>
-                        <Col className="col-md-1">
-                            <Field
-                                name='searchDistance'
-                                component={ReduxFormControl}
-                                placeholder='Distance'
-                            />
+                        <Col className="col-md-2">
+                            <InputGroup className="mb-3">
+                                <Field
+                                    name='searchDistance'
+                                    component={ReduxFormControl}
+                                    placeholder='Distance'
+                                />
+                                <InputGroup.Append>
+                                    <InputGroup.Text>Mi.</InputGroup.Text>
+                                </InputGroup.Append>
+                            </InputGroup>
                         </Col>
                         <Col className="col-md-1">
                             <Button className={styles.button} type='submit'>Search</Button>

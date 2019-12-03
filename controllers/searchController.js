@@ -11,7 +11,6 @@ const convertZipToGeoCode = async (searchLocation) => {
     try {
         const response = await axios.get(req_url);
         const { results } = response.data;
-        console.log(results);
         const geoCode = results[0].geometry.location;
         return geoCode;
     } catch (e) {
@@ -43,7 +42,7 @@ module.exports = {
 
     findAllInRadius: async (req, res) => {
         let { partName, partId, searchZip, searchDistance } = req.body;
-        console.log(`SEARCHING FOR PART NAMED ${partName} WITHIN ${searchDistance} OF ${searchZip}`);
+        console.log(`SEARCHING FOR PART NAMED ${partName} WITHIN ${searchDistance} MILES OF ${searchZip}`);
         const location = await convertZipToGeoCode(searchZip);
         const radius = miles_to_meters(searchDistance);
         if (partName) {
@@ -54,14 +53,17 @@ module.exports = {
                 res.json(e);
             }
         }
-        console.log(`IN OTHER WORDS: ${partId} WITHIN ${radius} OF ${location}`);
+        console.log(`IN OTHER WORDS: ${partId} WITHIN ${radius} METERS OF ${location}`);
         try {
             const invItems = await db.Inventory.find().populate('item');
             const foundItems = invItems.filter((invItem) => {
-                if (invItem.item._id !== partId) return 0;
+                //if (invItem.item._id !== partId) return 0;
+                console.log(`${invItem._id}: ${geolib.getDistance(location, invItem.location)}`);
                 if (geolib.getDistance(location, invItem.location) > radius) return 0;
+                console.log(`${invItem._id} passes!`);
                 return 1;
             });
+            console.log(foundItems);
             res.json({ searchResults: foundItems, center: location, radius });
         } catch (e) {
             res.json(e);

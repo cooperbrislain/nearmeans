@@ -3,8 +3,7 @@ import {compose} from "redux";
 import {connect} from "react-redux";
 import GoogleMapReact from 'google-map-react';
 import google_api_key from './keys.js';
-
-const Marker = ({ text }) => <div>{text}</div>;
+import Marker from './../GoogleMapMarker';
 
 class SearchResultsMap extends Component {
     static defaultProps = {
@@ -18,22 +17,21 @@ class SearchResultsMap extends Component {
     renderGoogleMap() {
         const { searchResults } = this.props;
         if (searchResults) {
-            console.log(searchResults);
-            console.log(google_api_key);
             return (
                 <GoogleMapReact
                     bootstrapURLKeys={{ key: google_api_key }}
                     defaultCenter={this.props.center}
                     defaultZoom={this.props.zoom}
                 >
-                    { searchResults.map((item, i) =>
-                        <Marker
+                    { searchResults.map((item, i) => {
+                        return (<Marker
                             key={i}
                             lat={item.location.latitude}
                             lng={item.location.longitude}
+                            name={item.item.name}
                             text={item.item.name}
-                        />
-                    )
+                        />);
+                    })
                     }
                 </GoogleMapReact>
             );
