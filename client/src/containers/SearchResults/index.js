@@ -32,6 +32,7 @@ class SearchResults extends Component {
 }
 
 function mapStateToProps(state) {
+    console.log(state);
     return { searchResults: state.search.searchResults };
 }
 

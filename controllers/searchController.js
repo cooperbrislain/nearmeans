@@ -8,7 +8,6 @@ const meters_to_miles = x => x/1609.344;
 
 const convertZipToGeoCode = async (zipCode) => {
     const req_url = `https://maps.googleapis.com/maps/api/geocode/json?address=${zipCode}&key=${config.google_api_key}`;
-    console.log(req_url);
     try {
         const response = await axios.get(req_url);
         const { results } = response.data;
@@ -62,7 +61,7 @@ module.exports = {
                 if (geolib.getDistance(location, invItem.location) > radius) return 0;
                 return 1;
             });
-            res.json(foundItems);
+            res.json({ searchResults: foundItems, center: location, radius });
         } catch (e) {
             res.json(e);
         }

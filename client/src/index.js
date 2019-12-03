@@ -13,6 +13,7 @@ import SignIn from './containers/auth/SignIn';
 import SignOut from './containers/auth/SignOut';
 import PartSearch from './containers/PartSearch';
 import SearchResults from "./containers/SearchResults";
+import SearchResultsMap from "./containers/SearchResultsMap";
 import UserInfo from "./containers/UserInfo";
 import InventoryView from "./containers/InventoryView";
 
@@ -36,6 +37,7 @@ ReactDOM.render(
                 <Route exact path='/' component={Jumbotron}>
                     <PartSearch />
                     <SearchResults />
+                    <SearchResultsMap />
                 </Route>
                 <Route exact path='/inventory' component={InventoryView} />
             </App>
