@@ -92,15 +92,10 @@ module.exports = {
     updateInvItem: async (req, res) => {
         const { invId } = req.params;
         const userId = req.user._id;
-        const invData = JSON.parse(req.body.invData);
+        const { invData } = req.body;
         console.log(`UPDATE INVENTORY ${invId} FROM USER ${userId}`);
         try {
-            let invItem = await db.Inventory.findById(invId);
-            console.log(invItem);
-            console.log(invData);
-            invItem = Object.assign(invItem, invData);
-            console.log(invItem);
-            await invItem.save();
+            const result = await db.Inventory.findByIdAndUpdate(invId, invData);
             res.json({success:true});
         } catch (e) {
             res.json(e);
