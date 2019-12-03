@@ -6,11 +6,12 @@ const config = require('./../config/keys');
 const miles_to_meters = x => x*1609.344;
 const meters_to_miles = x => x/1609.344;
 
-const convertZipToGeoCode = async (zipCode) => {
-    const req_url = `https://maps.googleapis.com/maps/api/geocode/json?address=${zipCode}&key=${config.google_api_key}`;
+const convertZipToGeoCode = async (searchLocation) => {
+    const req_url = `https://maps.googleapis.com/maps/api/geocode/json?address=${searchLocation}&key=${config.google_api_key}`;
     try {
         const response = await axios.get(req_url);
         const { results } = response.data;
+        console.log(results);
         const geoCode = results[0].geometry.location;
         return geoCode;
     } catch (e) {
@@ -57,7 +58,7 @@ module.exports = {
         try {
             const invItems = await db.Inventory.find().populate('item');
             const foundItems = invItems.filter((invItem) => {
-                if (invItem.item._id !== partId);
+                if (invItem.item._id !== partId) return 0;
                 if (geolib.getDistance(location, invItem.location) > radius) return 0;
                 return 1;
             });

@@ -19,9 +19,10 @@ class SearchResultsMap extends Component {
         const { searchResults } = this.props;
         if (searchResults) {
             console.log(searchResults);
+            console.log(google_api_key);
             return (
                 <GoogleMapReact
-                    bootstrapURLKeys={google_api_key}
+                    bootstrapURLKeys={{ key: google_api_key }}
                     defaultCenter={this.props.center}
                     defaultZoom={this.props.zoom}
                 >
@@ -47,7 +48,7 @@ class SearchResultsMap extends Component {
 
     render() {
         return (
-            <div style={{ height: '100vh', width: '100%' }}>
+            <div style={{ height: '50vh', width: '100%' }}>
                 { this.renderGoogleMap() }
             </div>
         );
