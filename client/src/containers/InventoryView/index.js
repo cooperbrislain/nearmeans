@@ -5,6 +5,8 @@ import { reduxForm, Field } from 'redux-form';
 import { Link } from 'react-router-dom';
 import Loader from 'react-loader-spinner';
 import { fetchInventory } from './../../actions';
+import InvControls from './invControls';
+import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 
 class InventoryView extends Component {
     componentDidMount(){
@@ -24,16 +26,11 @@ class InventoryView extends Component {
             );
         } else {
             return (
-                <ul>
-                    { inventory.map((invItem) => {
-                        console.log(invItem);
-                        return (
-                            <li key={invItem._id}>
-                                <Link to={`/parts/${invItem.item._id}`}>{invItem.item.name}</Link>
-                            </li>
-                        )
-                    })}
-                </ul>
+                <BootstrapTable data={inventory} striped hover>
+                    <TableHeaderColumn isKey dataField='_id'>Part ID</TableHeaderColumn>
+                    <TableHeaderColumn dataField='name'>Part Name</TableHeaderColumn>
+                    <TableHeaderColumn dataField='qty'>Quantity</TableHeaderColumn>
+                </BootstrapTable>
             );
         }
     }
@@ -42,6 +39,7 @@ class InventoryView extends Component {
         return (
             <div id="inventory">
                 { this.renderInventory() }
+                <InvControls />
             </div>
         );
     }
