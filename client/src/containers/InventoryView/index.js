@@ -5,6 +5,7 @@ import Loader from 'react-loader-spinner';
 import { fetchInventory } from './../../actions';
 import InvControls from './invControls';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
+import ReactDataGrid from 'react-data-grid';
 
 class InventoryView extends Component {
     componentDidMount(){
@@ -13,14 +14,22 @@ class InventoryView extends Component {
 
     renderInventory() {
         const { inventory } = this.props;
+        const columns = [
+            { key: 'id', name: 'ID' },
+            { key: 'name', name: 'Part Name' },
+            { key: 'qty', name: 'Quantity' },
+            { key: 'location', name: 'Location' }
+            ];
+
         const rows = inventory.map((invItem) => {
+            console.log(invItem);
             return { ...invItem,
                 _id: invItem._id,
                 name: invItem.item.name,
-                location: `lat: ${invItem.location.latitude} lon: ${invItem.location.longitude}`
+                location: `lat: ${invItem.location} lon: ${invItem.location}`
             }
         });
-        if (inventory.length === 0) {
+        if (false && inventory.length === 0) {
             return (
                 <Loader
                     type="Oval"
@@ -31,12 +40,17 @@ class InventoryView extends Component {
             );
         } else {
             return (
-                <BootstrapTable data={rows} striped hover>
-                    <TableHeaderColumn isKey dataField='_id'>Part ID</TableHeaderColumn>
-                    <TableHeaderColumn dataField='name'>Part Name</TableHeaderColumn>
-                    <TableHeaderColumn dataField='qty'>Quantity</TableHeaderColumn>
-                    <TableHeaderColumn dataField='location'>Location</TableHeaderColumn>
-                </BootstrapTable>
+                <ReactDataGrid
+                    columns={columns}
+                    rowGetter={i => rows[i]}
+                    rowsCount={3}
+                    minHeight={150} />
+                // <BootstrapTable data={rows} striped hover>
+                //     <TableHeaderColumn isKey dataField='_id'>Part ID</TableHeaderColumn>
+                //     <TableHeaderColumn dataField='name'>Part Name</TableHeaderColumn>
+                //     <TableHeaderColumn dataField='qty'>Quantity</TableHeaderColumn>
+                //     <TableHeaderColumn dataField='location'>Location</TableHeaderColumn>
+                // </BootstrapTable>
             );
         }
     }

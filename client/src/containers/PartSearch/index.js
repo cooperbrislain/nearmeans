@@ -7,10 +7,9 @@ import styles from './index.css';
 import { Form, Col, Button, InputGroup } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'
+import ReduxFormControl from "../reduxFormControl";
 import axios from 'axios';
 import Select from "react-dropdown-select";
-
-const ReduxFormControl = ({input, meta, ...props}) => <Form.Control {...props} {...input} />;
 
 class PartSearch extends Component {
     onSubmit = formProps => this.props.searchPart(formProps);

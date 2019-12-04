@@ -14,7 +14,8 @@ import SignOut from './containers/auth/SignOut';
 import PartSearch from './containers/PartSearch';
 import SearchResults from "./containers/SearchResults";
 import SearchResultsMap from "./containers/SearchResultsMap";
-import InventoryView from "./containers/InventoryView";
+import InventoryView from './containers/InventoryView';
+import UserInfo from "./containers/UserInfo";
 
 import reducers from './reducers';
 
@@ -39,6 +40,7 @@ ReactDOM.render(
                     <SearchResultsMap />
                 </Route>
                 <Route exact path='/inventory' component={InventoryView} />
+                <Route exact path='/dashboard' component={UserInfo} />
             </App>
         </Router>
     </Provider>
