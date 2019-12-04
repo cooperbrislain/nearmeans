@@ -4,8 +4,8 @@ import {connect} from "react-redux";
 import Loader from 'react-loader-spinner';
 import { fetchInventory } from './../../actions';
 import InvControls from './invControls';
-import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import ReactDataGrid from 'react-data-grid';
+
 
 class InventoryView extends Component {
     componentDidMount(){
@@ -15,18 +15,19 @@ class InventoryView extends Component {
     renderInventory() {
         const { inventory } = this.props;
         const columns = [
-            { key: 'id', name: 'ID' },
+            { key: '_id', name: 'ID' },
             { key: 'name', name: 'Part Name' },
-            { key: 'qty', name: 'Quantity' },
+            { key: 'qty', name: 'Quantity', editable: true },
             { key: 'location', name: 'Location' }
             ];
 
         const rows = inventory.map((invItem) => {
-            console.log(invItem);
+            const defaultLocation = { location: { lat: 0, lng: 0 }};
+            const { location } = invItem.location || defaultLocation;
             return { ...invItem,
                 _id: invItem._id,
                 name: invItem.item.name,
-                location: `lat: ${invItem.location} lon: ${invItem.location}`
+                location: `lat: ${location.lat} lng: ${location.lng}`
             }
         });
         if (false && inventory.length === 0) {
