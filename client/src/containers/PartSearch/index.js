@@ -17,13 +17,19 @@ class PartSearch extends Component {
         this.props.searchPart(formProps);
     };
 
-    renderInput = ({ input }) => {
-        return (
-            <div>
-                <input {...input}/>
-            </div>
-        )
+    getGeoLocation = () => {
+        navigator.geolocation.getCurrentPosition((result) => {
+            console.log(result);
+        });
     };
+
+    // renderInput = ({ input }) => {
+    //     return (
+    //         <div>
+    //             <input {...input}/>
+    //         </div>
+    //     )
+    // };
 
     render() {
         const { handleSubmit } = this.props;
@@ -44,7 +50,9 @@ class PartSearch extends Component {
                                     component={ReduxFormControl}
                                     placeholder='Zip Code' />
                                 <InputGroup.Append>
-                                    <InputGroup.Text><FontAwesomeIcon icon={faMapMarkerAlt} /></InputGroup.Text>
+                                    <InputGroup.Text>
+                                        <FontAwesomeIcon icon={faMapMarkerAlt} onClick={this.getGeolocation}/>
+                                    </InputGroup.Text>
                                 </InputGroup.Append>
                             </InputGroup>
                         </Col>

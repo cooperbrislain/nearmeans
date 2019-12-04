@@ -1,13 +1,10 @@
 import React, {Component} from 'react';
 import {compose} from "redux";
 import {connect} from "react-redux";
-import { reduxForm, Field } from 'redux-form';
-import { Link } from 'react-router-dom';
 import Loader from 'react-loader-spinner';
 import { fetchInventory } from './../../actions';
 import InvControls from './invControls';
-import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
-import ModalInvAdd from './invAddPart';
+import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 
 class InventoryView extends Component {
     componentDidMount(){
