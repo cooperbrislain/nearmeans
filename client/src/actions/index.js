@@ -2,6 +2,7 @@ import * as types from './types';
 import axios from 'axios';
 
 export const searchPart = formProps => async dispatch => {
+    console.log(formProps);
     try {
         const response = await axios.post('/api/search/nearby', formProps);
         dispatch({ type: types.SEARCH_PART, payload: response.data });
