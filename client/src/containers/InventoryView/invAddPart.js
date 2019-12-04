@@ -6,17 +6,25 @@ import { Form, Col, Button, InputGroup, Modal, FormControl } from 'react-bootstr
 import { addInvItem } from "../../actions";
 
 class InventoryAddPartControl extends Component {
-    onSubmit = formProps => {
+    constructor(props) {
+        super(props);
+        this.state = {
+            show: false
+        };
+    }
+
+    onSubmit(formProps) {
         this.props.searchPart(formProps);
     };
 
-    handleClose() {
-        // setShow(false);
-    }
+    handleClose = () => {
+        this.setState({ show: false });
+    };
 
-    handleShow() {
-        // setShow(true);
-    }
+    handleShow = () => {
+        console.log('HANDLE SHOW');
+        this.setState({ show: true});
+    };
 
     handleSubmit = async formProps => {
         console.log('SUBMIT');
@@ -28,7 +36,7 @@ class InventoryAddPartControl extends Component {
             <>
                 <Button variant="primary" onClick={this.handleShow}>Add a Part to Inventory</Button>
 
-                <Modal show={this.show} onHide={this.handleClose}>
+                <Modal show={this.state.show} onHide={this.handleClose}>
                     <Modal.Header closeButton><Modal.Title>Add Part</Modal.Title></Modal.Header>
                     <Modal.Body>
                         <Form>
