@@ -30,7 +30,6 @@ module.exports = {
             await res.json(e);
         }
     },
-
     findAll: async (req, res) => {
         try {
             const allParts = await db.Part.find();
@@ -39,7 +38,6 @@ module.exports = {
             await res.json(e);
         }
     },
-
     findAllInRadius: async (req, res) => {
         let { partName, partId, searchZip, searchDistance } = req.body;
         console.log(`SEARCHING FOR PART NAMED ${partName} WITHIN ${searchDistance} MILES OF ${searchZip}`);
@@ -62,7 +60,6 @@ module.exports = {
             await res.json(e);
         }
     },
-
     findInRadiusOf: async (req, res) => {
         await res.json({success:true});
     }

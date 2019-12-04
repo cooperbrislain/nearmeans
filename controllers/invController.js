@@ -98,7 +98,19 @@ module.exports = {
                 { _id: userId },
                 { $pull: { inventory: { item : partId } } }
             );
-            await res.json();
+            await res.json({success:true});
+        } catch (e) {
+            await res.json(e);
+        }
+    },
+    transferPart: async (req, res) => {
+        const { userFrom, userTo, invtId, qty } = req.params;
+        console.log(`TRANSFERRING PART ${invId} FROM ${userFrom} TO ${userTo}`);
+        try {
+            // await db.User...
+            // decrement from user inventory
+            // increment to user inventory
+            await res.json({success:true});
         } catch (e) {
             await res.json(e);
         }
