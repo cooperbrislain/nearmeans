@@ -7,6 +7,8 @@ import styles from './index.css';
 import { Form, Col, Button, InputGroup } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'
+import axios from 'axios';
+import Select from "react-dropdown-select";
 
 const ReduxFormControl = ({input, meta, ...props}) => <Form.Control {...props} {...input} />;
 
@@ -17,8 +19,11 @@ class PartSearch extends Component {
         navigator.geolocation.getCurrentPosition((result) => {
             const { coords } = result;
             console.log(coords);
-            // finish this
         });
+    };
+
+    autoComplete = async (e) => {
+        const response = await axios.get(`/api/util/autocomplete/part?q=${e}`);
     };
 
     render() {
@@ -27,7 +32,7 @@ class PartSearch extends Component {
             <Form onSubmit={handleSubmit(this.onSubmit)} className=''>
                 <Form.Row>
                     <Col className="col-md-3">
-                        <Field name='partName' component={ReduxFormControl} placeholder='Part' />
+                        <Field name='partName' component={ReduxFormControl} onChange={this.autoComplete} placeholder='Part' />
                     </Col>
                     <Col className="col-md-2">
                         <InputGroup className="mb-3">
