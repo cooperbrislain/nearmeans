@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {compose} from "redux";
 import {connect} from "react-redux";
 
@@ -6,19 +6,9 @@ class SearchResults extends Component {
     renderSearchResults() {
         const { searchResults } = this.props;
         if (searchResults) {
-            return (
-                <ul>
-                    {searchResults.map((item, i) =>
-                        <li key={i}>{item.item.name}</li>
-                    )}
-                </ul>
-            );
+            return (<ul>{searchResults.map((item, i) => <li key={i}>{item.item.name}</li> )}</ul>);
         } else {
-            return (
-                <div>
-                    No Parts Found.
-                </div>
-            );
+            return (<>No Parts Found.</>);
         }
     }
 
@@ -32,7 +22,6 @@ class SearchResults extends Component {
 }
 
 function mapStateToProps(state) {
-    console.log(state);
     return { searchResults: state.search.searchResults };
 }
 

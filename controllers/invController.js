@@ -22,7 +22,6 @@ module.exports = {
     addPart: async (req, res) => {
         const { partId } = req.params;
         const userId = req.user._id;
-        console.log(`ADD PART ${partId} TO USER ${userId}`);
         try {
             const user = await db.User.findById(userId)
                 .populate({ 
@@ -31,16 +30,11 @@ module.exports = {
                         path: 'item'
                     }
                 }); 
-            const invIndex = user.inventory.findIndex((invItem) => {
-                return (invItem.item._id === partId);
-            });
+            const invIndex = user.inventory.findIndex(invItem => invItem.item._id === partId);
             if (invIndex!==-1) {
-                console.log('ITEM FOUND... INCREMENTING');
                 user.inventory[invIndex].qty++;
                 user.inventory[invIndex].save();
             } else {
-                console.log('ITEM NOT FOUND... ADDING');
-                console.log(`USING USER LOCATION: ${user.location}`);
                 const invItem = await new db.Inventory({ 
                     userId,
                     item: partId,
@@ -59,7 +53,6 @@ module.exports = {
     subPart: async (req, res) => {
         const { partId } = req.params;
         const userId = req.user._id;
-        console.log(`SUBTRACT PART ${partId} FROM USER ${userId}`);
         try {
             const user = await db.User.findById(userId)
                 .populate({ 
@@ -68,25 +61,20 @@ module.exports = {
                         path: 'item'
                     }
                 });
-            const invIndex = user.inventory.findIndex(invItem => {
-                console.log(invItem);
-                return (invItem.item._id == partId);
-            });
+            const invIndex = user.inventory.findIndex(invItem => invItem.item._id === partId);
             if (invIndex!==-1) {
-                console.log('ITEM FOUND... DECREMENTING');
                 user.inventory[invIndex].qty--;
                 user.inventory[invIndex].save();
                 if (user.inventory[invIndex].qty <= 0) {
-                    console.log('QUANTITY <= 0... REMOVING');
                     user.inventory.splice(invIndex,1);
                 }
             } else {
                 console.log('ITEM NOT FOUND');
             }
             await user.save();
-            res.json({success:true});
+            await res.json({success:true});
         } catch (e) {
-            res.json(e);
+            await res.json(e);
         }
     },
     updateInvItem: async (req, res) => {
@@ -96,9 +84,9 @@ module.exports = {
         console.log(`UPDATE INVENTORY ${invId} FROM USER ${userId}`);
         try {
             const result = await db.Inventory.findByIdAndUpdate(invId, invData);
-            res.json(result);
+            await res.json(result);
         } catch (e) {
-            res.json(e);
+            await res.json(e);
         }
     },
     deletePart: async (req, res) => {
@@ -110,9 +98,9 @@ module.exports = {
                 { _id: userId },
                 { $pull: { inventory: { item : partId } } }
             );
-            res.json();
+            await res.json();
         } catch (e) {
-            res.json(e);
+            await res.json(e);
         }
     }
 };

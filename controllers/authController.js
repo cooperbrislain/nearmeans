@@ -13,7 +13,6 @@ module.exports = {
         if(!email || !password){
             return res.status(422).json({ error: "you must provide an email and a password"});
         }
-
         try {
             const existingUser = await db.User.findOne({ email });
             if(existingUser) {
@@ -21,7 +20,7 @@ module.exports = {
             }
             const user = new db.User({ email, password });
             await user.save();
-            res.json({ token: tokenForUser(user) });
+            await res.json({ token: tokenForUser(user) });
         } catch(e) {
             console.log(e);
             res.status(404).json({ e });

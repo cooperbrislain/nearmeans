@@ -1,24 +1,21 @@
 import React, { Component } from 'react';
 import { reduxForm } from 'redux-form';
-import {compose} from "redux";
-import {connect} from "react-redux";
+import { compose } from "redux";
+import { connect } from "react-redux";
 import { Form, Col, Button, Modal, FormControl } from 'react-bootstrap';
 import { addInvItem } from "../../actions";
 
 class InventoryAddPartControl extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            show: false
-        };
+        this.state = { show: false };
     }
 
     onSubmit(formProps) { this.props.addInvItem(formProps); };
 
-    handleClose = () => { this.setState({ show: false })};
-    handleShow = () => { this.setState({ show: true})};
+    handleClose = () => this.setState({ show: false });
+    handleShow = () => this.setState({ show: true});
     handleSubmit = async formProps => {
-        console.log('SUBMIT');
         console.log(formProps);
     };
 
