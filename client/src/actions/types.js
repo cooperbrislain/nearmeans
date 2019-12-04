@@ -9,3 +9,6 @@ export const ADD_PART_ERROR = 'ADD_PART_ERROR';
 
 export const INV_LIST = 'INV_LIST';
 export const INV_ERROR = 'INV_FAILURE';
+
+export const ADD_INV_SUCCESS = 'ADD_INV_SUCCESS';
+export const ADD_INV_ERROR = 'ADD_INV_ERROR';

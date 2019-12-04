@@ -7,7 +7,7 @@ import Loader from 'react-loader-spinner';
 import { fetchInventory } from './../../actions';
 import InvControls from './invControls';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
-import ModalInvAdd from './invModals';
+import ModalInvAdd from './invAddPart';
 
 class InventoryView extends Component {
     componentDidMount(){
@@ -49,7 +49,6 @@ class InventoryView extends Component {
             <div id="inventory">
                 { this.renderInventory() }
                 <InvControls />
-                <ModalInvAdd />
             </div>
         );
     }

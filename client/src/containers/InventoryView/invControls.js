@@ -1,17 +1,15 @@
-import React, { Component } from 'react';
+import React, {Component, useState} from 'react';
 import { connect } from 'react-redux';
 import { compose } from "redux";
 import {reduxForm} from "redux-form";
-import { Form, Button } from 'react-bootstrap';
-import ModalInvAdd from './invModals';
+import {Form, Button, Modal, Col, FormControl} from 'react-bootstrap';
+import InventoryAddPartControl from './invAddPart';
 
 class InvControls extends Component {
     render() {
         return (
             <Form>
-                <Button variant="primary" onClick={ModalInvAdd.handleShow}>
-                    Add a Part
-                </Button>
+                <InventoryAddPartControl />
             </Form>
         )
     }
@@ -24,4 +22,3 @@ function mapStateToProps(state) {
 export default compose(
     connect(mapStateToProps, { })
 )(InvControls);
-

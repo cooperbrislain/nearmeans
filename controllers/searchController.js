@@ -25,18 +25,18 @@ module.exports = {
             const invItems = await db.Inventory.find({
                 "item.name": partName
             });
-            res.json({ invItems });
+            await res.json({ invItems });
         } catch(e) {
-            res.json(e);
+            await res.json(e);
         }
     },
 
     findAll: async (req, res) => {
         try {
             const allParts = await db.Part.find();
-            res.json(allParts);
+            await res.json(allParts);
         } catch(e) {
-            res.json(e);
+            await res.json(e);
         }
     },
 
@@ -50,27 +50,26 @@ module.exports = {
                 const part = await db.Part.findOne({ name: partName });
                 partId = part._id;
             } catch (e) {
-                res.json(e);
+                await res.json(e);
             }
         }
         console.log(`IN OTHER WORDS: ${partId} WITHIN ${radius} METERS OF ${location}`);
         try {
             const invItems = await db.Inventory.find().populate('item');
             const foundItems = invItems.filter((invItem) => {
-                //if (invItem.item._id !== partId) return 0;
                 console.log(`${invItem._id}: ${geolib.getDistance(location, invItem.location)}`);
                 if (geolib.getDistance(location, invItem.location) > radius) return 0;
                 console.log(`${invItem._id} passes!`);
                 return 1;
             });
             console.log(foundItems);
-            res.json({ searchResults: foundItems, center: location, radius });
+            await res.json({ searchResults: foundItems, center: location, radius });
         } catch (e) {
-            res.json(e);
+            await res.json(e);
         }
     },
 
     findInRadiusOf: async (req, res) => {
-        res.json({success:true});
+        await res.json({success:true});
     }
 };
