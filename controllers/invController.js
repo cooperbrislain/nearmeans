@@ -125,6 +125,7 @@ module.exports = {
                 part = await new db.Part({
                     name: partName
                 });
+                part.save();
                 const invItem = await new db.Inventory({
                     userId,
                     item: part._id,

@@ -7,5 +7,6 @@ router.route('/add/:partId').post(authMiddlewares.requireAuth, invController.add
 router.route('/sub/:partId').post(authMiddlewares.requireAuth, invController.subPart);
 router.route('/:invId').put(authMiddlewares.requireAuth, invController.updateInvItem);
 router.route('/:partId').delete(authMiddlewares.requireAuth, invController.deletePart);
+router.route('/add/byname/:partName').post(authMiddlewares.requireAuth, invController.addNewOrExistingPart);
 
 module.exports = router;

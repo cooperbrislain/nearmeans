@@ -11,13 +11,13 @@ class InventoryAddPartControl extends Component {
         this.state = { show: false };
     }
 
-    onSubmit(formProps) { this.props.addInvItem(formProps); };
+    onSubmit(formProps) {
+        console.log('FORM SUBMIT');
+        console.log(formProps);
+    };
 
     handleClose = () => this.setState({ show: false });
     handleShow = () => this.setState({ show: true});
-    handleSubmit = async formProps => {
-        console.log(formProps);
-    };
 
     render() {
         const { handleSubmit } = this.props;
@@ -28,7 +28,7 @@ class InventoryAddPartControl extends Component {
                 <Modal show={this.state.show} onHide={this.handleClose}>
                     <Modal.Header closeButton><Modal.Title>Add Part</Modal.Title></Modal.Header>
                     <Modal.Body>
-                        <Form onSubmit={handleSubmit(this.onSubmit)}>
+                        <Form onSubmit={handleSubmit(this.onSubmit)} id="addPartForm">
                             <Form.Row>
                                 <Col className="col-md-6"><FormControl name='itemName' placeholder='Part Name' /></Col>
                                 <Col className="col-md-3"><FormControl name='itemLoc' placeholder='Location' /></Col>
@@ -38,7 +38,7 @@ class InventoryAddPartControl extends Component {
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={this.handleClose}>Close</Button>
-                        <Button variant="primary" onClick={this.handleSubmit} type="submit">Save Changes</Button>
+                        <Button variant="primary" form="addPartForm" type="submit">Save Changes</Button>
                     </Modal.Footer>
                 </Modal>
             </>
