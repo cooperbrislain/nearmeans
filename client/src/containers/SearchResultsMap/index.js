@@ -16,6 +16,7 @@ class SearchResultsMap extends Component {
 
     renderGoogleMap() {
         const { searchResults } = this.props;
+        console.log(this.props);
         if (searchResults) {
             return (
                 <GoogleMapReact

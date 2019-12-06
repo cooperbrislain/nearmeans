@@ -11,14 +11,17 @@ import ReduxFormControl from "../reduxFormControl";
 import axios from 'axios';
 import Select from "react-dropdown-select";
 
-class PartSearch extends Component {
-    onSubmit = formProps => this.props.searchPart(formProps);
+const getGeoForUser = () => {
+    navigator.geolocation.getCurrentPosition((result) => {
+        const { coords } = result;
+        console.log(coords);
 
-    getGeolocation = () => {
-        navigator.geolocation.getCurrentPosition((result) => {
-            const { coords } = result;
-            console.log(coords);
-        });
+    });
+};
+
+class PartSearch extends Component {
+    onSubmit(formProps) {
+        this.props.searchPart(formProps);
     };
 
     autoComplete = async (e) => {
@@ -36,7 +39,7 @@ class PartSearch extends Component {
                     <Col className="col-md-2">
                         <InputGroup className="mb-3">
                             <Field name='searchZip' component={ReduxFormControl} placeholder='Zip Code' />
-                            <InputGroup.Append onClick={this.getGeolocation}>
+                            <InputGroup.Append onClick={getGeoForUser}>
                                 <InputGroup.Text><FontAwesomeIcon icon={faMapMarkerAlt} /></InputGroup.Text>
                             </InputGroup.Append>
                         </InputGroup>

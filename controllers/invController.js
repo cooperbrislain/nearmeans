@@ -135,6 +135,7 @@ module.exports = {
                 invItem.save();
                 user.inventory.push(invItem);
             }
+            user.save();
             await res.json({success: true});
         } catch (e) {
             await res.json(e);

@@ -6,19 +6,30 @@ import { fetchInventory } from './../../actions';
 import InvControls from './invControls';
 import ReactDataGrid from 'react-data-grid';
 
-
 class InventoryView extends Component {
     componentDidMount(){
         this.props.fetchInventory();
     }
 
+    onGridRowsUpdated = ({ fromRow, toRow, updated }) => {
+        this.setState(state => {
+            const rows = state.rows.slice();
+            for (let i = fromRow; i <= toRow; i++) {
+                rows[i] = { ...rows[i], ...updated };
+            }
+            return { rows };
+        });
+    };
+
     renderInventory() {
-        const { inventory } = this.props;
+        const { inventory } = this.props.inventory;
+        console.log('INVENTORY VIEW');
+        console.log(inventory);
         const columns = [
             { key: '_id', name: 'ID' },
-            { key: 'name', name: 'Part Name' },
+            { key: 'name', name: 'Part Name', editable: true },
             { key: 'qty', name: 'Quantity', editable: true },
-            { key: 'location', name: 'Location' }
+            { key: 'location', name: 'Location', editable: true }
             ];
 
         const rows = inventory.map((invItem) => {
@@ -30,7 +41,8 @@ class InventoryView extends Component {
                 location: `lat: ${location.lat} lng: ${location.lng}`
             }
         });
-        if (false && inventory.length === 0) {
+
+        if (false && inventory.length === 0) { // come back to this later, temporarily disabled
             return (
                 <Loader
                     type="Oval"
@@ -41,22 +53,19 @@ class InventoryView extends Component {
             );
         } else {
             return (
-                <ReactDataGrid
-                    columns={columns}
-                    rowGetter={i => rows[i]}
-                    rowsCount={3}
-                    minHeight={150} />
-                // <BootstrapTable data={rows} striped hover>
-                //     <TableHeaderColumn isKey dataField='_id'>Part ID</TableHeaderColumn>
-                //     <TableHeaderColumn dataField='name'>Part Name</TableHeaderColumn>
-                //     <TableHeaderColumn dataField='qty'>Quantity</TableHeaderColumn>
-                //     <TableHeaderColumn dataField='location'>Location</TableHeaderColumn>
-                // </BootstrapTable>
+                <>
+                    <ReactDataGrid
+                        columns={columns}
+                        rowGetter={i => rows[i]}
+                        rowsCount={inventory.length}
+                        minHeight={150} />
+                </>
             );
         }
     }
 
     render() {
+        console.log('render');
         return (
             <div id="inventory">
                 { this.renderInventory() }
@@ -67,7 +76,7 @@ class InventoryView extends Component {
 }
 
 function mapStateToProps({ inventory }) {
-    return { inventory: inventory.inventory };
+    return { inventory };
 }
 
 export default compose(connect(mapStateToProps, { fetchInventory }))(InventoryView);

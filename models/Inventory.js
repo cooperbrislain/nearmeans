@@ -6,8 +6,8 @@ const InventorySchema = new Schema({
     userId: { type: Schema.Types.ObjectId, ref: 'User' },
     item: { type: Schema.Types.ObjectId, ref: 'Part' },
     location: {
-        longitude: Number,
-        latitude: Number
+        lng: Number,
+        lat: Number
     },
     qty: Number
 });

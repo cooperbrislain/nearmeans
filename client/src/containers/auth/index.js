@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
+import styles from './index.css';
 
 class AuthWidget extends Component {
     renderLinks(){
