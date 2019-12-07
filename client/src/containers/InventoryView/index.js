@@ -6,6 +6,7 @@ import { fetchInventory, updateInvItem } from './../../actions';
 import InvControls from './invControls';
 import ReactDataGrid from 'react-data-grid';
 import { Editors } from 'react-data-grid-addons';
+import ReactDOM from 'react-dom';
 import axios from 'axios';
 
 const { DropDownEditor } = Editors;
@@ -14,11 +15,6 @@ class InventoryView extends Component {
     componentDidMount(){
         this.props.fetchInventory();
     }
-
-    autoComplete = async (e) => {
-        console.log(e);
-        const response = await axios.get(`/api/util/autocomplete/part?q=${e}`);
-    };
 
     onGridRowsUpdated = ({ fromRow, toRow, updated }) => {
         this.setState(state => {
@@ -32,8 +28,6 @@ class InventoryView extends Component {
         });
     };
 
-    partDropDown = () => <DropDownEditor options={ this.props.autocomplete } />;
-
     renderInventory() {
         const { inventory } = this.props.inventory;
         console.log('INVENTORY VIEW');
@@ -43,6 +37,7 @@ class InventoryView extends Component {
                 key: 'name',
                 name: 'Part Name',
                 editable: true,
+                editor: PartPicker,
                 events: {
                     onChange: (e) => console.log('change')
                 }
@@ -85,12 +80,62 @@ class InventoryView extends Component {
     }
 
     render() {
-        console.log('render');
+        console.log('render inventory view');
         return (
             <div id="inventory">
                 { this.renderInventory() }
                 <InvControls />
             </div>
+        );
+    }
+}
+
+class PartPicker extends React.Component {
+    autoComplete = async (e) => {
+        const str = e.target.value;
+        const { data } = await axios.get(`/api/util/autocomplete/part?q=${str}`);
+        console.log(data);
+    };
+
+    constructor(props) {
+        super(props);
+        this.state = { color: props.value };
+    }
+
+    getInputNode() {
+        return ReactDOM.findDOMNode(this).getElementsByTagName("input")[0];
+    }
+
+    // handleChange = e => {
+    //     console.log(e.target.value);
+    //
+    // };
+
+    render() {
+        return (
+            <input type="text" onChange={this.autoComplete}/>
+        );
+    }
+}
+
+class LocationPicker extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { color: props.value };
+    }
+
+    getInputNode() {
+        return ReactDOM.findDOMNode(this).getElementsByTagName("input")[0];
+    }
+
+    // handleChange = e => {
+    //     console.log(e.target.value);
+    //
+    // };
+
+    render() {
+        return (
+            <input type="text"/>
         );
     }
 }
