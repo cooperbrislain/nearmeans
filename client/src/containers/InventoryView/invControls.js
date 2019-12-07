@@ -2,18 +2,16 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { compose } from "redux";
 import { Button } from 'react-bootstrap';
-import {fetchInventory} from "../../actions";
+import { fetchInventory, addInvItem } from "../../actions";
 
 class InvControls extends Component {
     newRow = () => {
         console.log('NEW ITEM');
-        const { inventory } = this.props.inventory;
-        inventory.push({'name':'test'});
-        console.log(inventory);
+        const { addInvItem } = this.props;
+        addInvItem();
     };
 
     PlusButton = () => {
-
         return (
             <Button onClick={this.newRow}>
                 +
@@ -34,4 +32,4 @@ function mapStateToProps({ inventory }) {
     return { inventory };
 }
 
-export default compose(connect(mapStateToProps, { }))(InvControls);
+export default compose(connect(mapStateToProps, { addInvItem }))(InvControls);

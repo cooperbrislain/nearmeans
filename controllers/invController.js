@@ -14,6 +14,7 @@ module.exports = {
                     }
                 });
             let inv = user.inventory;
+            console.log(user);
             await res.json(inv);
         } catch (e) {
             await res.json(e);
@@ -117,7 +118,7 @@ module.exports = {
     },
     addNewOrExistingPart: async (req, res) => {
         const { partName, qty } = req.params;
-        const user = {req};
+        const { user } = req;
         const userId = user._id;
         try {
             let part = await db.Part.find({name: partName});
@@ -125,17 +126,34 @@ module.exports = {
                 part = await new db.Part({
                     name: partName
                 });
-                part.save();
+                await part.save();
                 const invItem = await new db.Inventory({
                     userId,
                     item: part._id,
                     qty,
                     location: user.location
                 });
-                invItem.save();
+                await invItem.save();
                 user.inventory.push(invItem);
             }
-            user.save();
+            await user.save();
+            await res.json({success: true});
+        } catch (e) {
+            await res.json(e);
+        }
+    },
+    addEmptyPart: async (req, res) => {
+        const { user } = req;
+        const userId = user._id;
+        try {
+            const invItem = await new db.Inventory({
+                userId,
+                qty: 0,
+                location: user.location
+            });
+            await invItem.save();
+            user.inventory.push(invItem);
+            await user.save();
             await res.json({success: true});
         } catch (e) {
             await res.json(e);

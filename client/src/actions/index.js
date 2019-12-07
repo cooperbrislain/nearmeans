@@ -61,9 +61,10 @@ export const addPart = (formProps) => async dispatch => {
 };
 
 export const addInvItem = (formProps) => async dispatch => {
+    console.log(formProps);
     try {
-        const response = await axios.post('/api/inv/add', formProps);
-        dispatch({ type: types.INV_ADD, payload: response.data.invItem});
+        const response = await axios.post('/api/user/inv/add', formProps);
+        dispatch({ type: types.INV_ADD, payload: response.data.invItem });
     } catch (e) {
         dispatch({ type: types.INV_ERROR, payload: 'Failed to add item to inventory' });
     }

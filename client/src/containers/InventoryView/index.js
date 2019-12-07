@@ -34,7 +34,7 @@ class InventoryView extends Component {
 
         const rows = inventory.map((invItem) => {
             const defaultLocation = { location: { lat: 0, lng: 0 }};
-            const { location } = invItem.location || defaultLocation;
+            const { location } = invItem;
             return { ...invItem,
                 _id: invItem._id,
                 name: invItem.item.name,

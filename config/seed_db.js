@@ -1,10 +1,14 @@
 const mongoose = require("mongoose");
 const db = require("../models");
-// This file empties the Books collection and inserts the books below
-mongoose.connect(
-    process.env.MONGODB_URI ||
-    "mongodb://localhost/nearmeans"
-);
+
+console.log('SEEDING DATABASE');
+
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/nearmeans', {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true
+}, () => { console.log('connected to mongoDB') });
+
 const userSeed = {
     email: 'test@user.com',
     password: '123qwe',
@@ -42,61 +46,35 @@ const partSeed = [
 ];
 
 const seedMe = async () => {
-    // flush existing data
-    await db.Inventory.deleteMany({});
-    await db.User.deleteMany({});
-    await db.Part.deleteMany({});
-    const newUser = await new db.User(userSeed);
-    await newUser.save();
-    partSeed.map(async part => {
-        const newPart = await new db.Part({ name: part.name });
-        await newPart.save();
-        const newInv = await new db.Inventory({ item: newPart, userId: newUser, qty: 1, location: part.location });
-        await newInv.save();
-    })
+    try {
+        // flush existing data
+        await db.Inventory.deleteMany({});
+        await db.User.deleteMany({});
+        await db.Part.deleteMany({});
+        console.log('DELETED STUFF');
+        const newUser = await new db.User(userSeed);
+        await newUser.save();
+        console.log('MADE USER');
+        await Promise.all(partSeed.map(async part => {
+            const newPart = await new db.Part({name: part.name});
+            await newPart.save();
+            console.log(`New Part: ${newPart._id}`);
+            const newInv = await new db.Inventory({
+                item: newPart._id,
+                userId: newUser._id,
+                qty: 1,
+                location: part.location});
+            await newInv.save();
+            console.log(`Added ${newInv._id} to Inventory`);
+            newUser.inventory.push(newInv);
+        }));
+        await newUser.save();
+        console.log(`User ${newUser._id} saved`);
+    } catch (e) {
+        console.log(e);
+    }
 };
 
-seedMe();
-//
-// db.User
-//     .deleteMany({})
-//     .then(() => {
-//         newUser = new db.User(userSeed);
-//         newUser.save();
-//     })
-//     .then(data => {
-//         console.log(data);
-//         console.log(`userId: ${newUser._id}`);
-//         process.exit(0);
-//     })
-//     .then(data => {
-//         db.Part
-//             .deleteMany({})
-//             .then(() => {
-//                 const parts = partSeed.map((part) => {
-//                     const newPart = new db.Part({ name: part.name });
-//                     newPart.save()
-//                         .then (() => {
-//                             const newInv = new db.Inventory(
-//                                 { qty: 1, location: part.location },
-//                                 { $push: { item: newPart._id, userId: newUser._id } });
-//                             newInv.save();
-//                         });
-//                     return newPart;
-//                 });
-//             })
-//             .then(data => {
-//                 console.log(data);
-//                 process.exit(0);
-//             })
-//             .catch(err => {
-//                 console.error(err);
-//                 process.exit(1);
-//             });
-//     })
-//     .catch(err => {
-//         console.error(err);
-//         process.exit(1);
-//     })
-//     .finally()
-
+seedMe().then(() => {
+    process.exit(1);
+});
