@@ -1,15 +1,25 @@
 import React, {Component} from 'react';
-import {compose} from "redux";
-import {connect} from "react-redux";
+import {compose} from 'redux';
+import {connect} from 'react-redux';
 import Loader from 'react-loader-spinner';
 import { fetchInventory, updateInvItem } from './../../actions';
 import InvControls from './invControls';
 import ReactDataGrid from 'react-data-grid';
+import { Editors } from 'react-data-grid-addons';
+import axios from 'axios';
+
+const { DropDownEditor } = Editors;
 
 class InventoryView extends Component {
     componentDidMount(){
         this.props.fetchInventory();
     }
+
+    autoComplete = async (e) => {
+        console.log(e);
+        const response = await axios.get(`/api/util/autocomplete/part?q=${e}`);
+    };
+
     onGridRowsUpdated = ({ fromRow, toRow, updated }) => {
         this.setState(state => {
             const { inventory } = this.props.inventory;
@@ -22,12 +32,21 @@ class InventoryView extends Component {
         });
     };
 
+    partDropDown = () => <DropDownEditor options={ this.props.autocomplete } />;
+
     renderInventory() {
         const { inventory } = this.props.inventory;
         console.log('INVENTORY VIEW');
         const columns = [
             { key: '_id', name: 'ID' },
-            { key: 'name', name: 'Part Name', editable: true },
+            {
+                key: 'name',
+                name: 'Part Name',
+                editable: true,
+                events: {
+                    onChange: (e) => console.log('change')
+                }
+            },
             { key: 'qty', name: 'Quantity', editable: true },
             { key: 'location', name: 'Location', editable: true }
             ];
@@ -76,8 +95,8 @@ class InventoryView extends Component {
     }
 }
 
-function mapStateToProps({ inventory }) {
-    return { inventory };
+function mapStateToProps({ inventory, autocomplete }) {
+    return { inventory, autocomplete };
 }
 
 export default compose(connect(mapStateToProps, { fetchInventory, updateInvItem }))(InventoryView);
