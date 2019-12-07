@@ -24,24 +24,19 @@ class SearchResultsMap extends Component {
                     defaultCenter={this.props.center}
                     defaultZoom={this.props.zoom}
                 >
-                    { searchResults.map((item, i) => {
-                        return (<Marker
+                    { searchResults.map((item, i) =>
+                        <Marker
                             key={i}
-                            lat={item.location.latitude}
-                            lng={item.location.longitude}
+                            lat={item.location.lat}
+                            lng={item.location.lng}
                             name={item.item.name}
                             text={item.item.name}
-                        />);
-                    })
-                    }
+                        />
+                    )}
                 </GoogleMapReact>
             );
         } else {
-            return (
-                <div>
-                    No Parts Found.
-                </div>
-            );
+            return <div/>;
         }
     }
 
@@ -55,7 +50,7 @@ class SearchResultsMap extends Component {
 }
 
 function mapStateToProps(state) {
-    return { searchResults: state.search.searchResults };
+    return { searchResults: state.search.searchResults, center: state.search.center };
 }
 
 export default compose(

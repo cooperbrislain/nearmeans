@@ -14,8 +14,6 @@ import Select from "react-dropdown-select";
 const getGeoForUser = () => {
     navigator.geolocation.getCurrentPosition((result) => {
         const { coords } = result;
-        console.log(coords);
-
     });
 };
 
