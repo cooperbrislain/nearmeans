@@ -20,7 +20,7 @@ const getGeoForUser = () => {
 };
 
 class PartSearch extends Component {
-    onSubmit(formProps) {
+    onSubmit = (formProps) => {
         this.props.searchPart(formProps);
     };
 
