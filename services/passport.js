@@ -28,16 +28,11 @@ const localLogin = new LocalStrategy(localOptions, async (email, password, done)
 });
 
 const jwtOptions = {
-    // Tells JwtStrategy that whenever a request comes in
-    // and we want passport to handle it
-    //  it needs to look from the header and more specifically from the property
-    // called 'authorization'
     jwtFromRequest: ExtractJwt.fromHeader('authorization'),
     secretOrKey: config.secret
 };
 
 const jwtLogin = new JwtStrategy(jwtOptions, async(payload, done) => {
-    // See if the user.id in the payload exists in our database
     try {
         const user = await User.findById(payload.sub);
         if(user) {

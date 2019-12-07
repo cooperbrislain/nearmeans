@@ -81,8 +81,9 @@ module.exports = {
     updateInvItem: async (req, res) => {
         const { invId } = req.params;
         const userId = req.user._id;
-        const { invData } = req.body;
+        const invData = req.body;
         console.log(`UPDATE INVENTORY ${invId} FROM USER ${userId}`);
+        console.log('Data', invData);
         try {
             const result = await db.Inventory.findByIdAndUpdate(invId, invData);
             await res.json(result);

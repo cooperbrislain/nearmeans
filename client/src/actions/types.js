@@ -10,4 +10,5 @@ export const PART_ERROR = 'PART_ERROR';
 
 export const INV_LIST = 'INV_LIST';
 export const INV_ADD = 'INV_ADD';
+export const INV_UPDATE = 'INV_UPDATE';
 export const INV_ERROR = 'INV_ERROR';

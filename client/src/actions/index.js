@@ -42,12 +42,28 @@ export const signOut = () => {
 
 export const fetchInventory = () => async dispatch => {
     try {
-        const response = await axios.get('/api/user/inv', { 
+        const response = await axios.get('/api/user/inv', {
             headers: { authorization: localStorage.getItem('token')}
         });
         dispatch({ type: types.INV_LIST, payload: response.data });
     } catch(e) {
         dispatch({ type: types.INV_ERROR, payload: 'Error loading inventory' });
+    }
+};
+
+export const updateInvItem = (formProps) => async dispatch => {
+    const invItem = formProps;
+    const invId = invItem._id;
+    const headers = { authorization: localStorage.getItem('token')};
+    try {
+        const resource = `/api/user/inv/${invId}`;
+        const response = await axios.put(resource, invItem, {
+            headers
+        });
+        console.log(response);
+        dispatch({ type: types.INV_UPDATE, payload: response.data });
+    } catch (e) {
+        dispatch({ type: types.INV_ERROR, payload: 'Error updating inventory' });
     }
 };
 
@@ -61,7 +77,6 @@ export const addPart = (formProps) => async dispatch => {
 };
 
 export const addInvItem = (formProps) => async dispatch => {
-    console.log(formProps);
     try {
         const response = await axios.post('/api/user/inv/add', formProps);
         dispatch({ type: types.INV_ADD, payload: response.data.invItem });
