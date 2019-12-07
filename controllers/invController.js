@@ -143,6 +143,7 @@ module.exports = {
         }
     },
     addEmptyPart: async (req, res) => {
+        console.log('ADD EMPTY PART');
         const { user } = req;
         const userId = user._id;
         try {

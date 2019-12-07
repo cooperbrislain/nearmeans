@@ -35,10 +35,11 @@ class InventoryView extends Component {
         const rows = inventory.map((invItem) => {
             const defaultLocation = { location: { lat: 0, lng: 0 }};
             const { location } = invItem;
+            const item = invItem.item;
             return { ...invItem,
                 _id: invItem._id,
-                name: invItem.item.name,
-                location: `lat: ${location.lat} lng: ${location.lng}`
+                name: item? item.name: '',
+                location: location? `lat: ${location.lat} lng: ${location.lng}`: 'nowhere'
             }
         });
 
@@ -58,7 +59,10 @@ class InventoryView extends Component {
                         columns={columns}
                         rowGetter={i => rows[i]}
                         rowsCount={inventory.length}
-                        minHeight={150} />
+                        minHeight={150}
+                        onGridRowsUpdated={this.onGridRowsUpdated}
+                        enableCellSelect={true}
+                    />
                 </>
             );
         }

@@ -2,6 +2,7 @@ const router = require('express').Router();
 const invController = require('../../../../controllers/invController');
 const authMiddlewares = require('../../../../middlewares/authMiddlewares');
 
+
 router.route('/').get(authMiddlewares.requireAuth, invController.getParts);
 router.route('/add/:partId').post(authMiddlewares.requireAuth, invController.addPart);
 router.route('/sub/:partId').post(authMiddlewares.requireAuth, invController.subPart);
