@@ -1,6 +1,7 @@
-import React, {Component} from 'react';
-import {compose} from 'redux';
-import {connect} from 'react-redux';
+import React, { Component } from 'react';
+import { reduxForm, Field } from 'redux-form';
+import { compose } from "redux";
+import { connect } from 'react-redux';
 import Loader from 'react-loader-spinner';
 import { fetchInventory, updateInvItem } from './../../actions';
 import InvControls from './invControls';
@@ -8,9 +9,8 @@ import ReactDataGrid from 'react-data-grid';
 import { Editors } from 'react-data-grid-addons';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-import { Dropdown } from 'react-bootstrap';
+import { Dropdown, FormControl } from 'react-bootstrap';
 import styles from './index.css';
-
 const { DropDownEditor } = Editors;
 
 class InventoryView extends Component {
@@ -39,7 +39,11 @@ class InventoryView extends Component {
                 editor: PartPicker
             },
             { key: 'qty', name: 'Quantity', editable: true },
-            { key: 'location', name: 'Location', editable: true }
+            {
+                key: 'location',
+                name: 'Location',
+                editor: LocationPicker
+            }
             ];
         const rows = inventory.map((invItem) => {
             const defaultLocation = { location: { lat: 0, lng: 0 }};
@@ -87,23 +91,15 @@ class InventoryView extends Component {
 
 class PartPicker extends React.Component {
     autoComplete = async (e) => {
-        const str = e.target.value;
-        const { data } = await axios.get(`/api/util/autocomplete/part?q=${str}`);
+        const { data } = await axios.get(`/api/util/autocomplete/part?q=${e.target.value}`);
         this.setState({ autocomplete: data });
     };
-
-    getInputNode() {
-        return ReactDOM.findDOMNode(this).getElementsByTagName("input")[0];
-    };
-
+    getInputNode = () => ReactDOM.findDOMNode(this).getElementsByTagName("input")[0];
+    getValue = () => ({ item: this.getInputNode().value });
     selectPart = (e) => {
         const partId = e.target.getAttribute('value');
         this.getInputNode().value = partId;
         this.props.onCommit();
-    };
-
-    getValue = () => {
-        return { item: this.getInputNode().value };
     };
 
     render() {
@@ -121,28 +117,13 @@ class PartPicker extends React.Component {
     };
 }
 
-// class LocationPicker extends React.Component {
-//     constructor(props) {
-//         super(props);
-//         this.state = { color: props.value };
-//
-//     }
-//
-//     getInputNode() {
-//         return ReactDOM.findDOMNode(this).getElementsByTagName("input")[0];
-//     }
-//
-//     // handleChange = e => {
-//     //     console.log(e.target.value);
-//     //
-//     // };
-//
-//     render() {
-//         return (
-//             <input type="text"/>
-//         );
-//     }
-// }
+class LocationPicker extends React.Component {
+    getInputNode = () => (ReactDOM.findDOMNode(this).getElementsByTagName("input")[0]);
+    getValue = async () => this.getInputNode().value;
+    render() {
+        return (<input type="text" />);
+    }
+}
 
 function mapStateToProps({ inventory, autocomplete }) {
     return { inventory, autocomplete };
