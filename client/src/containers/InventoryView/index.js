@@ -32,17 +32,12 @@ class InventoryView extends Component {
 
     renderInventory() {
         const { inventory } = this.props.inventory;
-        console.log('INVENTORY VIEW');
         const columns = [
             { key: '_id', name: 'ID' },
             {
-                key: 'name',
+                key: 'partName',
                 name: 'Part Name',
-                editable: true,
-                editor: PartPicker,
-                events: {
-                    onChange: (e) => console.log('change')
-                }
+                editor: PartPicker
             },
             { key: 'qty', name: 'Quantity', editable: true },
             { key: 'location', name: 'Location', editable: true }
@@ -53,7 +48,7 @@ class InventoryView extends Component {
             const item = invItem.item;
             return { ...invItem,
                 _id: invItem._id,
-                name: item? item.name: '',
+                partName: item? item.name: '',
                 location: location? `lat: ${location.lat} lng: ${location.lng}`: 'nowhere'
             }
         });
@@ -82,7 +77,6 @@ class InventoryView extends Component {
     }
 
     render() {
-        console.log('render inventory view');
         return (
             <div id="inventory">
                 { this.renderInventory() }
@@ -103,15 +97,26 @@ class PartPicker extends React.Component {
         return ReactDOM.findDOMNode(this).getElementsByTagName("input")[0];
     };
 
+    selectPart = (e) => {
+        console.log('SELECT PART');
+        const partId = e.target.getAttribute('value');
+        console.log(partId);
+        this.setState({ partId: partId });
+        console.log(this.state);
+    };
+
+    getValue = () => {
+        return this.state.partId;
+    };
+
     render() {
-        console.log('render PartPicker');
         const { autocomplete } = this.state || { autocomplete: [] };
         return (
             <Dropdown show={true}>
                 <input type="text" onChange={this.autoComplete} />
                 <Dropdown.Menu className="part-picker-dropdown" show={true}>
                     { autocomplete.map((part, i) => {
-                        return <Dropdown.Item key={i}>{part.name}</Dropdown.Item>
+                        return <Dropdown.Item key={i} onClick={this.selectPart} value={part._id}>{part.name}</Dropdown.Item>
                     })}
                 </Dropdown.Menu>
             </Dropdown>

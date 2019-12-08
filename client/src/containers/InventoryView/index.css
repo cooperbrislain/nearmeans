@@ -1,4 +1,5 @@
 .part-picker-dropdown {
     opacity: 1 !important;
     margin-top: 35px;
+    pointer-events: auto !important;
 }
