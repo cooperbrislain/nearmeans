@@ -21,12 +21,11 @@ class InventoryView extends Component {
     onGridRowsUpdated = ({ fromRow, toRow, updated }) => {
         this.setState(state => {
             const { inventory } = this.props.inventory;
-            const rows = inventory;
             for (let i = fromRow; i <= toRow; i++) {
-                rows[i] = { ...rows[i], ...updated };
-                this.props.updateInvItem(rows[i]);
+                inventory[i] = { ...inventory[i], ...updated };
+                this.props.updateInvItem(inventory[i]);
             }
-            return { rows };
+            return { inventory };
         });
     };
 
@@ -35,8 +34,8 @@ class InventoryView extends Component {
         const columns = [
             { key: '_id', name: 'ID' },
             {
-                key: 'partName',
-                name: 'Part Name',
+                key: 'partId',
+                name: 'Part',
                 editor: PartPicker
             },
             { key: 'qty', name: 'Quantity', editable: true },
@@ -48,7 +47,7 @@ class InventoryView extends Component {
             const item = invItem.item;
             return { ...invItem,
                 _id: invItem._id,
-                partName: item? item.name: '',
+                partId: invItem.item? invItem.item._id : '',
                 location: location? `lat: ${location.lat} lng: ${location.lng}`: 'nowhere'
             }
         });
@@ -98,15 +97,13 @@ class PartPicker extends React.Component {
     };
 
     selectPart = (e) => {
-        console.log('SELECT PART');
         const partId = e.target.getAttribute('value');
-        console.log(partId);
-        this.setState({ partId: partId });
-        console.log(this.state);
+        this.getInputNode().value = partId;
+        this.props.onCommit();
     };
 
     getValue = () => {
-        return this.state.partId;
+        return { item: this.getInputNode().value };
     };
 
     render() {

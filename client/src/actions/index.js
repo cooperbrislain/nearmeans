@@ -60,7 +60,6 @@ export const updateInvItem = (formProps) => async dispatch => {
         const response = await axios.put(resource, invItem, {
             headers
         });
-        console.log(response);
         dispatch({ type: types.INV_UPDATE, payload: response.data });
     } catch (e) {
         dispatch({ type: types.INV_ERROR, payload: 'Error updating inventory' });

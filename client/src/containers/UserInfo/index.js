@@ -40,7 +40,6 @@ class UserInfo extends Component {
     }
 
     render() {
-        console.log(this.props);
         return(
             <div id='user-info'>
                 { this.renderUserInfo() }

@@ -3,7 +3,6 @@ const db = require('./../models');
 module.exports = {
     getParts: async (req, res) => {
         const userId = req.user._id;
-        console.log(`SHOW INVENTORY FOR USER ${userId}`);
         try {
             const user = await db.User.findById(userId)
                 .populate({ 
@@ -14,7 +13,6 @@ module.exports = {
                     }
                 });
             let inv = user.inventory;
-            console.log(user);
             await res.json(inv);
         } catch (e) {
             await res.json(e);
@@ -82,8 +80,6 @@ module.exports = {
         const { invId } = req.params;
         const userId = req.user._id;
         const invData = req.body;
-        console.log(`UPDATE INVENTORY ${invId} FROM USER ${userId}`);
-        console.log('Data', invData);
         try {
             const result = await db.Inventory.findByIdAndUpdate(invId, invData);
             await res.json(result);
@@ -94,7 +90,6 @@ module.exports = {
     deletePart: async (req, res) => {
         const { partId } = req.params;
         const userId = req.user._id;
-        console.log(`DELETE PART ${partId} FROM USER ${userId}`);
         try {
             await db.User.update( 
                 { _id: userId },
@@ -107,7 +102,6 @@ module.exports = {
     },
     transferPart: async (req, res) => {
         const { userFrom, userTo, invtId, qty } = req.params;
-        console.log(`TRANSFERRING PART ${invId} FROM ${userFrom} TO ${userTo}`);
         try {
             // await db.User...
             // decrement from user inventory
@@ -144,7 +138,6 @@ module.exports = {
         }
     },
     addEmptyPart: async (req, res) => {
-        console.log('ADD EMPTY PART');
         const { user } = req;
         const userId = user._id;
         try {

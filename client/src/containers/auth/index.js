@@ -7,7 +7,6 @@ import styles from './index.css';
 class AuthWidget extends Component {
     renderLinks(){
         const { auth } = this.props;
-        console.log(auth);
         if(auth) {
             return (
                 <div>
