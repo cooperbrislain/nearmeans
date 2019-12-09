@@ -11,13 +11,9 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 import { Dropdown, FormControl } from 'react-bootstrap';
 import styles from './index.css';
-const { DropDownEditor } = Editors;
 
 class InventoryView extends Component {
-    componentDidMount(){
-        this.props.fetchInventory();
-    }
-
+    componentDidMount = () => this.props.fetchInventory();
     onGridRowsUpdated = ({ fromRow, toRow, updated }) => {
         this.setState(state => {
             const { inventory } = this.props.inventory;
@@ -28,25 +24,15 @@ class InventoryView extends Component {
             return { inventory };
         });
     };
-
     renderInventory() {
         const { inventory } = this.props.inventory;
         const columns = [
             { key: '_id', name: 'ID' },
-            {
-                key: 'partId',
-                name: 'Part',
-                editor: PartPicker
-            },
+            { key: 'partId', name: 'Part', editor: PartPicker },
             { key: 'qty', name: 'Quantity', editable: true },
-            {
-                key: 'location',
-                name: 'Location',
-                editor: LocationPicker
-            }
+            { key: 'location', name: 'Location', editor: LocationPicker }
             ];
         const rows = inventory.map((invItem) => {
-            const defaultLocation = { location: { lat: 0, lng: 0 }};
             const { location } = invItem;
             const item = invItem.item;
             return { ...invItem,
@@ -56,29 +42,19 @@ class InventoryView extends Component {
             }
         });
         if (false && inventory.length === 0) { // come back to this later, temporarily disabled
-            return (
-                <Loader
-                    type="Oval"
-                    color="purple"
-                    height={100}
-                    width={100}
-                />
-            );
+            return (<Loader type="Oval" color="purple" height={100} width={100} />);
         } else {
             return (
-                <>
-                    <ReactDataGrid
-                        columns={columns}
-                        rowGetter={i => rows[i]}
-                        rowsCount={inventory.length}
-                        onGridRowsUpdated={this.onGridRowsUpdated}
-                        enableCellSelect={true}
-                    />
-                </>
+                <ReactDataGrid
+                    columns={columns}
+                    rowGetter={i => rows[i]}
+                    rowsCount={inventory.length}
+                    onGridRowsUpdated={this.onGridRowsUpdated}
+                    enableCellSelect={true}
+                />
             );
         }
     }
-
     render() {
         return (
             <div id="inventory">
@@ -101,7 +77,6 @@ class PartPicker extends React.Component {
         this.getInputNode().value = partId;
         this.props.onCommit();
     };
-
     render() {
         const { autocomplete } = this.state || { autocomplete: [] };
         return (
@@ -118,8 +93,8 @@ class PartPicker extends React.Component {
 }
 
 class LocationPicker extends React.Component {
-    getInputNode = () => (ReactDOM.findDOMNode(this).getElementsByTagName("input")[0]);
-    getValue = async () => this.getInputNode().value;
+    getInputNode = () => ReactDOM.findDOMNode(this).getElementsByTagName("input")[0];
+    getValue = () => { console.log(this.getInputNode) }
     render() {
         return (<input type="text" />);
     }

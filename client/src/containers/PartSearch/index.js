@@ -3,12 +3,12 @@ import { reduxForm, Field } from 'redux-form';
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { searchPart } from './../../actions';
-import styles from './index.css';
 import { Form, Col, Button, InputGroup } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'
 import ReduxFormControl from "../reduxFormControl";
 import axios from 'axios';
+import FA from '../FA.js'
+import styles from './index.css';
 import Select from "react-dropdown-select";
 
 const getGeoForUser = () => {
@@ -18,14 +18,8 @@ const getGeoForUser = () => {
 };
 
 class PartSearch extends Component {
-    onSubmit = (formProps) => {
-        this.props.searchPart(formProps);
-    };
-
-    autoComplete = async (e) => {
-        const response = await axios.get(`/api/util/autocomplete/part?q=${e}`);
-    };
-
+    onSubmit = (formProps) => this.props.searchPart(formProps);
+    autoComplete = async (e) => axios.get(`/api/util/autocomplete/part?q=${e}`);
     render() {
         const { handleSubmit } = this.props;
         return (
@@ -38,7 +32,7 @@ class PartSearch extends Component {
                         <InputGroup className="mb-3">
                             <Field name='searchZip' component={ReduxFormControl} placeholder='Zip Code' />
                             <InputGroup.Append onClick={getGeoForUser}>
-                                <InputGroup.Text><FontAwesomeIcon icon={faMapMarkerAlt} /></InputGroup.Text>
+                                <InputGroup.Text><FA icon={faMapMarkerAlt} /></InputGroup.Text>
                             </InputGroup.Append>
                         </InputGroup>
                     </Col>
@@ -59,10 +53,7 @@ class PartSearch extends Component {
     }
 }
 
-function mapStateToProps(state) {
-    return { state };
-}
-
+const mapStateToProps = state => ({ state });
 export default compose(
     connect(mapStateToProps, { searchPart }),
     reduxForm({ form: 'searchForm' })

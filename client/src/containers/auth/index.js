@@ -7,22 +7,18 @@ import styles from './index.css';
 class AuthWidget extends Component {
     renderLinks(){
         const { auth } = this.props;
-        if(auth) {
-            return (
-                <div>
-                    <Link to='/dashboard'>Dashboard</Link>
-                    <Link to='/inventory'>Inventory</Link>
-                    <Link to='/signout'>Sign Out</Link>
-                </div>
-            );
-        } else {
-            return (
-                <div>
-                    <Link to='/signup'>Sign up</Link>
-                    <Link to='/signin'>Sign in</Link>
-                </div>
-            );
-        }
+        return (auth?
+            <div>
+                <Link to='/dashboard'>Dashboard</Link>
+                <Link to='/inventory'>Inventory</Link>
+                <Link to='/signout'>Sign Out</Link>
+            </div>
+            :
+            <div>
+                <Link to='/signup'>Sign up</Link>
+                <Link to='/signin'>Sign in</Link>
+            </div>
+        );
     }
 
     render() {
@@ -34,10 +30,5 @@ class AuthWidget extends Component {
     }
 }
 
-function mapStateToProps(state) {
-    return { auth: state.auth.authenticated };
-}
-
-export default compose(
-    connect(mapStateToProps, { }),
-)(AuthWidget);
+const mapStateToProps = state => ({ auth: state.auth.authenticated });
+export default compose(connect(mapStateToProps, { }))(AuthWidget);

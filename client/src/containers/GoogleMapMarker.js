@@ -19,7 +19,6 @@ const markerStyle = {
 
 const Marker = (props) => {
     const { name, text } = props;
-    console.log(props);
     return (
         <div className="marker"
              style={ markerStyle }

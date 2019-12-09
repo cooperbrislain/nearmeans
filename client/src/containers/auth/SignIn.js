@@ -5,23 +5,11 @@ import { connect } from 'react-redux';
 import { signIn } from './../../actions';
 
 class SignIn extends Component {
-    onSubmit = formProps => {
-        this.props.signIn(formProps, () => {
-            this.props.history.push('/');
-        });
-    };
-
-    renderInput = ({ input }) => {
-        return (
-            <div>
-                <input {...input}/>
-            </div>
-        )
-    };
+    onSubmit = formProps => this.props.signIn(formProps, () => this.props.history.push('/'));
+    renderInput = ({ input } )=> <div><input {...input}/></div>;
 
     render() {
         const { handleSubmit } = this.props;
-
         return(
             <form onSubmit={handleSubmit(this.onSubmit)}>
                 <fieldset>
@@ -51,10 +39,7 @@ class SignIn extends Component {
     }
 }
 
-function mapStateToProps(state) {
-    return { errorMessage: state.auth.errorMessage };
-}
-
+const mapStateToProps = state => ({ errorMessage: state.auth.errorMessage });
 export default compose(
     connect(mapStateToProps, { signIn }),
     reduxForm({ form: 'signin' })

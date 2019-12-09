@@ -49,9 +49,9 @@ class SearchResultsMap extends Component {
 }
 
 function mapStateToProps(state) {
-    return { searchResults: state.search.searchResults, center: state.search.center };
+    return {
+        searchResults: state.search.searchResults,
+        center: state.search.center
+    };
 }
-
-export default compose(
-    connect(mapStateToProps, { }),
-)(SearchResultsMap);
+export default compose(connect(mapStateToProps, { }))(SearchResultsMap);

@@ -9,7 +9,6 @@ import ReduxFormControl from "../reduxFormControl";
 
 class UserInfo extends Component {
     renderUserInfo() {
-        // const { user } = this.props;
         return (
             <Form>
                 <Form.Row>
@@ -48,10 +47,5 @@ class UserInfo extends Component {
     }
 }
 
-function mapStateToProps(state) {
-    return {  user: state.user };
-}
-
-export default compose(
-    connect(mapStateToProps, { form: 'userForm' }),
-)(UserInfo);
+const mapStateToProps = state => ({ user: state.user });
+export default compose(connect(mapStateToProps, { form: 'userForm' }))(UserInfo);

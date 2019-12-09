@@ -41,7 +41,6 @@ module.exports = {
     },
     deletePart: async (req, res) => {
         const { partId } = req.params;
-        console.log(`DELETING PART ${partId}`);
         try {
             await db.Part.findByIdAndDelete(partId);
             await res.json({success:true});

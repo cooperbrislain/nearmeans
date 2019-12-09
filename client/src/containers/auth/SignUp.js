@@ -5,12 +5,7 @@ import { connect } from 'react-redux';
 import { signUp } from './../../actions';
 
 class SignUp extends Component {
-    onSubmit = formProps => {
-        this.props.signUp(formProps, () => {
-            this.props.history.push('/');
-        });
-    };
-
+    onSubmit = formProps => this.props.signUp(formProps, () => this.props.history.push('/'));
     render() {
         const { handleSubmit } = this.props;
         return (
@@ -42,10 +37,7 @@ class SignUp extends Component {
     }
 }
 
-function mapStateToProps(state) {
-    return { errorMessage: state.auth.errorMessage };
-}
-
+const mapStateToProps = state => ({ errorMessage: state.auth.errorMessage });
 export default compose(
     connect(mapStateToProps, { signUp }),
     reduxForm({ form: 'signup'})

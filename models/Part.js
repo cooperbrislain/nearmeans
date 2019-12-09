@@ -8,5 +8,4 @@ const PartSchema = new Schema({
 });
 
 const Part = mongoose.model('Part', PartSchema);
-
 module.exports = Part;
