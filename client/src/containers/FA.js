@@ -1,5 +1,5 @@
 import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-const FA = faIcon => <FontAwesomeIcon icon={faIcon} />;
+const FA = ({ ...props }) => <FontAwesomeIcon icon={props.icon} />;
 export default FA;
