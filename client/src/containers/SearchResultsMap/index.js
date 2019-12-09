@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import GoogleMapReact from 'google-map-react';
 import google_api_key from './keys.js';
 import Marker from './../GoogleMapMarker';
+import styles from './index.css';
 
 class SearchResultsMap extends Component {
     static defaultProps = {
@@ -15,13 +16,13 @@ class SearchResultsMap extends Component {
     };
 
     renderGoogleMap() {
-        const { searchResults } = this.props;
+        const { searchResults, zoom, center } = this.props;
         if (searchResults) {
             return (
                 <GoogleMapReact
                     bootstrapURLKeys={{ key: google_api_key }}
-                    defaultCenter={this.props.center}
-                    defaultZoom={this.props.zoom}
+                    defaultCenter={center}
+                    defaultZoom={zoom}
                 >
                     { searchResults.map((item, i) =>
                         <Marker
@@ -48,10 +49,8 @@ class SearchResultsMap extends Component {
     }
 }
 
-function mapStateToProps(state) {
-    return {
-        searchResults: state.search.searchResults,
-        center: state.search.center
-    };
-}
+const mapStateToProps = state => ({
+    searchResults : state.search.searchResults,
+    center: state.search.center
+});
 export default compose(connect(mapStateToProps, { }))(SearchResultsMap);

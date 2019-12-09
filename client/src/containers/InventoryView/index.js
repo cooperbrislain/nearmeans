@@ -73,8 +73,7 @@ class PartPicker extends React.Component {
     getInputNode = () => ReactDOM.findDOMNode(this).getElementsByTagName("input")[0];
     getValue = () => ({ item: this.getInputNode().value });
     selectPart = (e) => {
-        const partId = e.target.getAttribute('value');
-        this.getInputNode().value = partId;
+        this.getInputNode().value = e.target.getAttribute('value');
         this.props.onCommit();
     };
     render() {
@@ -94,14 +93,11 @@ class PartPicker extends React.Component {
 
 class LocationPicker extends React.Component {
     getInputNode = () => ReactDOM.findDOMNode(this).getElementsByTagName("input")[0];
-    getValue = () => { console.log(this.getInputNode) }
+    getValue = () => { console.log(this.getInputNode) };
     render() {
         return (<input type="text" />);
     }
 }
 
-function mapStateToProps({ inventory, autocomplete }) {
-    return { inventory, autocomplete };
-}
-
+const mapStateToProps = ({ inventory, autocomplete }) => ({ inventory, autocomplete });
 export default compose(connect(mapStateToProps, { fetchInventory, updateInvItem }))(InventoryView);

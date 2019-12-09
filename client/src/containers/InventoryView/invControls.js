@@ -12,7 +12,5 @@ class InvControls extends Component {
     }
 }
 
-function mapStateToProps({ inventory }) {
-    return { inventory };
-}
+const mapStateToProps = ({ inventory }) => ({ inventory });
 export default compose(connect(mapStateToProps, { addInvItem }))(InvControls);
