@@ -16,13 +16,13 @@ class SearchResultsMap extends Component {
     };
 
     renderGoogleMap() {
-        const { searchResults, zoom, center } = this.props;
+        const { searchResults, center, zoom } = this.props;
         if (searchResults) {
             return (
                 <GoogleMapReact
                     bootstrapURLKeys={{ key: google_api_key }}
-                    defaultCenter={center}
-                    defaultZoom={zoom}
+                    center={center}
+                    zoom={zoom}
                 >
                     { searchResults.map((item, i) =>
                         <Marker
