@@ -17,15 +17,13 @@ module.exports = {
         console.log('GET PARTS');
         const userId = req.user._id;
         try {
-            const user = await db.User.findById(userId)
+            const { inventory } = await db.User.findById(userId)
                 .populate({ 
                     path: 'inventory',
                     model: db.Inventory,
                     populate: [{ path: 'item' }, { path: 'location'}]
                 });
-            let inv = user.inventory;
-            console.log('RESPONSE', inv);
-            await res.json(inv);
+            await res.json(inventory);
         } catch (e) {
             await res.json(e);
         }
@@ -37,8 +35,9 @@ module.exports = {
             const user = await db.User.findById(userId)
                 .populate({ 
                     path: 'inventory',
+                    model: db.Inventory,
                     populate: {
-                        path: 'item'
+                        path: [{ path: 'item' }, { path: 'location' }]
                     }
                 }); 
             const invIndex = user.inventory.findIndex(invItem => invItem.item._id === partId);

@@ -12,8 +12,6 @@ import SignUp from './containers/auth/SignUp';
 import SignIn from './containers/auth/SignIn';
 import SignOut from './containers/auth/SignOut';
 import PartSearch from './containers/PartSearch';
-import SearchResults from "./containers/SearchResults";
-import SearchResultsMap from "./containers/SearchResultsMap";
 import InventoryView from './containers/InventoryView';
 import Dashboard from "./containers/Dashboard";
 
@@ -34,11 +32,7 @@ ReactDOM.render(
                 <Route exact path='/signup' component={SignUp} />
                 <Route exact path='/signin' component={SignIn} />
                 <Route exact path='/signout' component={SignOut} />
-                <Route exact path='/' component={Jumbotron}>
-                    <PartSearch />
-                    <SearchResults />
-                    <SearchResultsMap />
-                </Route>
+                <Route exact path='/' component={PartSearch} />
                 <Route exact path='/inventory' component={InventoryView} />
                 <Route exact path='/dashboard' component={Dashboard} />
             </App>
