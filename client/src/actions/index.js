@@ -44,6 +44,7 @@ export const fetchInventory = () => async dispatch => {
     const headers = { authorization: localStorage.getItem('token')};
     try {
         const response = await axios.get('/api/user/inv', { headers });
+        console.log('FETCHINVENTORY', response);
         dispatch({ type: types.INV_LIST, payload: response.data });
     } catch(e) {
         dispatch({ type: types.INV_ERROR, payload: 'Error loading inventory' });

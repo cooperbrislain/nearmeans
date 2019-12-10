@@ -14,17 +14,17 @@ const convertZipToGeoCode = async (searchLocation) => {
 
 module.exports = {
     getParts: async (req, res) => {
+        console.log('GET PARTS');
         const userId = req.user._id;
         try {
             const user = await db.User.findById(userId)
                 .populate({ 
                     path: 'inventory',
-                    select: ['item','qty','location'],
-                    populate: {
-                        path: ['item','location']
-                    }
+                    model: db.Inventory,
+                    populate: [{ path: 'item' }, { path: 'location'}]
                 });
             let inv = user.inventory;
+            console.log('RESPONSE', inv);
             await res.json(inv);
         } catch (e) {
             await res.json(e);
