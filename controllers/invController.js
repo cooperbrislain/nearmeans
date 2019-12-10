@@ -1,5 +1,17 @@
 const db = require('./../models');
 
+const convertZipToGeoCode = async (searchLocation) => {
+    const req_url = `https://maps.googleapis.com/maps/api/geocode/json?address=${searchLocation}&key=${config.google_api_key}`;
+    try {
+        const response = await axios.get(req_url);
+        const { results } = response.data;
+        const { location } = results[0].geometry;
+        return location;
+    } catch (e) {
+        console.log(e);
+    }
+};
+
 module.exports = {
     getParts: async (req, res) => {
         const userId = req.user._id;
@@ -81,6 +93,9 @@ module.exports = {
         const userId = req.user._id;
         const invData = req.body;
         try {
+            console.log(invData);
+            if (invData.location) invData.location = await convertZipToGeoCode(invData.location);
+            console.log(invData);
             const result = await db.Inventory.findByIdAndUpdate(invId, invData);
             await res.json(result);
         } catch (e) {

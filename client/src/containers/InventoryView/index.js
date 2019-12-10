@@ -3,13 +3,12 @@ import { reduxForm, Field } from 'redux-form';
 import { compose } from "redux";
 import { connect } from 'react-redux';
 import Loader from 'react-loader-spinner';
-import { fetchInventory, updateInvItem } from './../../actions';
-import InvControls from './invControls';
+import { fetchInventory, updateInvItem, addInvItem } from './../../actions';
 import ReactDataGrid from 'react-data-grid';
 import { Editors } from 'react-data-grid-addons';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-import { Dropdown, FormControl } from 'react-bootstrap';
+import { Button, Dropdown, FormControl } from 'react-bootstrap';
 import styles from './index.css';
 
 class InventoryView extends Component {
@@ -59,7 +58,7 @@ class InventoryView extends Component {
         return (
             <div id="inventory">
                 { this.renderInventory() }
-                <InvControls />
+                <Button onClick={this.props.addInvItem}>+</Button>
             </div>
         );
     };
@@ -71,9 +70,9 @@ class PartPicker extends React.Component {
         this.setState({ autocomplete: data });
     };
     getInputNode = () => ReactDOM.findDOMNode(this).getElementsByTagName("input")[0];
-    getValue = () => ({ item: this.getInputNode().value });
+    getValue = () => ({ item: this.props.value });
     selectPart = (e) => {
-        this.getInputNode().value = e.target.getAttribute('value');
+        this.setState({ value: e.target.getAttribute('value')});
         this.props.onCommit();
     };
     render() {
@@ -93,11 +92,11 @@ class PartPicker extends React.Component {
 
 class LocationPicker extends React.Component {
     getInputNode = () => ReactDOM.findDOMNode(this).getElementsByTagName("input")[0];
-    getValue = () => { console.log(this.getInputNode) };
+    getValue = async () => ({ location: this.props.value });
     render() {
         return (<input type="text" />);
     }
 }
 
 const mapStateToProps = ({ inventory, autocomplete }) => ({ inventory, autocomplete });
-export default compose(connect(mapStateToProps, { fetchInventory, updateInvItem }))(InventoryView);
+export default compose(connect(mapStateToProps, { fetchInventory, updateInvItem, addInvItem }))(InventoryView);

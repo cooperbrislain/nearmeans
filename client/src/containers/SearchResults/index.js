@@ -11,7 +11,6 @@ class SearchResults extends Component {
                 :
                 <>No Parts Found.</>;
     }
-
     render() { return (<>{ this.renderSearchResults() }</>); }
 }
 
