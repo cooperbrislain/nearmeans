@@ -10,38 +10,65 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/nearmeans', {
 }, () => { console.log('connected to mongoDB') });
 
 const userSeed = {
-    email: 'test@user.com',
+    email: 'user@test.com',
     password: '123qwe',
-    location: { lat: 37.773972, lng: -122.431297 }
 };
+const locationSeed = [
+    {
+        name: 'home',
+        geo: {
+            lat: 37,
+            lng: -122
+        },
+        city: 'oakland',
+        state: 'ca',
+        country: 'us',
+        zip: '94602',
+        address: '3225 Beaumont Ave'
+    },
+    {
+        name: 'storage unit',
+        geo: {
+            lat: 50,
+            lng: 50
+        },
+        city: 'oakland',
+        state: 'ca',
+        country: 'us',
+        zip: '94602',
+        address: ''
+    },
+    {
+        name: 'warehouse',
+        geo: {
+            lat: 50,
+            lng: 50
+        },
+        zip: '94602'
+    }
+];
+
 const partSeed = [
     {
         name: 'ESP32',
-        location: { lat: 37, lng: -122 }
     },
     {
         name: 'ESP8266',
-        location: { lat: 36, lng: -123 }
     },
     {
         name: 'Uno',
-        location: { lat: 33, lng: -124 }
     },
     {
         name: 'Huzzah',
-        location: { lat: 37.5708, lng: -122.3303 }
     },
     {
         name: 'PixelPusher',
-        location: { lat: 37.8434318, lng: -122.297078 }
     },
     {
         name: 'WS2812',
-        location: { lat: 37.855, lng: -122.482 }
     },
     {
         name: 'APA102',
-        location: { lat: 37.605, lng: -122.405 }
     }
 ];
 
@@ -55,15 +82,21 @@ const seedMe = async () => {
         const newUser = await new db.User(userSeed);
         await newUser.save();
         console.log('MADE USER');
+        const locations = await Promise.all(locationSeed.map(async location => {
+            const newLocation = await new db.Location(location);
+            return newLocation;
+        }));
+        console.log('LOCATIONS', locations);
         await Promise.all(partSeed.map(async part => {
-            const newPart = await new db.Part({name: part.name});
+            const newPart = await new db.Part(part);
             await newPart.save();
-            console.log(`New Part: ${newPart._id}`);
+            const location = locations[Math.floor(Math.random()*locations.length)];
             const newInv = await new db.Inventory({
                 item: newPart._id,
                 userId: newUser._id,
                 qty: 1,
-                location: part.location});
+                location: location});
+            console.log('NEW ITEM', newInv);
             await newInv.save();
             console.log(`Added ${newInv._id} to Inventory`);
             newUser.inventory.push(newInv);

@@ -18,10 +18,7 @@ const UserSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Inventory'
     }],
-    location: {
-        longitude: Number,
-        latitude: Number
-    }
+    location: { type: Schema.Types.ObjectId, ref: 'Location' },
 });
 
 UserSchema.pre('save', async function(next) {
