@@ -21,7 +21,7 @@ module.exports = {
                     path: 'inventory',
                     select: ['item','qty','location'],
                     populate: {
-                        path: 'item'
+                        path: ['item','location']
                     }
                 });
             let inv = user.inventory;

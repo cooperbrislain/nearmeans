@@ -93,31 +93,35 @@ const seedMe = async () => {
         await db.Inventory.deleteMany({});
         await db.User.deleteMany({});
         await db.Part.deleteMany({});
+        await db.Location.deleteMany({});
         console.log('DELETED STUFF');
         const newUser = await new db.User(userSeed);
         await newUser.save();
-        console.log('MADE USER');
+        console.log('MADE USER', newUser);
         const locations = await Promise.all(locationSeed.map(async location => {
             const newLocation = await new db.Location(location);
             await newLocation.save();
             return newLocation;
         }));
         console.log('LOCATIONS', locations);
-        await Promise.all(partSeed.map(async part => {
+        const inventory = await Promise.all(partSeed.map(async part => {
             const newPart = await new db.Part(part);
             await newPart.save();
             const location = locations[Math.floor(Math.random()*locations.length)];
             const newInv = await new db.Inventory({
                 item: newPart._id,
                 userId: newUser._id,
-                qty: 1,
+                qty: Math.random()*10,
                 location: location._id
             });
-            console.log('NEW ITEM', newInv);
             await newInv.save();
             console.log(`Added ${newInv._id} to Inventory`);
             newUser.inventory.push(newInv);
+            newUser.save();
+            return newInv;
         }));
+        console.log('NEWUSER INVENTORY', newUser.inventory);
+        console.log('INVENTORY', inventory);
         await newUser.save();
         console.log(`User ${newUser._id} saved`);
     } catch (e) {

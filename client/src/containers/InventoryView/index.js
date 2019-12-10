@@ -24,6 +24,7 @@ class InventoryView extends Component {
         });
     };
     renderInventory() {
+        console.log(this.props);
         const { inventory } = this.props.inventory;
         const columns = [
             { key: '_id', name: 'ID' },
@@ -37,7 +38,7 @@ class InventoryView extends Component {
             return { ...invItem,
                 _id: invItem._id,
                 partId: invItem.item? invItem.item._id : '',
-                location: location? `lat: ${location.lat} lng: ${location.lng}`: 'nowhere'
+                location: invItem.location.name
             }
         });
         if (false && inventory.length === 0) { // come back to this later, temporarily disabled
