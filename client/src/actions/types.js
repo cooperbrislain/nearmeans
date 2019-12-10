@@ -12,3 +12,6 @@ export const INV_LIST = 'INV_LIST';
 export const INV_ADD = 'INV_ADD';
 export const INV_UPDATE = 'INV_UPDATE';
 export const INV_ERROR = 'INV_ERROR';
+
+export const USER_INFO = 'USER_INFO';
+export const USER_ERROR = 'USER_ERROR';

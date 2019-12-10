@@ -6,6 +6,7 @@ const LocationSchema = new Schema({
     address: String,
     city: String,
     state: String,
+    zip: String,
     Country: String,
     geo: {
         lat: Number,

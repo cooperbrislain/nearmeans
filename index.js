@@ -23,9 +23,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
   
-if(process.env.NODE_ENV === 'production') {
-    app.use(express.static('client/build'));
-}
+if(process.env.NODE_ENV === 'production') app.use(express.static('client/build'));
 
 const routes = require('./routes');
 app.use(routes);

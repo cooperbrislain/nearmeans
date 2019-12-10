@@ -53,8 +53,11 @@ module.exports = {
         }
         console.log(`IN OTHER WORDS: ${partId} WITHIN ${radius} METERS OF (${location.lat},${location.lng})`);
         try {
-            const invItems = await db.Inventory.find({ item: partId }).populate('item');
-            const foundItems = await invItems.filter(async invItem => await geolib.getDistance(location, invItem.location) < radius);
+            console.log('GETTING ITEMS');
+            const invItems = await db.Inventory.find({ item: partId }).populate('item').populate('location');
+            console.log(invItems);
+            const foundItems = await invItems.filter(async invItem => await geolib.getDistance(location.geo, invItem.location.geo) < radius);
+            console.log(foundItems);
             await res.json({ searchResults: foundItems, center: location, radius });
         } catch (e) {
             await res.json(e);

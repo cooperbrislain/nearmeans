@@ -41,7 +41,7 @@ export const signOut = () => {
 };
 
 export const fetchInventory = () => async dispatch => {
-    const headers = { authorization: localStorage.getItem('token') };
+    const headers = { authorization: localStorage.getItem('token')};
     try {
         const response = await axios.get('/api/user/inv', { headers });
         dispatch({ type: types.INV_LIST, payload: response.data });
@@ -50,9 +50,22 @@ export const fetchInventory = () => async dispatch => {
     }
 };
 
+export const fetchUser = () => async dispatch => {
+    const headers = { authorization: localStorage.getItem('token')};
+    let response;
+    try {
+        response = await axios.get('/api/user', {headers});
+        console.log(response);
+        dispatch({type: types.USER_INFO, payload: response.data});
+    } catch (e) {
+        dispatch({ type: types.USER_ERROR, payload: 'Error retrieving user' });
+    }
+};
+
 export const updateInvItem = (formProps) => async dispatch => {
     const headers = { authorization: localStorage.getItem('token')};
     const invItem = formProps;
+    console.log(invItem);
     const invId = invItem._id;
     try {
         const resource = `/api/user/inv/${invId}`;

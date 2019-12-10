@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { compose } from "redux";
 import { connect } from "react-redux";
-import { fetchUser } from "../../actions";
+import { fetchUser } from './../../actions';
 
 class Dashboard extends Component {
     componentDidMount = () => this.props.fetchUser();
 
     render() {
-        const { userId } = this.props;
+        console.log(this.props.state.user.activeUser._id);
         return (
             <div>
-                UserId: {userId}
+                UserId: {this.props.state.user.activeUser._id}
             </div>
         );
     }

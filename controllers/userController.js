@@ -2,6 +2,7 @@ const db = require('./../models');
 
 module.exports = {
     getThisUser: async (req, res) => {
+        console.log('GET THIS USER');
         try {
             const user = await db.User.findOne({ _id: req.user._id }).populate(['inventory','inventory.item']);
             await res.json(user);

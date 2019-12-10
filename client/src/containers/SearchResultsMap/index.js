@@ -27,8 +27,8 @@ class SearchResultsMap extends Component {
                     { searchResults.map((item, i) =>
                         <Marker
                             key={i}
-                            lat={item.location.lat}
-                            lng={item.location.lng}
+                            lat={item.location.geo.lat}
+                            lng={item.location.geo.lng}
                             name={item.item.name}
                             text={item.item.name}
                         />

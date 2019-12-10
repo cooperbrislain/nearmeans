@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import Loader from 'react-loader-spinner';
 import { fetchInventory, updateInvItem, addInvItem } from './../../actions';
 import ReactDataGrid from 'react-data-grid';
-import { Editors } from 'react-data-grid-addons';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import { Button, Dropdown, FormControl } from 'react-bootstrap';
@@ -14,6 +13,7 @@ import styles from './index.css';
 class InventoryView extends Component {
     componentDidMount = () => this.props.fetchInventory();
     onGridRowsUpdated = ({ fromRow, toRow, updated }) => {
+        console.log('GridRowsUpdated', updated);
         this.setState(state => {
             const { inventory } = this.props.inventory;
             for (let i = fromRow; i <= toRow; i++) {
@@ -92,7 +92,7 @@ class PartPicker extends React.Component {
 
 class LocationPicker extends React.Component {
     getInputNode = () => ReactDOM.findDOMNode(this).getElementsByTagName("input")[0];
-    getValue = async () => ({ location: this.props.value });
+    getValue = () => ({location: this.props.value});
     render() {
         return (<input type="text" />);
     }
