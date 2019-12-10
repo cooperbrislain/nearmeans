@@ -50,6 +50,21 @@ const locationSeed = [
 
 const partSeed = [
     {
+        name: 'Camera',
+    },
+    {
+        name: 'Chauvet MVP',
+    },
+    {
+        name: 'LED Panel',
+    },
+    {
+        name: 'Epson 7900P',
+    },
+    {
+        name: 'Projector',
+    },
+    {
         name: 'ESP32',
     },
     {
@@ -84,6 +99,7 @@ const seedMe = async () => {
         console.log('MADE USER');
         const locations = await Promise.all(locationSeed.map(async location => {
             const newLocation = await new db.Location(location);
+            await newLocation.save();
             return newLocation;
         }));
         console.log('LOCATIONS', locations);
@@ -95,7 +111,8 @@ const seedMe = async () => {
                 item: newPart._id,
                 userId: newUser._id,
                 qty: 1,
-                location: location});
+                location: location._id
+            });
             console.log('NEW ITEM', newInv);
             await newInv.save();
             console.log(`Added ${newInv._id} to Inventory`);
