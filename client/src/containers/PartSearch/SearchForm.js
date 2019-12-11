@@ -25,7 +25,7 @@ class SearchForm extends Component {
             <Form onSubmit={handleSubmit(this.onSubmit)} className=''>
                 <Form.Row>
                     <Col className="col-md-3">
-                        <Field name='partName' component={ReduxFormControl} onChange={this.autoComplete} placeholder='Part' />
+                        <Field name='searchQuery' component={ReduxFormControl} onChange={this.autoComplete} placeholder='Part' />
                     </Col>
                     <Col className="col-md-2">
                         <InputGroup className="mb-3">

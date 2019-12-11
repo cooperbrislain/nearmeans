@@ -17,7 +17,6 @@ class SearchResult extends Component {
 class SearchResults extends Component {
     renderSearchResults() {
         const { searchResults } = this.props;
-        console.log(this.props);
         return searchResults?
             <ul>
                 {searchResults.map((item, i) => { return (

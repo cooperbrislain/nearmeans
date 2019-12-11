@@ -39,30 +39,39 @@ module.exports = {
         }
     },
     findAllInRadius: async (req, res) => {
-        let { partName, partId, searchZip, searchDistance } = req.body;
-        console.log(`SEARCHING FOR PART NAMED ${partName} WITHIN ${searchDistance} MILES OF ${searchZip}`);
+        let { searchQuery, searchZip, searchDistance } = req.body;
+        console.log(`SEARCHING FOR ${searchQuery} WITHIN ${searchDistance} MILES OF ${searchZip}`);
         const location = await convertZipToGeoCode(searchZip);
         const radius = miles_to_meters(searchDistance);
-        if (partName) {
+        let partIds = [];
+        if (searchQuery) {
             try {
-                const part = await db.Part.findOne({ "name" : { $regex: partName, $options: 'i' } });
-                partId = part._id;
+                const parts = await db.Part.find({
+                    $or: [
+                        { name : { $regex: searchQuery, $options: 'i' }},
+                        { tags : { $regex: searchQuery, $options: 'i' }}
+                    ]
+                });
+                partIds = parts.map(part => part._id);
             } catch (e) {
                 await res.json(e);
             }
         }
-        console.log(`IN OTHER WORDS: ${partId} WITHIN ${radius} METERS OF (${location.lat},${location.lng})`);
-        try {
-            const invItems = await db.Inventory.find({ item: partId }).populate('item').populate('location');
-            const foundItems = await invItems.filter(async invItem => {
-                const distance = await geolib.getDistance(location, invItem.location.geo);
-                return distance <= radius;
-            });
-            console.log(foundItems);
-            await res.json({ searchResults: foundItems, center: location, radius });
-        } catch (e) {
-            console.log(e);
+        if (partIds.length) {
+            try {
+                const invItems = await db.Inventory.find({ item: { $in: partIds }}).populate('item').populate('location');
+                const nearItems = await invItems.filter(async invItem => {
+                    const distance = await geolib.getDistance(location, invItem.location.geo);
+                    return distance <= radius;
+                });
+                await res.json({ searchResults: nearItems, center: location, radius });
+            } catch (e) {
+                console.log(e);
+            }
+        } else {
+            console.log('NO PARTS');
         }
+        // console.log(`IN OTHER WORDS: ${part} WITHIN ${radius} METERS OF (${location.lat},${location.lng})`);
     },
     findInRadiusOf: async (req, res) => {
         await res.json({success:true});

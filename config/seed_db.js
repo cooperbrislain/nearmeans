@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const db = require("../models");
+const tagEverything = require('mongoose-tag-everything');
 
 console.log('SEEDING DATABASE');
 
