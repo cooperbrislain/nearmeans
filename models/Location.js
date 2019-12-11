@@ -3,14 +3,16 @@ const Schema = mongoose.Schema;
 
 const LocationSchema = new Schema({
     name: String,
-    address: String,
-    city: String,
-    state: String,
-    zip: String,
-    country: String,
     geo: {
         lat: Number,
         lng: Number
+    },
+    address: {
+        address: String,
+        city: String,
+        state: String,
+        zip: String,
+        country: String
     },
     category: String
 });
