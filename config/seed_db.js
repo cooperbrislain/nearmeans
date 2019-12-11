@@ -66,46 +66,69 @@ const locationSeed = [
 const partSeed = [
     {
         name: 'Camera',
+        category: 'Gear',
+        tags: ['camera','photo']
     },
     {
         name: 'Chauvet MVP',
+        category: 'Gear',
+        tags: ['led','panel','video']
     },
     {
         name: 'LED Panel',
+        category: 'Gear',
+        tags: ['led','panel','video']
     },
     {
         name: 'Epson 7900P',
+        category: 'Gear',
+        tags: ['projector','epson']
     },
     {
         name: 'Projector',
+        category: 'Gear',
+        tags: ['projector','av']
     },
     {
         name: 'ESP32',
+        category: 'Part',
+        tags: ['wifi','esp','iot','microcontroller','bluetooth']
     },
     {
         name: 'ESP8266',
+        category: 'Part',
+        tags: ['wifi','esp','iot','microcontroller']
     },
     {
         name: 'Uno',
+        category: 'Part',
+        tags: ['arduino','uno']
     },
     {
         name: 'Huzzah',
+        category: 'Part',
+        tags: ['wifi','bluetooth','arduino']
     },
     {
         name: 'PixelPusher',
+        category: 'Part',
+        tags: ['led','controller']
     },
     {
         name: 'WS2812',
+        category: 'Part',
+        tags: ['led','addressable']
     },
     {
         name: 'APA102',
+        category: 'Part',
+        tags: ['led','addressable']
     }
 ];
 
 const seedMe = async () => {
     try {
-        // flush existing data
-        console.log('FLUSHING DB');
+        console.log('FLUSHING EXISTING DATA');
         await db.Inventory.deleteMany({});
         await db.User.deleteMany({});
         await db.Part.deleteMany({});

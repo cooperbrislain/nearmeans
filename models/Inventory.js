@@ -6,7 +6,8 @@ const InventorySchema = new Schema({
     userId: { type: Schema.Types.ObjectId, ref: 'User' },
     item: { type: Schema.Types.ObjectId, ref: 'Part' },
     location: { type: Schema.Types.ObjectId, ref: 'Location' },
-    qty: Number
+    qty: Number,
+    type: String
 });
 
 const Inventory = mongoose.model('Inventory', InventorySchema);
