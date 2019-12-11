@@ -45,7 +45,7 @@ module.exports = {
         const radius = miles_to_meters(searchDistance);
         if (partName) {
             try {
-                const part = await db.Part.findOne({ name: partName });
+                const part = await db.Part.findOne({ "name" : { $regex: partName, $options: 'i' } });
                 partId = part._id;
             } catch (e) {
                 await res.json(e);

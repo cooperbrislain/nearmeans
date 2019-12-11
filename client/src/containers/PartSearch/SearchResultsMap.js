@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 import {compose} from "redux";
 import {connect} from "react-redux";
 import GoogleMapReact from 'google-map-react';
-import google_api_key from './keys.js';
-import Marker from './GoogleMapMarker';
+import google_api_key from './keys';
 import styles from './index.css';
+import Marker from './GoogleMapMarker';
 
 class SearchResultsMap extends Component {
     static defaultProps = {
@@ -17,24 +17,35 @@ class SearchResultsMap extends Component {
 
     renderGoogleMap() {
         const { searchResults, center, zoom } = this.props;
-        if (searchResults) {
+        if (!searchResults.length)
+            return (<GoogleMapReact bootstrapURLKeys={{ key: google_api_key }} center={center} zoom={zoom} />);
+        let locations = {};
+        searchResults.forEach(searchResult => {
+            const { location } = searchResult;
+            if (locations[location._id]===undefined) {
+                locations[location._id] = {
+                    items: [],
+                    geo: location.geo,
+                    name: location.name
+                };
+            }
+            locations[searchResult.location._id].items.push(searchResult);
+        });
+        if (locations !== {}) {
             return (
-                <GoogleMapReact
-                    bootstrapURLKeys={{ key: google_api_key }}
-                    center={center}
-                    zoom={zoom}
-                >
-                    { searchResults.map((item, i) =>
-                        <Marker
-                            key={i}
-                            lat={item.location.geo.lat}
-                            lng={item.location.geo.lng}
-                            name={item.location.name}
-                            text={item.item.name}
-                        />
-                    )}
+                <GoogleMapReact bootstrapURLKeys={{ key: google_api_key }} center={center} zoom={zoom}>
+                    { Object.keys(locations).map((k, i) => {
+                        const location = locations[k];
+                        return (
+                            <Marker lat={location.geo.lat} lng={location.geo.lng} name={location.name}>
+                                <ul>
+                                    { location.items.map((item, i) => (<li key={i}>{item.item.name}</li>)) }
+                                </ul>
+                            </Marker>
+                        )
+                    })}
                 </GoogleMapReact>
-            );
+            )
         } else {
             return <div/>;
         }

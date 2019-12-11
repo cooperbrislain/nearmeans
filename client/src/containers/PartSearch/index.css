@@ -3,17 +3,64 @@ form {
 }
 
 .marker {
-    color: red;
+    opacity: 90%;
+    color: dodgerblue;
     background-color: azure;
     display: block;
-    border: 1px solid red;
+    border: 1px solid dodgerblue;
     width: 100px;
     border-radius: 5px;
-    padding: 5px;
+    padding: 0px;
 }
 
 .marker h5 {
     font-size: 11px;
-    color: black;
+    color: white;
     font-weight: bold;
+    padding: 0;
+    margin: 0;
+    padding: 5px;
+    background-color: dodgerblue;
+}
+
+.marker div {
+    padding: 3px;
+    color: grey;
+}
+
+ul {
+    width: 100%;
+    color: black;
+    background-color: white;
+    margin: 0;
+    padding: 0;
+}
+
+ul li {
+    border: 1px solid dodgerblue;
+    list-style-type: none;
+}
+
+ul li h4 {
+    background-color: dodgerblue;
+    color: white;
+    font-size: 14px;
+    margin: 0;
+    padding: 3px;
+}
+
+ul li div {
+    color: grey;
+    font-size: 11px;
+    padding: 3px;
+}
+
+.marker ul li {
+    border: none;
+    border-bottom: 1px solid aliceblue;
+}
+
+.jumbotron {
+    padding-top: 1em;
+    background-color: white;
 }

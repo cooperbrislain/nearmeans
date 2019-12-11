@@ -6,6 +6,7 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import reduxThunk from 'redux-thunk';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Jumbotron } from 'react-bootstrap';
+import styles from './index.css';
 
 import App from './components/App';
 import SignUp from './containers/auth/SignUp';

@@ -1,13 +1,12 @@
 import React from 'react';
 
-const Marker = (props) => {
-    const { name, text } = props;
-    return (
-        <div className="marker">
-            <h5>{ name }</h5>
-            <div>{ text }</div>
+const Marker = (props) => (
+    <div className="marker">
+        <h5>{ props.name }</h5>
+        <div>
+            { props.children }
         </div>
-    );
-};
+    </div>
+);
 
 export default Marker;

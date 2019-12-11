@@ -16,7 +16,7 @@ class PartSearch extends Component {
                     <Col><SearchForm /></Col>
                 </Row>
                 <Row>
-                    <Col><SearchResults /></Col>
+                    <Col className='col-md-3'><SearchResults /></Col>
                     <Col><SearchResultsMap /></Col>
                 </Row>
             </Jumbotron>
