@@ -2,7 +2,18 @@ form {
     text-align: center;
 }
 
-Marker {
-    opacity: 1 !important;
-    pointer-events: auto !important;
+.marker {
+    color: red;
+    background-color: azure;
+    display: block;
+    border: 1px solid red;
+    width: 100px;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.marker h5 {
+    font-size: 11px;
+    color: black;
+    font-weight: bold;
 }

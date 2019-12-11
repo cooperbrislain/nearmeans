@@ -3,7 +3,7 @@ import {compose} from "redux";
 import {connect} from "react-redux";
 import GoogleMapReact from 'google-map-react';
 import google_api_key from './keys.js';
-import Marker from './../GoogleMapMarker';
+import Marker from './GoogleMapMarker';
 import styles from './index.css';
 
 class SearchResultsMap extends Component {
@@ -29,7 +29,7 @@ class SearchResultsMap extends Component {
                             key={i}
                             lat={item.location.geo.lat}
                             lng={item.location.geo.lng}
-                            name={item.item.name}
+                            name={item.location.name}
                             text={item.item.name}
                         />
                     )}
