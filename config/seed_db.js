@@ -47,8 +47,24 @@ const locationSeed = [
         geo: { lat: 37.8349986, lng: -122.2641544 }
     },
     {
-        name: 'AMT',
+        name: 'Ace Monster Toys',
         geo: { lat: 37.8447017, lng: -122.2768872 }
+    },
+    {
+        name: 'Gray Area',
+        geo: { lat: 37.754409, lng: -122.418305 }
+    },
+    {
+        name: 'Urban Ore',
+        geo: { lat: 37.8504319, lng: -122.2904059 }
+    },
+    {
+        name: 'American Steel',
+        geo: { lat: 37.8055269, lng: -122.2933526 }
+    },
+    {
+        name: 'Bordello',
+        geo: { lat: 37.7877751, lng: -122.2465616 }
     },
     {
         name: 'U-Store It',
@@ -63,32 +79,66 @@ const locationSeed = [
         geo: { lat: 37.8171501, lng: -122.370804 }
     },
 ];
-
 const partSeed = [
     {
         name: 'Camera',
-        category: 'Gear',
+        category: 'gear',
         tags: ['camera','photo']
     },
     {
         name: 'Chauvet MVP',
-        category: 'Gear',
+        category: 'gear',
         tags: ['led','panel','video']
     },
     {
+        name: 'Akai APC40',
+        category: 'gear',
+        tags: ['midi','controller','vj']
+    },
+    {
+        name: 'Technics SL1200',
+        category: 'gear',
+        tags: ['turntable','dj','technics']
+    },
+    {
         name: 'LED Panel',
-        category: 'Gear',
+        category: 'gear',
         tags: ['led','panel','video']
     },
     {
         name: 'Epson 7900P',
-        category: 'Gear',
+        category: 'gear',
         tags: ['projector','epson']
     },
     {
-        name: 'Projector',
-        category: 'Gear',
-        tags: ['projector','av']
+        name: 'BenQ HT8060',
+        category: 'gear',
+        tags: ['projector','av','benq']
+    },
+    {
+        name: 'Christie D4KLH60',
+        category: 'gear',
+        tags: ['projector','av','christie']
+    },
+    {
+        name: 'Barco RLS-W12',
+        category: 'gear',
+        tags: ['projector','av','barco']
+    },
+    {
+        name: 'Barco RLM-W6',
+        category: 'gear',
+        tags: ['projector','av','barco']
+    },
+    {
+        name: 'Funktion One Resolution 5',
+        category: 'gear',
+        tags: ['speaker','loudspeaker','sound']
+    },
+    {
+        name: 'Truss',
+        category: 'gear',
+        tags: ['truss']
     },
     {
         name: 'ESP32',
@@ -168,14 +218,14 @@ const seedMe = async () => {
             const newInv = await new db.Inventory({
                 item: item._id,
                 userId: user._id,
-                qty: Math.random() * 10,
+                qty: Math.floor(Math.random() * 10),
                 location: location._id,
             });
             await newInv.save();
             console.log('INVENTORY ADDED', newInv);
             inventories.push(newInv);
             user.inventory.push(newInv);
-            user.save();
+            await user.save();
         }
         console.log('DONE CREATING INVENTORIES');
     } catch (e) {

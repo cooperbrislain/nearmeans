@@ -22,7 +22,7 @@ class SearchForm extends Component {
     render() {
         const { handleSubmit } = this.props;
         return (
-            <Form onSubmit={handleSubmit(this.onSubmit)} className=''>
+            <Form onSubmit={handleSubmit(this.onSubmit)} className='searchForm'>
                 <Form.Row>
                     <Col className="col-md-3">
                         <Field name='searchQuery' component={ReduxFormControl} onChange={this.autoComplete} placeholder='Part' />
@@ -37,7 +37,7 @@ class SearchForm extends Component {
                     </Col>
                     <Col className="col-md-2">
                         <InputGroup className="mb-3">
-                            <Field name='searchDistance' component={ReduxFormControl} placeholder='Distance' />
+                            <Field name="searchDistance" component={ReduxFormControl} value="25" />
                             <InputGroup.Append>
                                 <InputGroup.Text>Mi.</InputGroup.Text>
                             </InputGroup.Append>

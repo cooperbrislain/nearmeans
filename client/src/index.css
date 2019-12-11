@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css?family=Tomorrow&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
+
+.welcome-blurb {
+    width: 70%;
+    margin: auto;
+    font-family: "Lato", sans-serif;
+}
+
+h1 {
+    font-family: "Tomorrow", sans-serif;
+    font-size: 24px;
+}
+
+h1 em {
+    color: springgreen;
+}

@@ -1,6 +1,6 @@
-import React, {Component} from "react";
-import {compose} from "redux";
-import {connect} from "react-redux";
+import React, { Component } from "react";
+import { compose } from "redux";
+import { connect } from "react-redux";
 
 class SearchResult extends Component {
     render () {
@@ -18,14 +18,13 @@ class SearchResults extends Component {
     renderSearchResults() {
         const { searchResults } = this.props;
         return searchResults?
-            <ul>
-                {searchResults.map((item, i) => { return (
-                    <SearchResult
-                        key={i}
-                        title={item.item.name}
-                        location={item.location.name}
-                    />
-                )})}
+            <ul className='search-results-list'>
+                {searchResults.map((item, i) =>
+                        <SearchResult
+                            key={i}
+                            title={item.item.name}
+                            location={item.location.name} />
+                )}
             </ul>
             :
             <>No Parts Found.</>;

@@ -15,6 +15,7 @@ import SignOut from './containers/auth/SignOut';
 import PartSearch from './containers/PartSearch';
 import InventoryView from './containers/InventoryView';
 import Dashboard from "./containers/Dashboard";
+import Welcome from './components/Welcome';
 
 import reducers from './reducers';
 
@@ -33,6 +34,7 @@ ReactDOM.render(
                 <Route exact path='/signup' component={SignUp} />
                 <Route exact path='/signin' component={SignIn} />
                 <Route exact path='/signout' component={SignOut} />
+                <Route exact path='/' component={Welcome} />
                 <Route exact path='/' component={PartSearch} />
                 <Route exact path='/inventory' component={InventoryView} />
                 <Route exact path='/dashboard' component={Dashboard} />
