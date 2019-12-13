@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import {compose} from "redux";
+import {connect} from "react-redux";
+import {fetchUser} from "../actions";
 
 const Welcome = () =>
         <p className='welcome-blurb'>
@@ -9,4 +12,4 @@ const Welcome = () =>
         </p>;
 
 const mapStateToProps = state => ({ state });
-export default Welcome
+export default compose(connect(mapStateToProps, { }))(Welcome);

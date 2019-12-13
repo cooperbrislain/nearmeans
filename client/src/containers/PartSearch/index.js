@@ -11,15 +11,15 @@ import { Jumbotron, Row, Col } from 'react-bootstrap';
 class PartSearch extends Component {
     render() {
         return (
-            <Jumbotron id="part-search">
+            <div id="part-search">
                 <Row>
                     <Col><SearchForm /></Col>
                 </Row>
                 <Row>
-                    <Col className='col-md-3'><SearchResults /></Col>
                     <Col><SearchResultsMap /></Col>
+                    {/*<Col className='col-md-3'><SearchResults /></Col>*/}
                 </Row>
-            </Jumbotron>
+            </div>
         );
     }
 }

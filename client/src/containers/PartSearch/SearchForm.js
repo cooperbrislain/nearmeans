@@ -40,7 +40,7 @@ class SearchForm extends Component {
         return (
             <Form onSubmit={handleSubmit(this.onSubmit)} className='searchForm'>
                 <Form.Row>
-                    <Col className="col-md-3">
+                    <Col className="col-md-4">
                         <InputGroup className="mb-3">
                             <InputGroup.Prepend>
                                 <InputGroup.Text>Search For</InputGroup.Text>
@@ -71,21 +71,21 @@ class SearchForm extends Component {
                         <Button className={styles.button} type='submit'>Search</Button>
                     </Col>
                 </Form.Row>
-                <Form.Row>
-                    <Col className='col-md-6'>
-                        <InputGroup className="mb-3">
-                            <InputGroup.Prepend>
-                                <InputGroup.Text>For</InputGroup.Text>
-                            </InputGroup.Prepend>
-                            <Field name='searchTransactionType'
-                                   placeholder=''
-                                   component={Select}
-                                   options={listingTypeOptions}
-                                   isMulti
-                            />
-                        </InputGroup>
-                    </Col>
-                </Form.Row>
+                {/*<Form.Row>*/}
+                {/*    <Col className='col-md-6'>*/}
+                {/*        <InputGroup className="mb-3">*/}
+                {/*            <InputGroup.Prepend>*/}
+                {/*                <InputGroup.Text>For</InputGroup.Text>*/}
+                {/*            </InputGroup.Prepend>*/}
+                {/*            <Field name='searchTransactionType'*/}
+                {/*                   placeholder=''*/}
+                {/*                   component={Select}*/}
+                {/*                   options={listingTypeOptions}*/}
+                {/*                   isMulti*/}
+                {/*            />*/}
+                {/*        </InputGroup>*/}
+                {/*    </Col>*/}
+                {/*</Form.Row>*/}
             </Form>
         );
     }
