@@ -75,9 +75,33 @@ const locationSeed = [
         geo: { lat: 37.8130905, lng: -122.2607019 }
     },
     {
-        name: 'Van',
+        name: 'Treasure Island',
         geo: { lat: 37.8171501, lng: -122.370804 }
     },
+    {
+        name: 'San Jose Storage',
+        geo: { lat: 37.320227, lng: -121.90953 }
+    },
+    {
+        name: "Scott's Valley Storage",
+        geo: { lat: 37.062661, lng: -122.002777 }
+    },
+    {
+        name: 'Idea Fab Labs',
+        geo: { lat: 36.959604, lng: -122.055784 }
+    },
+    {
+        name: 'NoiseBridge',
+        geo: { lat: 37.76242, lng: -122.419042 }
+    },
+    {
+        name: 'RobotX Space',
+        geo: { lat: 37.394986, lng: -121.978488 }
+    },
+    {
+        name: 'PK Warehouse',
+        geo: { lat: 37.6057747, lng: -122.0750007 }
+    }
 ];
 const partSeed = [
     {
@@ -91,9 +115,34 @@ const partSeed = [
         tags: ['led','panel','video']
     },
     {
+        name: 'Chauvet Freedom Par',
+        category: 'gear',
+        tags: ['led','light','par']
+    },
+    {
+        name: 'Chauvet SlimPar 56',
+        category: 'gear',
+        tags: ['led','light','par']
+    },
+    {
+        name: 'Chauvet Scorpion',
+        category: 'gear',
+        tags: ['laser','lighting']
+    },
+    {
         name: 'Akai APC40',
         category: 'gear',
         tags: ['midi','controller','vj']
+    },
+    {
+        name: 'GoPro Kit',
+        category: 'gear',
+        tags: ['camera','kit','gopro']
+    },
+    {
+        name: 'Red Dragon X',
+        category: 'gear',
+        tags: ['camera','cinema','kit','video']
     },
     {
         name: 'Technics SL1200',

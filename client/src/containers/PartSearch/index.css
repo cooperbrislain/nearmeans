@@ -60,11 +60,6 @@ ul li div {
     border-bottom: 1px solid aliceblue;
 }
 
-.jumbotron {
-    padding-top: 1em;
-    background-color: white;
-}
-
 ul.search-results-list {
     height: 350px;
     overflow: scroll
