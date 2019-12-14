@@ -1,13 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Tomorrow&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
 
-.welcome-blurb {
-    width: 70%;
-    margin: auto;
-    font-family: "Lato", sans-serif;
-    background-color: rgba(255,255,255,0.8);
-}
-
 h1 {
     font-family: "Tomorrow", sans-serif;
     font-size: 24px;

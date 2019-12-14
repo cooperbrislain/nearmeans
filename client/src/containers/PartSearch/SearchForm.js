@@ -5,7 +5,7 @@ import {Field, reduxForm} from "redux-form";
 import ReduxFormControl from "../reduxFormControl";
 import Select from 'react-select';
 import FA from "../FA";
-import {faMapMarkerAlt} from "@fortawesome/free-solid-svg-icons";
+import {faMapMarkerAlt, faArrowAltCircleRight} from "@fortawesome/free-solid-svg-icons";
 import styles from "./index.css";
 import {compose} from "redux";
 import {connect} from "react-redux";
@@ -40,7 +40,7 @@ class SearchForm extends Component {
         return (
             <Form onSubmit={handleSubmit(this.onSubmit)} className='searchForm'>
                 <Form.Row>
-                    <Col className="col-md-4">
+                    <Col className="col-md-6">
                         <InputGroup className="mb-3">
                             <InputGroup.Prepend>
                                 <InputGroup.Text>Search For</InputGroup.Text>
@@ -51,24 +51,27 @@ class SearchForm extends Component {
                                    placeholder='Part, Tool, Equipment' />
                         </InputGroup>
                     </Col>
-                    <Col className="col-md-2">
+                    <Col className="col-md-2" style={{ paddingRight: 0 }}>
                         <Field name='searchTransactionType'
                                type='select-multi'
-                               placeholder=''
+                               placeholder='Near'
                                component={Select}
                                options={searchDistanceOptions}
+                               className='searchDistanceOptions'
                         />
                     </Col>
-                    <Col className="col-md-2">
+                    <Col className="col-md-3" style={{ paddingLeft: 0 }}>
                         <InputGroup className="mb-5">
-                            <Field name='searchZip' component={ReduxFormControl} placeholder='Zip Code' />
+                            <Field name='searchZip' className="searchZip" component={ReduxFormControl} placeholder='Zip Code' />
                             <InputGroup.Append onClick={getGeoForUser}>
                                 <InputGroup.Text><FA icon={faMapMarkerAlt} /></InputGroup.Text>
                             </InputGroup.Append>
                         </InputGroup>
                     </Col>
                     <Col className="col-md-1">
-                        <Button className={styles.button} type='submit'>Search</Button>
+                        <Button className='searchButton' type='submit'>
+                            <FA icon={faArrowAltCircleRight} />
+                        </Button>
                     </Col>
                 </Form.Row>
                 {/*<Form.Row>*/}

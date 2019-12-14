@@ -5,7 +5,6 @@
 form {
     text-align: center;
     background-color: rgba(255,255,255,0.8);
-    padding: 25px;
     border-radius: 25px;
     width: 65%;
     margin: auto;
@@ -74,6 +73,44 @@ ul.search-results-list {
     overflow: scroll
 }
 
-.searchForm .form-row{
+.searchForm {
+    height: 48px;
+    padding: 5px;
+    background-color: ghostwhite;
+}
+
+.searchForm .form-row {
     justify-content: center;
+}
+
+.searchDistanceOptions>div{
+    background-color: #e9ecef;
+    color: #495057;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.searchZip.form-control {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left: 0;
+}
+
+.searchButton {
+    border-radius: 18px;
+    background: none;
+    color: dodgerblue;
+    padding: 0;
+    font-size: 38px;
+    line-height: 36px;
+    border: none;
+}
+
+.form-row .col:first-child .input-group-text{
+    border-top-left-radius: 18px;
+    border-bottom-left-radius: 18px;
+}
+
+.form-row .col:last-child {
+    text-align: right;
 }

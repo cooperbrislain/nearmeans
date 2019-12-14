@@ -34,8 +34,8 @@ ReactDOM.render(
                 <Route exact path='/signup' component={SignUp} />
                 <Route exact path='/signin' component={SignIn} />
                 <Route exact path='/signout' component={SignOut} />
-                <Route exact path='/' component={PartSearch} />
                 <Route exact path='/' component={Welcome} />
+                <Route exact path='/' component={PartSearch} />
                 <Route exact path='/inventory' component={InventoryView} />
                 <Route exact path='/dashboard' component={Dashboard} />
             </App>
