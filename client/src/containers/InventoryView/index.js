@@ -7,7 +7,7 @@ import { fetchInventory, updateInvItem, addInvItem } from './../../actions';
 import ReactDataGrid from 'react-data-grid';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-import { Button, Dropdown, FormControl } from 'react-bootstrap';
+import { Container, Button, Dropdown, FormControl } from 'react-bootstrap';
 import styles from './index.css';
 
 class InventoryView extends Component {
@@ -24,7 +24,6 @@ class InventoryView extends Component {
         });
     };
     renderInventory() {
-        console.log(this.props);
         const { inventory } = this.props.inventory;
         const columns = [
             { key: '_id', name: 'ID' },
@@ -57,10 +56,10 @@ class InventoryView extends Component {
     }
     render() {
         return (
-            <div id="inventory">
+            <Container id='inventory'>
                 { this.renderInventory() }
                 <Button onClick={this.props.addInvItem}>+</Button>
-            </div>
+            </Container>
         );
     };
 }

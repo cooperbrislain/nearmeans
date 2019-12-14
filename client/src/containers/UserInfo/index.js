@@ -5,27 +5,27 @@ import { connect } from "react-redux";
 import { Form, Col, Button, InputGroup } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'
-import ReduxFormControl from "../reduxFormControl";
+import ReduxFormControl from "../ReduxFormControl";
 
 class UserInfo extends Component {
     renderUserInfo() {
         return (
             <Form>
                 <Form.Row>
-                    <Col className="col-md-1">
+                    <Col md={1}>
                         Email
                     </Col>
-                    <Col className="col-md-2">
-                        <InputGroup className="mb-3">
+                    <Col md={2}>
+                        <InputGroup mb={3}>
                             <Field name='searchZip' component={ReduxFormControl} placeholder='Email Address' />
                         </InputGroup>
                     </Col>
                 </Form.Row>
                 <Form.Row>
-                    <Col className="col-md-1">
+                    <Col md={1}>
                         Location
                     </Col>
-                    <Col className="col-md-2">
+                    <Col md={2}>
                         <InputGroup className="mb-3">
                             <Field name='searchZip' component={ReduxFormControl} placeholder='Zip Code' />
                             <InputGroup.Append onClick={this.getGeolocation}>

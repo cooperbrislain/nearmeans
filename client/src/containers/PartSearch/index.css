@@ -106,11 +106,11 @@ ul.search-results-list {
     border: none;
 }
 
-.form-row .col:first-child .input-group-text{
+.form-row>div:first-child .input-group-text{
     border-top-left-radius: 18px;
     border-bottom-left-radius: 18px;
 }
 
-.form-row .col:last-child {
+.form-row>div:last-child {
     text-align: right;
 }
