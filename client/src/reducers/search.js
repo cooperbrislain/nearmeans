@@ -1,7 +1,8 @@
-import { SEARCH_PART, SEARCH_ERROR, GEOLOCATION, GEO_ERROR } from './../actions/types';
+import { SEARCH_PART, SEARCH_ERROR, GEOLOCATION, GEO_ERROR, REVERSE_GEOLOCATION } from './../actions/types';
 
 const INITIAL_STATE = {
     searchResults: [],
+    address: '',
     center: {
         lat: 37.85,
         lng: -122.32
@@ -25,6 +26,10 @@ export default function(state = INITIAL_STATE, action)  {
         case GEOLOCATION:
             return {...state,
                 center: action.payload,
+            };
+        case REVERSE_GEOLOCATION:
+            return {...state,
+                address: action.payload,
             };
         case GEO_ERROR:
             return {...state,

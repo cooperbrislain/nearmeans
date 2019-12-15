@@ -17,4 +17,5 @@ export const USER_INFO = 'USER_INFO';
 export const USER_ERROR = 'USER_ERROR';
 
 export const GEOLOCATION = 'GEOLOCATION';
+export const REVERSE_GEOLOCATION = 'REVERSE_GEOLOCATION';
 export const GEO_ERROR = 'GEO_ERROR';

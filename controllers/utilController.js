@@ -21,7 +21,18 @@ module.exports = {
             console.log(response.data);
             const { results } = response.data;
             const { location } = results[0].geometry;
-            return location;
+            await res.json(location);
+        } catch (e) {
+            console.log(e);
+        }
+    },
+    geoToAddr: async (req, res) => {
+        const { lat, lng } = req.query;
+        const req_url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${config.google_api_key}`;
+        try {
+            const response = await axios.get(req_url);
+            const { formatted_address } = response.data.results[0];
+            await res.json(formatted_address);
         } catch (e) {
             console.log(e);
         }

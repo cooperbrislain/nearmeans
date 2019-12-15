@@ -9,16 +9,18 @@ import { faMapMarkerAlt, faArrowAltCircleRight } from "@fortawesome/free-solid-s
 import styles from "./index.css";
 import { compose } from "redux";
 import { connect } from "react-redux";
-import { searchPart, getGeoFromDevice } from "../../actions";
+import { searchPart, getGeoFromDevice, getReverseGeoCode } from "../../actions";
 
 class SearchForm extends Component {
     onSubmit = (formProps) => this.props.searchPart(formProps);
-    onLocate = () => this.props.getGeoFromDevice();
+    onLocate = () => {
+        this.props.getGeoFromDevice();
+        const { center } = this.props;
+        this.props.getReverseGeoCode(center);
+    };
     autoComplete = async (e) => axios.get(`/api/util/autocomplete/part?q=${e}`);
     render() {
-        console.log('RENDER', this.props);
         const { handleSubmit, center } = this.props;
-        console.log('CENTER',center);
         const listingTypeOptions = [
             { value: 'sale', label: 'Sale' },
             { value: 'rent', label: 'Rent' },
@@ -64,10 +66,10 @@ class SearchForm extends Component {
                     <Col md={3} style={{ paddingLeft: 0 }}>
                         <InputGroup mb={5}>
                             <Field
-                                name='searchZip'
-                                className="searchZip"
+                                name='searchLocation'
+                                className="searchLocation"
                                 component={ReduxFormControl}
-                                placeholder='Zip Code'
+                                placeholder='Zip, Addr, Loc'
                                 tabIndex={2}
                             />
                             <InputGroup.Append onClick={this.onLocate}>
@@ -110,7 +112,7 @@ const mapStateToProps = state => {
     console.log(state);
     return ({ searchResults: state.search.searchResults, center: state.search.center });
 };
-const mapDispatchToProps = { searchPart, getGeoFromDevice };
+const mapDispatchToProps = { searchPart, getGeoFromDevice, getReverseGeoCode };
 export default compose(
     connect(mapStateToProps, mapDispatchToProps),
     reduxForm({ form: 'searchForm' })

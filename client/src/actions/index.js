@@ -3,6 +3,7 @@ import axios from 'axios';
 import { getCurrentPosition } from './utils.js';
 
 export const searchPart = formProps => async dispatch => {
+    console.log('ACTIONS.SEARCHPART',formProps);
     try {
         const response = await axios.post('/api/search/nearby', formProps);
         dispatch({ type: types.SEARCH_PART, payload: response.data });
@@ -109,3 +110,16 @@ export const getGeoFromDevice = () => async dispatch => {
         dispatch({ type: types.GEO_ERROR, payload: 'Failed to locate user' });
     }
 };
+
+export const getReverseGeoCode = (formProps) => async dispatch => {
+    try {
+        console.log('GETREVERSEGEO');
+        const { lat, lng } = formProps;
+        const queryString = `/api/util/oeg?lat=${lat}&lng=${lng}`;
+        let result = await axios.get(queryString);
+        console.oog(result);
+        dispatch({ type: types.REVERSE_GEOLOCATION, payload: result });
+    } catch (e) {
+        dispatch({ type: types.GEO_ERROR, payload: 'Failed to get reverse geolocation' });
+    }
+}
