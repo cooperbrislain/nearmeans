@@ -1,28 +1,24 @@
 import React, {Component} from "react";
 import axios from "axios";
-import {Button, Col, Form, InputGroup} from "react-bootstrap";
-import {Field, reduxForm} from "redux-form";
+import { Button, Col, Form, InputGroup } from "react-bootstrap";
+import { Field, reduxForm } from "redux-form";
 import ReduxFormControl from "../ReduxFormControl";
 import Select from 'react-select';
 import FA from "../FA";
-import {faMapMarkerAlt, faArrowAltCircleRight} from "@fortawesome/free-solid-svg-icons";
+import { faMapMarkerAlt, faArrowAltCircleRight } from "@fortawesome/free-solid-svg-icons";
 import styles from "./index.css";
-import {compose} from "redux";
-import {connect} from "react-redux";
-import {searchPart} from "../../actions";
-
-const getGeoForUser = () => {
-    navigator.geolocation.getCurrentPosition((result) => {
-        const { coords } = result;
-        console.log('COORDS FOUND', coords);
-    });
-};
+import { compose } from "redux";
+import { connect } from "react-redux";
+import { searchPart, getGeoFromDevice } from "../../actions";
 
 class SearchForm extends Component {
     onSubmit = (formProps) => this.props.searchPart(formProps);
+    onLocate = () => this.props.getGeoFromDevice();
     autoComplete = async (e) => axios.get(`/api/util/autocomplete/part?q=${e}`);
     render() {
-        const { handleSubmit } = this.props;
+        console.log('RENDER', this.props);
+        const { handleSubmit, center } = this.props;
+        console.log('CENTER',center);
         const listingTypeOptions = [
             { value: 'sale', label: 'Sale' },
             { value: 'rent', label: 'Rent' },
@@ -74,7 +70,7 @@ class SearchForm extends Component {
                                 placeholder='Zip Code'
                                 tabIndex={2}
                             />
-                            <InputGroup.Append onClick={getGeoForUser}>
+                            <InputGroup.Append onClick={this.onLocate}>
                                 <InputGroup.Text>
                                     <FA icon={faMapMarkerAlt} />
                                 </InputGroup.Text>
@@ -110,9 +106,11 @@ class SearchForm extends Component {
     }
 }
 
-const mapStateToProps = state => ({ searchResults: state.search.searchResults });
-const mapDispatchToProps = { searchPart };
-
+const mapStateToProps = state => {
+    console.log(state);
+    return ({ searchResults: state.search.searchResults, center: state.search.center });
+};
+const mapDispatchToProps = { searchPart, getGeoFromDevice };
 export default compose(
     connect(mapStateToProps, mapDispatchToProps),
     reduxForm({ form: 'searchForm' })

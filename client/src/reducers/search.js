@@ -1,8 +1,13 @@
-import { SEARCH_PART, SEARCH_ERROR } from './../actions/types';
+import { SEARCH_PART, SEARCH_ERROR, GEOLOCATION, GEO_ERROR } from './../actions/types';
 
 const INITIAL_STATE = {
     searchResults: [],
-    searchError: ''
+    center: {
+        lat: 37.85,
+        lng: -122.32
+    },
+    searchError: '',
+    geoError: ''
 };
 
 export default function(state = INITIAL_STATE, action)  {
@@ -16,6 +21,14 @@ export default function(state = INITIAL_STATE, action)  {
         case SEARCH_ERROR:
             return {...state,
                 searchError: action.payload
+            };
+        case GEOLOCATION:
+            return {...state,
+                center: action.payload,
+            };
+        case GEO_ERROR:
+            return {...state,
+                geoError: action.payload
             };
         default:
             return state;

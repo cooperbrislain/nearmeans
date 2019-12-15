@@ -1,5 +1,6 @@
 import * as types from './types';
 import axios from 'axios';
+import { getCurrentPosition } from './utils.js';
 
 export const searchPart = formProps => async dispatch => {
     try {
@@ -99,14 +100,11 @@ export const addInvItem = (formProps) => async dispatch => { // TODO: FINISH THI
     }
 };
 
-export const geoLocate = (formProps) => async dispatch => { // TODO: FINISH THIS
-    const headers = { };
-    console.log(formProps);
-    console.log("THIS ISN'T DONE YET!");
+export const getGeoFromDevice = () => async dispatch => {
     try {
-        const response = await axios.post('google geo service', formProps, { headers });
-        console.log(response);
-        dispatch({ type: types.GEOLOCATION, payload: response.data });
+        let { coords } = await getCurrentPosition();
+        coords = { lat: coords.latitude, lng: coords.longitude };
+        dispatch({ type: types.GEOLOCATION, payload: coords });
     } catch (e) {
         dispatch({ type: types.GEO_ERROR, payload: 'Failed to locate user' });
     }

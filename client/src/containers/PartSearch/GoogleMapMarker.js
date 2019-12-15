@@ -8,7 +8,7 @@ const cardStyle = {
     display: 'none',
 };
 
-const Marker = (props) => (
+const Marker = (props) => ( // TODO: FIX THIS!
     <div
         className="marker"
         onMouseEnter={() => {
