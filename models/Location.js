@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
 const LocationSchema = new Schema({
     name: String,
@@ -14,7 +14,22 @@ const LocationSchema = new Schema({
         zip: String,
         country: String
     },
-    category: String
+    category: String,
+    primary: Boolean,
+    user: { type: Schema.Types.ObjectId, ref: 'User' },
+});
+
+LocationSchema.pre('save', async function(next) {
+    const location = this;
+    if(location.isModified('address')) {
+        try {
+            console.log(location.address);
+            next();
+        } catch(e) {
+            next(e);
+        }
+    }
+    next();
 });
 
 const Location = mongoose.model('Location', LocationSchema);

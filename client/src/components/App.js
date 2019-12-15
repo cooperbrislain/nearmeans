@@ -1,15 +1,17 @@
 import React from 'react';
 import Header from './../containers/Header';
 import Footer from './../containers/Footer';
-import { Jumbotron } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 
 export default ({ children }) => {
     return (
         <div>
             <Header/>
-            <Jumbotron>
-                {children}
-            </Jumbotron>
+            <Container>
+                <main>
+                    {children}
+                </main>
+            </Container>
             <Footer/>
         </div>
     );

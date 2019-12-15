@@ -12,14 +12,20 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/nearmeans', {
 
 const userSeed = [
     {
+        username: 'testuser1',
+        displayname: 'Test User 1',
         email: 'user@test.com',
         password: '123qwe',
     },
     {
+        username: 'testuser2',
+        displayname: 'Test User 2',
         email: 'testuser2@gmail.com',
         password: '123qwe',
     },
     {
+        username: 'bobtest',
+        displayname: 'Bob',
         email: 'bob@test.com',
         password: '123qwe',
     }
@@ -245,10 +251,14 @@ const seedMe = async () => {
         console.log('CREATING LOCATIONS');
         const locations = await Promise.all(locationSeed.map(async location => {
             const newLocation = await new db.Location(location);
+            const user = users[Math.floor(Math.random()*users.length)];
+            newLocation.user = user._id;
             await newLocation.save();
+            user.locations.push(newLocation._id);
             console.log('MADE LOCATION', newLocation);
             return newLocation;
         }));
+        users.forEach(user => user.save());
         console.log('DONE CREATING LOCATIONS');
         console.log('CREATING PARTS');
         const parts = await Promise.all(partSeed.map(async part => {
@@ -263,7 +273,7 @@ const seedMe = async () => {
         for (let i=0;i<100;i++) {
             const user = users[Math.floor(Math.random() * users.length)];
             const item = parts[Math.floor(Math.random() * parts.length)];
-            const location = locations[Math.floor(Math.random() * locations.length)];
+            const location = user.locations[Math.floor(Math.random() * user.locations.length)];
             const newInv = await new db.Inventory({
                 item: item._id,
                 userId: user._id,

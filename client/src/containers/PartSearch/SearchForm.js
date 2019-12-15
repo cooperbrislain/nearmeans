@@ -45,31 +45,46 @@ class SearchForm extends Component {
                             <InputGroup.Prepend>
                                 <InputGroup.Text>Search For</InputGroup.Text>
                             </InputGroup.Prepend>
-                            <Field name='searchQuery'
-                                   component={ReduxFormControl}
-                                   onChange={this.autoComplete}
-                                   placeholder='Part, Tool, Equipment' />
+                            <Field
+                                name='searchQuery'
+                                component={ReduxFormControl}
+                                onChange={this.autoComplete}
+                                placeholder='Part, Tool, Equipment'
+                                tabIndex={1}
+                            />
                         </InputGroup>
                     </Col>
                     <Col md={2} style={{ paddingRight: 0 }}>
-                        <Field name='searchTransactionType'
-                               type='select-multi'
-                               placeholder='Near'
-                               component={Select}
-                               options={searchDistanceOptions}
-                               className='searchDistanceOptions'
+                        <Field
+                            name='searchTransactionType'
+                            type='select-multi'
+                            placeholder='Near'
+                            component={Select}
+                            options={searchDistanceOptions}
+                            className='searchDistanceOptions'
                         />
                     </Col>
                     <Col md={3} style={{ paddingLeft: 0 }}>
                         <InputGroup mb={5}>
-                            <Field name='searchZip' className="searchZip" component={ReduxFormControl} placeholder='Zip Code' />
+                            <Field
+                                name='searchZip'
+                                className="searchZip"
+                                component={ReduxFormControl}
+                                placeholder='Zip Code'
+                                tabIndex={2}
+                            />
                             <InputGroup.Append onClick={getGeoForUser}>
-                                <InputGroup.Text><FA icon={faMapMarkerAlt} /></InputGroup.Text>
+                                <InputGroup.Text>
+                                    <FA icon={faMapMarkerAlt} />
+                                </InputGroup.Text>
                             </InputGroup.Append>
                         </InputGroup>
                     </Col>
                     <Col md={1}>
-                        <Button className='searchButton' type='submit'>
+                        <Button
+                            className='searchButton'
+                            type='submit'
+                            tabIndex={3}>
                             <FA icon={faArrowAltCircleRight} />
                         </Button>
                     </Col>

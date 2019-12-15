@@ -2,22 +2,24 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
+import {Nav, NavDropdown} from 'react-bootstrap';
 import styles from './index.css';
+import FA from "../FA";
+import {faUserCircle} from "@fortawesome/free-solid-svg-icons";
 
 class AuthWidget extends Component {
     renderLinks(){
         const { auth } = this.props;
         return (auth?
-            <div>
-                <Link to='/dashboard'>Dashboard</Link>
-                <Link to='/inventory'>Inventory</Link>
-                <Link to='/signout'>Sign Out</Link>
-            </div>
+            <>
+                <NavDropdown.Item href='/dashboard'>Account</NavDropdown.Item>
+                <NavDropdown.Item href='/signout'>Sign Out</NavDropdown.Item>
+            </>
             :
-            <div>
-                <Link to='/signup'>Sign up</Link>
-                <Link to='/signin'>Sign in</Link>
-            </div>
+            <>
+                <NavDropdown.Item href='/signup'>Sign up</NavDropdown.Item>
+                <NavDropdown.Item href='/signin'>Sign in</NavDropdown.Item>
+            </>
         );
     }
 

@@ -1,11 +1,29 @@
 import React from 'react';
+import FA from './../FA';
+import { Card } from 'react-bootstrap';
+import { faMapMarker } from '@fortawesome/free-solid-svg-icons';
+
+const cardStyle = {
+    width: '100px',
+    display: 'none',
+};
 
 const Marker = (props) => (
-    <div className="marker">
-        <h5>{ props.name }</h5>
-        <div>
-            { props.children }
-        </div>
+    <div
+        className="marker"
+        onMouseEnter={() => {
+            console.log('enter');
+        }}
+    >
+        <FA
+            icon={faMapMarker}
+        />
+        <Card style={cardStyle}>
+            <Card.Body>
+                <Card.Title>Title</Card.Title>
+                <Card.Text>Text</Card.Text>
+            </Card.Body>
+        </Card>
     </div>
 );
 

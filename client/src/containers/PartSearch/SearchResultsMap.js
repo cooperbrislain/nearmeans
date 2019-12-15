@@ -6,6 +6,10 @@ import google_api_key from './keys';
 import styles from './index.css';
 import Marker from './GoogleMapMarker';
 
+const distanceToMouse = ({ x, y }, { x: mouseX, y: mouseY }) => {
+    return Math.sqrt(Math.pow(x - mouseX, 2) + Math.pow(y - mouseY, 2));
+};
+
 class SearchResultsMap extends Component {
     static defaultProps = {
         center: {
@@ -18,7 +22,16 @@ class SearchResultsMap extends Component {
     renderGoogleMap() {
         const { searchResults, center, zoom } = this.props;
         if (!searchResults.length)
-            return (<GoogleMapReact bootstrapURLKeys={{ key: google_api_key }} center={center} zoom={zoom} />);
+            return (<GoogleMapReact
+                bootstrapURLKeys={{ key: google_api_key }}
+                center={center}
+                zoom={zoom}
+                // onBoundsChange={this._onBoundsChange}
+                // onChildClick={this._onChildClick}
+                // onChildMouseEnter={this._onChildMouseEnter}
+                // onChildMouseLeave={this._onChildMouseLeave}
+                // hoverDistance={30}
+            />);
         let locations = {};
         searchResults.forEach(searchResult => {
             const { location } = searchResult;
@@ -37,7 +50,7 @@ class SearchResultsMap extends Component {
                     { Object.keys(locations).map((k, i) => {
                         const location = locations[k];
                         return (
-                            <Marker lat={location.geo.lat} lng={location.geo.lng} name={location.name}>
+                            <Marker lat={location.geo.lat} lng={location.geo.lng} name={location.name} key={i}>
                                 <ul>
                                     { location.items.map((item, i) => (<li key={i}>{item.item.name}</li>)) }
                                 </ul>

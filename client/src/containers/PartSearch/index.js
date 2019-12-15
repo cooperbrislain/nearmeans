@@ -6,7 +6,7 @@ import styles from './index.css';
 import SearchForm from './SearchForm';
 import SearchResults from './SearchResults';
 import SearchResultsMap from './SearchResultsMap';
-import { Jumbotron, Row, Col } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 
 class PartSearch extends Component {
     render() {

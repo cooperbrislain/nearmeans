@@ -1,5 +1,6 @@
 .jumbotron {
     background: none;
+    box-shadow: 3px 3px 3px rgba(0,0,0,0.5);
 }
 
 form {
@@ -13,12 +14,25 @@ form {
 .marker {
     opacity: 90%;
     color: dodgerblue;
+    font-size: 25px;
+}
+
+.marker>.detail {
+    display: none;
+}
+
+.marker:hover {
+    font-size: 40px;
+}
+
+.marker:hover>.detail {
+    color: dodgerblue;
     background-color: azure;
     display: block;
     border: 1px solid dodgerblue;
     width: 100px;
     border-radius: 5px;
-    padding: 0px;
+    padding: 0;
 }
 
 .marker h5 {
@@ -77,6 +91,7 @@ ul.search-results-list {
     height: 48px;
     padding: 5px;
     background-color: ghostwhite;
+    box-shadow: 3px 3px 3px rgba(0,0,0,0.5);
 }
 
 .searchForm .form-row {

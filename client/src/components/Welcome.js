@@ -10,6 +10,7 @@ const welcomeStyle = {
     padding:'10px',
     borderRadius:'10px',
     marginBottom:'25px',
+    boxShadow: '3px 3px 3px rgba(0,0,0,0.5)'
 };
 
 const Welcome = () =>

@@ -9,3 +9,12 @@ h1 {
 h1 em {
     color: springgreen;
 }
+
+main {
+    margin-top: 50px;
+}
+
+.dropdown-menu {
+    right: 0;
+    left: auto;
+}
