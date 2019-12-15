@@ -14,6 +14,7 @@ import {searchPart} from "../../actions";
 const getGeoForUser = () => {
     navigator.geolocation.getCurrentPosition((result) => {
         const { coords } = result;
+        console.log('COORDS FOUND', coords);
     });
 };
 

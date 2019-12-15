@@ -63,7 +63,7 @@ export const fetchUser = () => async dispatch => {
     }
 };
 
-export const updateInvItem = (formProps) => async dispatch => {
+export const updateInvItem = (formProps) => async dispatch => { // TODO: FIX THIS!
     const headers = { authorization: localStorage.getItem('token')};
     const invItem = formProps;
     console.log(invItem);
@@ -86,14 +86,28 @@ export const addPart = (formProps) => async dispatch => {
     }
 };
 
-export const addInvItem = (formProps) => async dispatch => {
+export const addInvItem = (formProps) => async dispatch => { // TODO: FINISH THIS!
     const headers = { authorization: localStorage.getItem('token')};
     console.log(formProps);
+    console.log("THIS ISN'T DONE YET!");
     try {
         const response = await axios.post('/api/user/inv/add', formProps, { headers });
         console.log(response);
         dispatch({ type: types.INV_ADD, payload: response.data.invItem });
     } catch (e) {
         dispatch({ type: types.INV_ERROR, payload: 'Failed to add item to inventory' });
+    }
+};
+
+export const geoLocate = (formProps) => async dispatch => { // TODO: FINISH THIS
+    const headers = { };
+    console.log(formProps);
+    console.log("THIS ISN'T DONE YET!");
+    try {
+        const response = await axios.post('google geo service', formProps, { headers });
+        console.log(response);
+        dispatch({ type: types.GEOLOCATION, payload: response.data });
+    } catch (e) {
+        dispatch({ type: types.GEO_ERROR, payload: 'Failed to locate user' });
     }
 };

@@ -10,6 +10,7 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/nearmeans', {
     useUnifiedTopology: true
 }, () => { console.log('connected to mongoDB') });
 
+const invTypes = [ 'offer','sale','rent','trade','free' ];
 const userSeed = [
     {
         username: 'testuser1',
@@ -279,6 +280,7 @@ const seedMe = async () => {
                 userId: user._id,
                 qty: Math.floor(Math.random() * 10),
                 location: location._id,
+                type: Math.floor(Math.random() * invTypes.length);
             });
             await newInv.save();
             console.log('INVENTORY ADDED', newInv);

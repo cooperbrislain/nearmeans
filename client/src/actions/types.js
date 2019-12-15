@@ -15,3 +15,6 @@ export const INV_ERROR = 'INV_ERROR';
 
 export const USER_INFO = 'USER_INFO';
 export const USER_ERROR = 'USER_ERROR';
+
+export const GEOLOCATION = 'GEOLOCATION';
+export const GEO_ERROR = 'GEO_ERROR';
