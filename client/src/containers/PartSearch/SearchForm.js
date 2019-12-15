@@ -110,7 +110,9 @@ class SearchForm extends Component {
 }
 
 const mapStateToProps = state => ({ searchResults: state.search.searchResults });
+const mapDispatchToProps = { searchPart };
+
 export default compose(
-    connect(mapStateToProps, { searchPart }),
+    connect(mapStateToProps, mapDispatchToProps),
     reduxForm({ form: 'searchForm' })
 )(SearchForm);

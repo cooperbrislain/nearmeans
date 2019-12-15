@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import AuthWidget from './auth';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons'
 import FA from './FA';
-
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 
 const navBarStyle = {

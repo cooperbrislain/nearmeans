@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import {Nav, NavDropdown} from 'react-bootstrap';
 import styles from './index.css';
 import FA from "../FA";
-import {faUserCircle} from "@fortawesome/free-solid-svg-icons";
+import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 
 class AuthWidget extends Component {
     renderLinks(){
@@ -25,7 +25,7 @@ class AuthWidget extends Component {
 
     render() {
         return(
-            <div id='auth-widget' style={{ display: 'flex', justifyContent: 'flex-end', width: '100%' }}>
+            <div id='auth-widget'>
                 { this.renderLinks() }
             </div>
         );
