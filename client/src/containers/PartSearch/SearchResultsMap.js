@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {compose} from "redux";
 import {connect} from "react-redux";
 import GoogleMapReact from 'google-map-react';
-import google_api_key from './keys';
+// import google_api_key from './keys';
 import styles from './index.css';
 import Marker from './GoogleMapMarker';
 
@@ -23,7 +23,7 @@ class SearchResultsMap extends Component {
         const { searchResults, center, zoom } = this.props;
         if (!searchResults.length)
             return (<GoogleMapReact
-                bootstrapURLKeys={{ key: google_api_key }}
+                bootstrapURLKeys={{ key: process.env. }}
                 center={center}
                 zoom={zoom}
                 // onBoundsChange={this._onBoundsChange}
@@ -46,7 +46,11 @@ class SearchResultsMap extends Component {
         });
         if (locations !== {}) {
             return (
-                <GoogleMapReact bootstrapURLKeys={{ key: google_api_key }} center={center} zoom={zoom}>
+                <GoogleMapReact
+                    bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_API_KEY }}
+                    center={center}
+                    zoom={zoom}
+                >
                     { Object.keys(locations).map((k, i) => {
                         const location = locations[k];
                         return (
