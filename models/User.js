@@ -16,12 +16,12 @@ const UserSchema = new Schema({
 UserSchema.pre('save', async function(next) {
     const user = this;
     if(user.isModified('password')) {
-        try {        
+        try {
             const salt = await bcrypt.genSalt();
             const hash = await bcrypt.hash(user.password, salt);
             user.password = hash;
             next();
-        } catch(e){
+        } catch (e) {
             next(e);
         }
     }
@@ -33,7 +33,18 @@ UserSchema.methods.comparePassword = async function(candidatePassword, callback)
     try {
         const isMatch = await bcrypt.compare(candidatePassword, user.password);
         callback(null, isMatch);
-    } catch(e) {
+    } catch (e) {
+        callback(e);
+    }
+};
+
+UserSchema.methods.addConnection = async function(connectionId, callback) {
+    const user = this;
+    try {
+        user.connections.push(connectionId);
+        user.save();
+        callback(null);
+    } catch (e) {
         callback(e);
     }
 };

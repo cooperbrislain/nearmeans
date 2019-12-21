@@ -1,8 +1,11 @@
 {
-  "name": "207auth",
-  "version": "1.0.0",
+  "name": "NearMeans",
+  "version": "0.1.5",
   "description": "",
   "main": "index.js",
+    "engines": {
+       "node": "v13.5.0"
+    },
   "scripts": {
     "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
     "start:prod": "node server.js",
