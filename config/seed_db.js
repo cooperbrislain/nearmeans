@@ -294,6 +294,9 @@ const seedMe = async () => {
     }
 };
 
-seedMe().then(() => {
-    process.exit(1);
-});
+// seedMe().then(() => {
+//     process.exit(1);
+// });
+
+export default seedMe;
+

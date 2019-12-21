@@ -1,6 +1,7 @@
 const db = require('./../models');
 const config = require('./../config/keys');
 const axios = require('axios');
+const seedMe = require('./../config/seed_db');
 
 module.exports = {
     autocompletePart: async (req, res) => {
@@ -33,6 +34,16 @@ module.exports = {
             const response = await axios.get(req_url);
             const { formatted_address } = response.data.results[0];
             await res.json(formatted_address);
+        } catch (e) {
+            console.log(e);
+        }
+    },
+    seedDb: async (req, res) => {
+        console.log('SEEDDB');
+        try {
+            console.log('STARTING SEED');
+            await seedMe();
+            console.log('DONE');
         } catch (e) {
             console.log(e);
         }
