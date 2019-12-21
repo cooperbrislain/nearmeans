@@ -44,6 +44,7 @@ module.exports = {
             console.log('STARTING SEED');
             await seedMe();
             console.log('DONE');
+            res.json({success:true});
         } catch (e) {
             console.log(e);
         }

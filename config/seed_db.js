@@ -292,9 +292,5 @@ const seedMe = async () => {
     }
 };
 
-// seedMe().then(() => {
-//     process.exit(1);
-// });
-
 module.exports = seedMe;
 
