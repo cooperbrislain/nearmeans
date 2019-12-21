@@ -2,9 +2,12 @@ import React, {Component} from 'react';
 import {compose} from "redux";
 import {connect} from "react-redux";
 import GoogleMapReact from 'google-map-react';
-import google_api_key from './keys';
 import styles from './index.css';
 import Marker from './GoogleMapMarker';
+
+const google_api_key = process.env.REACT_APP_GOOGLE_API_KEY;
+
+console.log('API KEY',google_api_key);
 
 const distanceToMouse = ({ x, y }, { x: mouseX, y: mouseY }) => {
     return Math.sqrt(Math.pow(x - mouseX, 2) + Math.pow(y - mouseY, 2));
