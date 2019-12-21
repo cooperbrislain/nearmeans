@@ -23,7 +23,7 @@ class SearchResultsMap extends Component {
         const { searchResults, center, zoom } = this.props;
         if (!searchResults.length)
             return (<GoogleMapReact
-                bootstrapURLKeys={{ key: process.env. }}
+                bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_API_KEY }}
                 center={center}
                 zoom={zoom}
                 // onBoundsChange={this._onBoundsChange}
