@@ -2,14 +2,6 @@ const mongoose = require("mongoose");
 const db = require("../models");
 const tagEverything = require('mongoose-tag-everything');
 
-console.log('SEEDING DATABASE');
-
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/nearmeans', {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useUnifiedTopology: true
-}, () => { console.log('connected to mongoDB') });
-
 const invTypes = [ 'offer','sale','rent','trade','free' ];
 const userSeed = [
     {
@@ -234,6 +226,12 @@ const partSeed = [
 ];
 
 const seedMe = async () => {
+    console.log('SEEDING DATABASE');
+    await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/nearmeans', {
+        useNewUrlParser: true,
+        useCreateIndex: true,
+        useUnifiedTopology: true
+    }, () => { console.log('connected to mongoDB') });
     try {
         console.log('FLUSHING EXISTING DATA');
         await db.Inventory.deleteMany({});
@@ -280,7 +278,7 @@ const seedMe = async () => {
                 userId: user._id,
                 qty: Math.floor(Math.random() * 10),
                 location: location._id,
-                type: Math.floor(Math.random() * invTypes.length);
+                type: Math.floor(Math.random() * invTypes.length)
             });
             await newInv.save();
             console.log('INVENTORY ADDED', newInv);
@@ -298,5 +296,5 @@ const seedMe = async () => {
 //     process.exit(1);
 // });
 
-export default seedMe;
+module.exports = seedMe;
 
